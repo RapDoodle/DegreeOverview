@@ -7,9 +7,9 @@
  * @FilePath     : \\startup-code\\README.md
 -->
 
-# COMP3053 - [Your Group Name Here]
+# COMP3053 - Lily
 
-This is the code and documentations of **[your group name here]**, COMP3053, Software Development Workshop III, BNU-HKBU United International College.
+This is the code and documentations of **Lily**, COMP3053, Software Development Workshop III, BNU-HKBU United International College.
 
 ## Message from the Course Team
 
@@ -29,7 +29,7 @@ Welcome to the COMP3053 - Software Development Workshop III course. This course 
 **Clone this repository**
 
 ```shell
-git clone http://172.31.10.195:8090/workshop3/2021/[your-group-name]
+git clone http://172.31.10.195:8090/workshop3/2021/lily
 ```
 
 **Fetch new changes**
