@@ -9,6 +9,25 @@ DegreeOverview is a course definition system that aims to help course designers 
   git clone https://github.com/RapDoodle/comp3053-project.git
   ```
 
+- Create virtual environments
+
+  For Anaconda users
+  ```bash
+  $ conda create -n degreeoverview python=3.8.5
+  ```
+
+- Activate the environment
+
+  To activate the virtual environment created
+  ```bash
+  $ conda activate degreeoverview
+  ```
+
+  If you are using the default command-line tool on Windows, use
+  ```bash
+  activate degreeoverview
+  ```
+
 - Install required Python packages
 
   For Linux users
@@ -18,13 +37,13 @@ DegreeOverview is a course definition system that aims to help course designers 
 
   For Windows users
   ```bash
-  $ pip install -r requirements.txt
+  pip install -r requirements.txt
   ```
 
   Please be noted that some dependencies may not be installed on Debian and Ubuntu. If an error occurred while installing `bcrypt`, run the following command
 
   ```bash
-  sudo apt-get install build-essential libffi-dev python-dev
+  $ sudo apt-get install build-essential libffi-dev python-dev
   ```
 
 - Spinup a development server
@@ -32,13 +51,17 @@ DegreeOverview is a course definition system that aims to help course designers 
   ```bash
   $ python3 run.py dev
   ```
+  For Windows users,
+  ```bash
+  python run.py dev
+  ```
   In the last argument, `dev` specifies the name of the configuration. Please visit the documents on configurations under the `docs` folder for more information about the configurations.
 
 ## Contributors
 - Group Lily
 
 ## Credits
-Part of the code of this project is based on the open-source development framework, Mangee Flask-RESTful. The framework was developed by Bohui WU (one of our team members) and licensed under the GNU General Public License v3 (the same as this project). The complete source code of the framework can be found in https://github.com/RapDoodle/mangee-flask-restful.
+Part of the code of this project is based on the open-source development framework, Mangee Flask-RESTful. The framework was developed by Bohui WU (@RapDoodle, one of our team members) and licensed under the GNU General Public License v3 (the same as this project). The complete source code of the framework can be found in https://github.com/RapDoodle/mangee-flask-restful.
 
 ## License
 The project is licensed under the GNU General Public License v3.
