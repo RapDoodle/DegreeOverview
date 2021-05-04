@@ -8,8 +8,12 @@ from core.exception import ErrorMessagePromise
 from utils.hash import hash_data
 from utils.hash import verify_hash
 
+from core.permission import STUDENT
+from core.permission import LECTURER
+from core.permission import COURSE_DESIGNER
 
-class UserModel(db.Model):
+
+class User(db.Model):
     """The model related to users.
 
     Attributes:
@@ -55,6 +59,16 @@ class UserModel(db.Model):
     def verify_password(self, password):
         return verify_hash(password, self._password)
 
+    def get_user_type(self):
+        if User.is_course_designer(self._id):
+            return COURSE_DESIGNER
+        elif User.is_lecturer(self._id):
+            return LECTURER
+        elif User.is_student(self._id):
+            return STUDENT
+        else:
+            return -1
+
     @classmethod
     def find_user_by_username(cls, username):
         return cls.query.filter_by(_username=username).first()
@@ -62,3 +76,18 @@ class UserModel(db.Model):
     @classmethod
     def find_user_by_id(cls, _id):
         return cls.query.filter_by(_id=_id).first()
+
+    @classmethod
+    def is_student(cls, id):
+        from models.student import Student
+        return Student.query.filter_by(_id=id).first() is not None
+
+    @classmethod
+    def is_lecturer(cls, id):
+        from models.staff import Staff
+        return Staff.query.filter_by(_id=id).first() is not None
+    
+    @classmethod
+    def is_course_designer(cls, id):
+        from models.course_designer import CourseDesigner
+        return CourseDesigner.query.filter_by(_id=id).first() is not None

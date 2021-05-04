@@ -1,8 +1,11 @@
 <resources>
     <string name="INTERNAL_ERROR">Server internal error.</string>
     <string name="NOT_FOUND">Not found.</string>
-    <string name="INVALID_USERNAME">Invalid username.</string>
-    <string name="INVALID_PASSWORD">Invalid password.</string>
-    <string name="ADDED">"%(obj_name)s" has been created successfully.</string>
-    <string name="DELETED">%(obj_name)s" has been deleted successfully.</string>
+    <string name="INVALID_CREDENTIALS">Invalid username or password.</string>
+    <string name="LOGIN">Login</string>
+    <string name="USERNAME">Username</string>
+    <string name="PASSWORD">Password</string>
+    <string name="LOGIN_BTN">Log in</string>
+    <string name="LOGIN_REQUIRED">Login is required.</string>
+    <string name="ACCESS_DENIED">You do not have permission for the operation.</string>
 </resources>

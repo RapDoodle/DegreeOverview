@@ -7,7 +7,7 @@ from flask_jwt_extended import unset_jwt_cookies
 
 from core.exception import excpetion_handler
 
-from models.user import UserModel
+from models.user import User
 
 VERSION = 'v1'
 ENDPOINT = f'@RESTFUL_PREFIX::/{VERSION}/logout'

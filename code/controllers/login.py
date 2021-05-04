@@ -10,30 +10,37 @@ from flask import get_flashed_messages
 from flask import session
 from flask_language import current_language
 
-blueprint = Blueprint('login', __name__, template_folder='/templates')
+from core.lang import render_with_lang
+from core.lang import lang
+from core.lang import get_str
+
+from models.user import User
+
+blueprint = Blueprint('login', __name__, template_folder='templates')
 
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    print(current_language)
-    print(session['test_value'])
-    session['test_value'] = 15
-    # if request.method == 'POST':
-    #     res = staff_login(request.values.get('username'), request.values.get('password'))
-    #     if isinstance(res, dict) and len(res) == 3:
-    #         session['user_id'] = res['user_id']
-    #         session['is_staff'] = True
-    #         session['username'] = res['username']
-    #         return redirect(url_for('admin_dashboard.dashboard'))
-    #     if isinstance(res, ErrorMessage):
-    #         flash(res.get())
-    return render_template('/login.html')
+    if request.args.get('lang') is not None:
+        lang.change_language(request.args.get('lang'))
+
+    if request.method == 'POST':
+        user = User.find_user_by_username(request.values.get('username'))
+        if user and user.verify_password(request.values.get('password')):
+            session['user_id'] = user.get_id()
+            session['user_type'] = user.get_user_type()
+            session['full_name'] = user.get_full_name()
+            return redirect(url_for('dashboard.dashboard'))
+        else:
+            flash(get_str('INVALID_CREDENTIALS'))
+    return render_with_lang('/login.html')
+
 
 @blueprint.route('/login/', methods=['GET', 'POST'])
 def login_redirect():
     return redirect(url_for('login.login'))
 
+
 @blueprint.route('/logout', methods=['GET'])
-# @staff_permission_required()
 def logout():
     session.clear()
     return redirect(url_for('login.login'))

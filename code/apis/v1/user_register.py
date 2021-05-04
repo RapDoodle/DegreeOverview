@@ -4,7 +4,7 @@ from flask_restful import reqparse
 
 from core.exception import excpetion_handler
 
-from models.user import UserModel
+from models.user import User
 
 VERSION = 'v1'
 ENDPOINT = f'@RESTFUL_PREFIX::/{VERSION}/register'
@@ -30,10 +30,10 @@ class UserRegister(Resource):
     @excpetion_handler
     def post(self):
         data = UserRegister.parser.parse_args()
-        if UserModel.find_user_by_username(data['username']):
+        if User.find_user_by_username(data['username']):
             return {'message': 'A user with that username already exists'}, 400
 
-        user = UserModel(data['username'], data['password'], data['full_name'])
+        user = User(data['username'], data['password'], data['full_name'])
         user.save()
 
         return {'message': 'User created successfully.'}, 201

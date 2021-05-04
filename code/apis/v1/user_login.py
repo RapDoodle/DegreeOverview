@@ -8,7 +8,7 @@ from flask_jwt_extended import set_access_cookies
 from utils.hash import verify_hash
 from core.exception import excpetion_handler
 
-from models.user import UserModel
+from models.user import User
 
 VERSION = 'v1'
 ENDPOINT = f'@RESTFUL_PREFIX::/{VERSION}/login'
@@ -29,7 +29,7 @@ class UserLogin(Resource):
     @excpetion_handler
     def post(self):
         data = UserLogin.parser.parse_args()
-        user = UserModel.find_user_by_username(data['username'])
+        user = User.find_user_by_username(data['username'])
         if user is None:
             return {'message': 'User does not exists.'}, 400
         if not user.verify_password(data['password']):
