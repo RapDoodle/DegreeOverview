@@ -15,7 +15,6 @@ def restricted_access(allowed: list):
     def verify_access(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
-            print(session.get('user_id'))
             # No login credential found
             if not session.get('user_id'):
                 flash(get_str('LOGIN_REQUIRED'))

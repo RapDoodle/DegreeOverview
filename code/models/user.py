@@ -84,8 +84,8 @@ class User(db.Model):
 
     @classmethod
     def is_lecturer(cls, id):
-        from models.staff import Staff
-        return Staff.query.filter_by(_id=id).first() is not None
+        from models.lecturer import Lecturer
+        return Lecturer.query.filter_by(_id=id).first() is not None
     
     @classmethod
     def is_course_designer(cls, id):

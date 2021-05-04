@@ -6,13 +6,13 @@ from core.lang import get_str
 from core.exception import ErrorMessagePromise
 
 from models.user import User
-from models.staff import Staff
+from models.lecturer import Lecturer
 
 
-class CourseDesigner(Staff):
+class CourseDesigner(Lecturer):
     __tablename__ = 'course_designer'
 
-    _id = db.Column(db.Integer, db.ForeignKey('staff._id'), primary_key=True)
+    _id = db.Column(db.Integer, db.ForeignKey('lecturer._id'), primary_key=True)
 
-    def __init__(self, username, password, full_name, staff_id):
-        super().__init__(username, password, full_name, staff_id)
+    def __init__(self, username, password, full_name, lecturer_id):
+        super().__init__(username, password, full_name, lecturer_id)
