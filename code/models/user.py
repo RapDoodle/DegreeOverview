@@ -46,6 +46,7 @@ class User(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+        db.session.refresh(self)
 
     def get_id(self):
         return self._id

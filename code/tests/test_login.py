@@ -16,31 +16,31 @@ class TestLogin(BaseTestCase):
     def test_login(self):
         # Student login
         response = self.client.post('/login', data=dict(
-                username="teststudent1", password='12345678'
+                username='teststudent1', password='12345678'
             ), follow_redirects=True)
         self.assertIn(b'Hi', response.data)
 
         # Lecturer login
         response = self.client.post('/login', data=dict(
-                username="testlecturer1", password='12345678'
+                username='testlecturer1', password='12345678'
             ), follow_redirects=True)
         self.assertIn(b'Hi', response.data)
 
         # Course designer login
         response = self.client.post('/login', data=dict(
-                username="testcd1", password='12345678'
+                username='testcd1', password='12345678'
             ), follow_redirects=True)
         self.assertIn(b'Hi', response.data)
 
     def test_login_invalid_username(self):
         response = self.client.post('/login', data=dict(
-                username="voiduser", password='12345678'
+                username='voiduser', password='12345678'
             ), follow_redirects=True)
         self.assertInResponseWithLang('INVALID_CREDENTIALS', response)
 
     def test_login_invalid_password(self):
         response = self.client.post('/login', data=dict(
-                username="teststudent1", password='awrongpassword'
+                username='teststudent1', password='awrongpassword'
             ), follow_redirects=True)
         self.assertInResponseWithLang('INVALID_CREDENTIALS', response)
 
