@@ -10,7 +10,7 @@ from flask import get_flashed_messages
 from flask import session
 from flask_language import current_language
 
-from core.lang import render_with_lang
+from core.engine import render_context
 from core.lang import lang
 from core.lang import get_str
 
@@ -19,6 +19,7 @@ from models.user import User
 blueprint = Blueprint('login', __name__, template_folder='templates')
 
 @blueprint.route('/login', methods=['GET', 'POST'])
+@render_context('login.html')
 def login():
     if request.args.get('lang') is not None:
         lang.change_language(request.args.get('lang'))
@@ -32,7 +33,6 @@ def login():
             return redirect(url_for('dashboard.dashboard'))
         else:
             flash(get_str('INVALID_CREDENTIALS'))
-    return render_with_lang('/login.html')
 
 
 @blueprint.route('/login/', methods=['GET', 'POST'])
