@@ -4,7 +4,10 @@ from core.startup import create_app
 from models.student import Student
 from models.lecturer import Lecturer
 from models.course_designer import CourseDesigner
-
+from models.semester import Semester
+from models.program_degree import ProgramDegree
+from models.course_type import CourseType
+from models.course import Course
 
 
 def main():
@@ -13,14 +16,137 @@ def main():
         db.drop_all()
         db.create_all()
 
-        # Create a student
-        Student('teststudent1', '12345678', 'Test Student 1', 'n830000000').save()
+        populate_user()
+        populate_semester()
+        populate_degree()
+        populate_type()
+        populate_course()
 
-        # Create a lecturer (lecturer)
-        Lecturer('testlecturer1', '12345678', 'Test Lecturer 1', 'a100000000').save()
 
-        # Create a course designer
-        CourseDesigner('testcd1', '12345678', 'Test Course Designer 1', 'a100000001').save()
+def populate_user():
+    # Create a student
+    Student('teststudent1', '12345678', 'Test Student 1', 'n830000000').save()
+
+    # Create a lecturer (lecturer)
+    Lecturer('testlecturer1', '12345678', 'Test Lecturer 1', 'a100000000').save()
+
+    # Create a course designer
+    CourseDesigner('testcd1', '12345678', 'Test Course Designer 1', 'a100000001').save()
+
+
+def populate_semester():
+    # Create semesters from 2012 to 2022
+    for year in [year for year in range(2012, 2023)]:
+        for term in [1, 2]:
+            Semester.get_semester(year, term)
+
+
+def populate_degree():
+    degrees = [
+        'Bachelor of Business Administration (Honours) (Applied Economics)',
+        'Bachelor of Business Administration (Honours) (Finance)',
+        'Bachelor of Business Administration (Honours) (Accounting)',
+        'Bachelor of Business Administration (Honours) (Management of Human Resources)',
+        'Bachelor of Business Administration (Honours) (Marketing Management)',
+        'Bachelor of Business Administration (Honours) (e-Business Management and Information Systems)',
+        'Bachelor of Business Administration (Honours) (Entrepreneurship and Innovation)',
+        'Bachelor of Business Administration (Honours) (Culture, Creativity and Management)',
+        'Bachelor of Arts (Honours) in Cinema and Television',
+        'Bachelor of Communication (Honours) in Media Arts and Design',
+        'Bachelor of Arts (Honours) in Musical Arts',
+        'Bachelor of Science (Honours) in Computer Science and Technology',
+        'Bachelor of Science (Honours) in Environmental Science',
+        'Bachelor of Science (Honours) in Statistics',
+        'Bachelor of Science (Honours) in Food Science and Technology',
+        'Bachelor of Science (Honours) in Applied Psychology',
+        'Bachelor of Science (Honours) in Financial Mathematics',
+        'Bachelor of Science (Honours) in Data Science',
+        'Bachelor of Science (Honours) in Applied Mathematics',
+        'Bachelor of Social Sciences (Honours) in Government and International Relations',
+        'Bachelor of Arts (Honours) in International Journalism',
+        'Bachelor of Arts (Honours) in Public Relations and Advertising',
+        'Bachelor of Social Work and Social Administration (Honours)',
+        'Bachelor of Arts (Honours) in Teaching English as a Second Language',
+        'Bachelor of Arts (Honours) in Applied Translation Studies',
+        'Bachelor of Arts (Honours) in Contemporary English Language and Literature',
+        'Bachelor of Arts (Honours) in English Language and Literature Studies',
+        'Bachelor of Communication (Honours) in Media and Communication Studies',
+        'Bachelor of Social Sciences (Honours) in Globalisation and Development'
+    ]
+    for degree in degrees:
+        program_degree = ProgramDegree(degree)
+        save(program_degree)
+    
+
+def populate_type():
+    course_types = [
+        'Major Required (MR)',
+        'Major Elective (ME)',
+        'General Education Core (GEC)',
+        'General Education Distribution (GED)',
+        'Whole Person Education (WPE)'
+        'Free Elective Courses (FE)'
+    ]
+    for course_type in course_types:
+        type_obj = CourseType(course_type)
+        save(type_obj)
+
+
+def populate_course():
+    courses = [
+        Course(
+            course_name='Computer Organisation', 
+            course_code='COMP1003', 
+            course_type_id=1,
+            program_degree_id=12,
+            since=[2015, 1], 
+            ends=None),
+        Course(
+            course_name='Data Structures and Algorithms', 
+            course_code='COMP2003', 
+            course_type_id=1,
+            program_degree_id=12,
+            since=[2015, 1], 
+            ends=None),
+        Course(
+            course_name='Object-Oriented Programming', 
+            course_code='COMP2013', 
+            course_type_id=1,
+            program_degree_id=12,
+            since=[2015, 1], 
+            ends=None),
+        Course(
+            course_name='Artificial Intelligence and Machine Learning', 
+            course_code='COMP4103', 
+            course_type_id=2,
+            program_degree_id=12,
+            since=[2015, 1], 
+            ends=None),
+        Course(
+            course_name='Software Testing', 
+            course_code='COMP3123', 
+            course_type_id=2,
+            program_degree_id=12,
+            since=[2015, 1], 
+            ends=None),
+        Course(
+            course_name='Quantum Finance and Intelligent Financial Trading Systems', 
+            course_code='COMP4153', 
+            course_type_id=2,
+            program_degree_id=12,
+            since=[2018, 1], 
+            ends=None),
+    ]
+
+    for course in courses:
+        course.save()
+
+
+def save(obj):
+    db.session.add(obj)
+    db.session.commit()
+    db.session.refresh(obj)
+
 
 if __name__ == '__main__':
     main()
