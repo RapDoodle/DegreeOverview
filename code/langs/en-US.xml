@@ -8,4 +8,9 @@
     <string name="LOGIN_BTN">Log in</string>
     <string name="LOGIN_REQUIRED">Login is required.</string>
     <string name="ACCESS_DENIED">You do not have permission for the operation.</string>
+    <string name="COURSES">Courses</string>
+    <string name="PERFORMANCE_REPORT">Performance Report</string>
+    <string name="SEARCH">Search</string>
+    <string name="OUTCOME_DEPENDENCY">Outcome dependency</string>
+    <string name=""></string>
 </resources>
