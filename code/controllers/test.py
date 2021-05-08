@@ -25,5 +25,5 @@ blueprint = Blueprint('test', __name__, template_folder='templates')
 @blueprint.route('/test/<name>', methods=['GET', 'POST'])
 @render_context()
 def test_route(name):
-    session['user_type'] = 0
+    session['user_type'] = 2
     return render(name + '.html')
