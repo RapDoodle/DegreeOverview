@@ -5,7 +5,7 @@ from core.db import db
 from core.lang import get_str
 from core.exception import ErrorMessagePromise
 
-from models.user import User
+from utils.converter import to_int
 
 
 class Semester(db.Model):
@@ -34,3 +34,8 @@ class Semester(db.Model):
             semester = Semester(year, term)
             semester.save()
         return semester
+
+    @classmethod
+    def find_semester_by_id(cls, id: int):
+        return cls.query.filter_by(id=to_int(id)).first()
+        

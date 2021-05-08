@@ -8,9 +8,12 @@
     <string name="LOGIN_BTN">Log in</string>
     <string name="LOGIN_REQUIRED">Login is required.</string>
     <string name="ACCESS_DENIED">You do not have permission for the operation.</string>
-	<string name="INVALID_WEIGHT">The weight is not valid. It should be  an integer between 1 and 100.</string>
+	<string name="INVALID_WEIGHT">The weight is not valid. It should be an integer between 1 and 100.</string>
 	<string name="NOT_INT">The field for %(var_name)s must be an integer.</string>
 	<string name="NOT_DECIMAL">The field for %(var_name)s must be a decimal.</string>
 	<string name="INVALID_LENGTH">The field %(field_name)s was provided with an invalid length. It expects a string that has a minimum length of %(min_len)s and a maximum length of %(max_len)s.</string>
-	<string name="INVALID_REF">Invalid reference to %(field_name)s with key %(key)s.</string>
+	<string name="INVALID_REF">Invalid reference to %(field_name)s with key %(key_name)s.</string>
+    <string name="INVALID_MODIFICATION">The form contains invalid data that caused a validation error.</string>
+    <string name="NOT_FOUND_OBJECT">Unkown %(object_name)s.</string>
+    <string name="INVALID_TOTAL_WEIGHT">All the weights must add up to 100%.</string>
 </resources>

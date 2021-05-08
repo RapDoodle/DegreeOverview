@@ -1,23 +1,24 @@
 # -*- coding: utf-8 -*-
+import models
+
 from flask_language import current_language
 
 from core.db import db
 from core.lang import get_str
 from core.exception import ErrorMessage
 
-from models.user import User
-
 from utils.validation import is_valid_length
 from utils.converter import to_int
 
 
-class CourseCILO(db.Model):
-    __tablename__ = 'course_cilo'
+class CILO(db.Model):
+    __tablename__ = 'cilo'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     cilo_index = db.Column(db.Integer)
     cilo_description = db.Column(db.String(1024))
+    display = db.Column(db.Boolean)
 
     def __init__(self, course_id, cilo_index, cilo_description):
         # Clean the data
@@ -27,7 +28,7 @@ class CourseCILO(db.Model):
 
         # Data validation
         from models.course import Course
-        if Course.find_course_by_id():
+        if not Course.find_course_by_id(course_id):
             raise ErrorMessage(get_str('INVALID_REF', ref_name='course id', key=course_id))
         cilo_index = to_int(cilo_index, 'CILO index')
         if not is_valid_length(cilo_description, 0, 1024):
@@ -35,21 +36,32 @@ class CourseCILO(db.Model):
 
         # Store the data in the object
         self.course_id = course_id
-        self.method_name = method_name
-        self.weight = weight
+        self.cilo_index = cilo_index
+        self.cilo_description = cilo_description
+        self.display = True
 
-    def edit_cilo(self, method):
-        new_method = AssessmentMethod(self.course_id, self.method_name, method['weight'])
-        new_method.save()
+    def edit_cilo(self, cilo):  
+        # The description is the same, no need to change
+        if cilo['cilo_description'] == self.cilo_description:
+            return
+
+        new_cilo = CILO(self.course_id, self.cilo_index, cilo['cilo_description'])
+        new_cilo.save()
+
+        self.display = False
+        self.save()
+        # TO-DO: Update the linkage
 
     def get_cilo_performance(self) -> dict:
         pass
 
     def get_dependent_cilos(self) -> list:
-        pass
+        return CILO.query(CILO).join(CILO, CILO.id == models.cilo_dependency.CILODependency.cilo_id)\
+            .filter(models.cilo_dependency.CILODependency.cilo_id==to_int(cilo_id)).all()
 
     def get_cilos_depended(self) -> list:
-        pass
+        return CILO.query(CILO).join(CILO, CILO.id == models.cilo_dependency.CILODependency.cilo_id)\
+            .filter(models.cilo_dependency.CILODependency.depending_cilo_id==to_int(cilo_id)).all()
 
     @classmethod
     def find_cilo_by_id(cls, id: int):
@@ -57,7 +69,11 @@ class CourseCILO(db.Model):
 
     @classmethod
     def find_cilo_by_keyword(cls, keyword: str) -> list:
-        return cls.query.filter(CourseCILO.cilo_description.like('%' + keyword + '%')).all()
+        return cls.query.filter(cls.cilo_description.like('%' + keyword + '%')).all()
+
+    @classmethod
+    def find_cilos_by_course_id(cls, course_id) -> list:
+        return cls.query.filter_by(course_id=course_id).all()
 
     def save(self):
         db.session.add(self)

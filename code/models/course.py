@@ -2,6 +2,7 @@
 import models
 
 from flask_language import current_language
+from sqlalchemy.sql import text
 
 from core.db import db
 from core.lang import get_str
@@ -67,34 +68,193 @@ class Course(db.Model):
         self.since_semester_id = since_semester.id
         if ends is not None:
             self.ends_semester_id = ends_semester.id
-        self.program_id = program_degree.id
+        self.program_degree_id = program_degree.id
+
+    def add_cilos(self, cilos: list):
+        """Add CILOs to the current course
+        
+        Args:
+            cilos: a list of dictionaries containing the information of ALL the CILOs
+                An example of the list goes as follows:
+                    [
+                        {
+                            "cilo_index": 0,
+                            "cilo_description": "Learn how to copy and paste code.",
+                            "depending_cilos": [144, 128]  // The id of the denpended CILO
+                        },
+                        {
+                            "cilo_index": 1,
+                            "cilo_description": "Know the basics of how to use Notepad++.",
+                            "depending_cilos": []
+                        },
+                        {
+                            "cilo_index": 2,
+                            "cilo_description": "Learn the fundamental principles of crashing a system.",
+                            "depending_cilos": []
+                        },
+                    ]
+        """
+        for cilo in cilos:
+            cilo_obj = models.cilo.CILO(self.id, cilo['cilo_index'], cilo['cilo_description'])
+            cilo_obj.save()
+
+            # Add dependency relationships
+            for denpend_cilo_id in cilo['depending_cilos']:
+                linkage_obj = models.cilo_dependency.CILODependency(self.id, cilo_obj.id, denpend_cilo_id)
+                linkage_obj.save()
+
+
+    def edit_cilos(self, cilos: list):
+        """Edit CILOs to the current course
+        
+        Args:
+            cilos: a list of dictionaries containing the information of ALL the CILOs
+                An example of the list goes as follows:
+                    [
+                        {
+                            "id": 15,
+                            "cilo_index": 0,
+                            "cilo_description": "Modified text.",
+                            "depending_cilos": [144, 128]  // The id of the denpended CILO
+                        },
+                        {
+                            "id": 16,
+                            "cilo_index": 2,
+                            "cilo_description": "Know the basics of how to use Notepad++.",
+                            "depending_cilos": []
+                        },
+                        {
+                            "id": 17,
+                            "cilo_index": 1,
+                            "cilo_description": "Learn how to crash a system.",
+                            "depending_cilos": []
+                        },
+                    ]
+        """
+        for cilo in cilos:
+            cilo_obj = models.cilo.CILO.find_cilo_by_id(cilo['id'])
+            if cilo_obj is None:
+                raise ErrorMessage(get_str('INVALID_MODIFICATION'))
+            if cilo_obj.course_id != self.id:
+                raise ErrorMessage(get_str('NOT_FOUND_OBJECT', object_name='CILO'))
+            cilo_obj.edit_cilo(cilo)
+
+    def add_assessment_methods(self, methods: list):
+        """Add assessment method to the current course
+        
+        Args:
+            methods: a list of dictionaries containing the information of ALL the 
+                assessment methods. An example of the list goes as follows:
+                    [
+                        {
+                            "method_index": 0,
+                            "method_name": "Assignments",
+                            "weight": 40
+                        },
+                        {
+                            "method_index": 1,
+                            "method_name": "Group project",
+                            "weight": 30
+                        },
+                        {
+                            "method_index": 2,
+                            "method_name": "Final examination",
+                            "weight": 30
+                        },
+                    ]
+        """
+        # Check for the weights (in total, it should add up to 100%)
+        weight_total = 0
+        for method in methods:
+            weight_total = weight_total + method['weight']
+        if weight_total != 100:
+            raise ErrorMessage('INVALID_TOTAL_WEIGHT')
+        
+        # Add methods to database
+        for method in methods:
+            method_obj = models.assessment_method.AssessmentMethod(
+                self.id, method['method_name'], method['weight'])
+
+    def edit_assessment_methods(self, methods: list):
+        """Edit assessment methods of the current course
+        
+        Args:
+            methods: a list of dictionaries containing the information of ALL the 
+                assessment methods. An example of the list goes as follows:
+                    [
+                        {
+                            "id": 16,
+                            "method_index": 0,
+                            "method_name": "Assignments",
+                            "weight": 40
+                        },
+                        {
+                            "id": 17,
+                            "method_index": 1,
+                            "method_name": "Group project",
+                            "weight": 30
+                        },
+                        {
+                            "id": 18,
+                            "method_index": 2,
+                            "method_name": "Final examination",
+                            "weight": 30
+                        },
+                    ]
+        """
+        # Check for the weights (in total, it should add up to 100%)
+        weight_total = 0
+        for method in methods:
+            weight_total = weight_total + method['weight']
+        if weight_total != 100:
+            raise ErrorMessage('INVALID_TOTAL_WEIGHT')
+
+        for method in methods:
+            method_obj = models.assessment_method.find_assessment_method_by_id(method['id'])
+            if method_obj is None:
+                raise ErrorMessage(get_str('NOT_FOUND_OBJECT', object_name='method'))
+            method_obj.edit_assessment_methods()
+
 
     def get_couse_type(self):
-        pass
+        return models.course_type.CourseType.find_course_type_by_id(self.course_type_id)
 
     def get_since(self):
-        pass
+        return models.semester.Semester.find_semester_by_id(self.since_semester_id)
 
     def get_ends(self):
-        pass
+        return models.semester.Semester.find_semester_by_id(self.ends_semester_id)
 
     def get_program(self):
-        pass
+        return models.program_degree.ProgramDegree.find_program_degree_by_id(self.program_degree_id)
 
-    def edit_cilos(self, cilos: dict):
-        pass
+    def get_cilos(self):
+        return models.cilo.CILO.find_cilos_by_course_id(self.id)
 
-    def edit_assessment_method(self, methods: dict):
-        pass
-
-    def get_course_cilos(self):
-        pass
-
-    def get_course_assessment_methods(self):
-        pass
+    def get_assessment_methods(self):
+        return models.program_degree.ProgramDegree.find_program_degree_by_id(self.program_degree_id)
 
     def get_course_prerequisites(self):
-        pass
+        return db.session.query(Course).from_statement(
+            text("""SELECT * FROM course, cilo 
+                WHERE course.id = cilo.course_id AND cilo.id IN 
+                (SELECT DISTINCT cilo_dependency.depending_cilo_id 
+                FROM course, cilo, cilo_dependency 
+                WHERE course.id = cilo.course_id 
+                AND cilo.id = cilo_dependency.cilo_id 
+                AND course.id=:course_id)""")
+        ).params(course_id=self.id).all()
+
+    def get_dependent_courses(self):
+        return db.session.query(Course).from_statement(
+            text("""SELECT * FROM course, cilo, cilo_dependency 
+                WHERE course.id = cilo.course_id 
+                AND cilo.id = cilo_dependency.cilo_id
+                AND cilo_dependency.depending_cilo_id IN
+                (SELECT cilo.id FROM course, cilo 
+                WHERE course.id = cilo.course_id 
+                AND course.id=:course_id)""")
+        ).params(course_id=self.id).all()
 
     def save(self):
         db.session.add(self)
@@ -104,3 +264,10 @@ class Course(db.Model):
     @classmethod
     def find_course_by_id(cls, id):
         return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def find_course_by_keyword(cls, keyword):
+        return cls.query.filter(
+            db.or_(
+                cls.course_name.like('%' + keyword + '%'), 
+                cls.course_code.like('%' + keyword + '%'))).all()

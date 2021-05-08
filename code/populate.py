@@ -36,7 +36,7 @@ def populate_user():
 
 def populate_semester():
     # Create semesters from 2012 to 2022
-    for year in [year for year in range(2012, 2023)]:
+    for year in [year for year in range(2005, 2023)]:
         for term in [1, 2]:
             Semester.get_semester(year, term)
 
@@ -95,11 +95,11 @@ def populate_type():
 def populate_course():
     courses = [
         Course(
-            course_name='Computer Organisation', 
-            course_code='COMP1003', 
+            course_name='Linear Algebra', 
+            course_code='MATH1003', 
             course_type_id=1,
             program_degree_id=12,
-            since=[2015, 1], 
+            since=[2008, 1], 
             ends=None),
         Course(
             course_name='Data Structures and Algorithms', 
@@ -116,8 +116,8 @@ def populate_course():
             since=[2015, 1], 
             ends=None),
         Course(
-            course_name='Artificial Intelligence and Machine Learning', 
-            course_code='COMP4103', 
+            course_name='Operating Systems', 
+            course_code='COMP3033', 
             course_type_id=2,
             program_degree_id=12,
             since=[2015, 1], 
@@ -138,8 +138,108 @@ def populate_course():
             ends=None),
     ]
 
-    for course in courses:
+    all_courses = []
+
+    for idx, course in enumerate(courses):
         course.save()
+        all_courses.append(course)
+
+        if idx == 0:
+            course.add_cilos([
+                        {
+                            "cilo_index": 0,
+                            "cilo_description": "Perform basic calculations on a given matrix and find properties for that matrix.",
+                            "depending_cilos": []
+                        },
+                        {
+                            "cilo_index": 1,
+                            "cilo_description": "Identify relationship among different concepts of matrices and prove algebraic statements about them.",
+                            "depending_cilos": []
+                        },
+                        {
+                            "cilo_index": 2,
+                            "cilo_description": "Present basic ideas of matrix use as shown in the textbook or distributed materials.",
+                            "depending_cilos": []
+                        },
+                        {
+                            "cilo_index": 3,
+                            "cilo_description": "Analyse real problems and apply matrix theory to solve them.",
+                            "depending_cilos": []
+                        },
+                    ])
+            
+        
+        if idx == 3:
+            course.add_cilos([
+                        {
+                            "cilo_index": 0,
+                            "cilo_description": "Explain the conceptual framework of object-oriented programming.",
+                            "depending_cilos": []
+                        },
+                        {
+                            "cilo_index": 1,
+                            "cilo_description": "Programme in JAVA to enable the solution of non-elementary programming tasks.",
+                            "depending_cilos": []
+                        }
+                    ])
+
+        if idx == 4:
+            course.add_cilos([
+                        {
+                            "cilo_index": 0,
+                            "cilo_description": "Explain the basic principles of the operating system.",
+                            "depending_cilos": [1]
+                        },
+                        {
+                            "cilo_index": 1,
+                            "cilo_description": "Implement operating systems concepts in detail.",
+                            "depending_cilos": [5]
+                        }
+                    ])
+
+        if idx == 5:
+            course.add_cilos([
+                        {
+                            "cilo_index": 0,
+                            "cilo_description": "explain the basic concepts of quantum finance and its underlying technologies;",
+                            "depending_cilos": [1]
+                        },
+                        {
+                            "cilo_index": 1,
+                            "cilo_description": "incorrect cilo;",
+                            "depending_cilos": []
+                        },
+                        {
+                            "cilo_index": 2,
+                            "cilo_description": "apply the quantum finance and intelligent trading methodologies, tools and codes to develop intelligent financial trading systems, individually and as a group.",
+                            "depending_cilos": [1]
+                        },
+                    ])
+
+            course.edit_cilos([
+                        {
+                            "id": 9,
+                            "cilo_index": 0,
+                            "cilo_description": "explain the basic concepts of quantum finance and its underlying technologies;"
+                        },
+                        {
+                            "id": 10,
+                            "cilo_index": 1,
+                            "cilo_description": "formulate financial models and intelligent trading strategies from the quantum finance perspective"
+                        },
+                        {
+                            "id": 11,
+                            "cilo_index": 2,
+                            "cilo_description": "apply the quantum finance and intelligent trading methodologies, tools and codes to develop intelligent financial trading systems, individually and as a group."
+                        },
+                    ])
+
+    for idx, course in enumerate(courses):
+        print('========== ' + str(idx + 1) + ' ==========')
+        print(course.course_name)
+        print(course.get_cilos())
+        print(course.get_course_prerequisites())
+        print(course.get_dependent_courses())
 
 
 def save(obj):
