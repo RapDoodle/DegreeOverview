@@ -33,7 +33,7 @@
 
 {% if session['user_type'] == COURSE_DESIGNER %}
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-light" data-toggle="modal" data-target=".bd-example-modal-lg">
+<button type="button" class="btn btn-light" data-toggle="modal" data-target=".add-course">
 	<i class="fa fa-plus"></i>
 </button>
 <span>{{ get_str('ADD_NEW_COURSE') }}</span>
@@ -79,8 +79,8 @@
 -->
 
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-	aria-hidden="true">
+<div class="modal fade bd-example-modal-lg add-course" tabindex="-1" role="dialog" aria-labelledby="add-course"
+	aria-hidden="true" style="overflow:auto">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 
@@ -169,7 +169,7 @@
 								<td><input type="text" class="form-control"
 										placeholder="please input {{ get_str('COURSE_NAME') }}" value="{{i}}"
 										aria-label="" aria-describedby="basic-addon1" style="text-align: center;"
-										disabled></td>
+										></td>
 								<td><input type="text" class="form-control"
 										placeholder="please input {{ get_str('DESCRIPTION') }}"
 										value="{{i+ get_str('DESCRIPTION') }}" aria-label=""
@@ -277,7 +277,7 @@
 	</div>
 </div>
 
-
+<!-- define-box -->
 <div class="modal fade bd-example-modal-lg define-box" tabindex="-1" role="dialog" aria-labelledby="define-box"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -404,8 +404,7 @@
 </div>
 
 
-<!-- -->
-
+<!-- edit-CILOs -->
 <div class="modal fade bd-example-modal-lg edit-CILOs" tabindex="-1" role="dialog" aria-labelledby="edit-CILOs"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -455,7 +454,7 @@
 							<tr style="text-align: center;">
 								<td><input type="text" class="form-control"
 										placeholder="please input {{ get_str('COURSE_NAME') }}" value="{{i}}"
-										aria-label="" aria-describedby="basic-addon1" style="text-align: center;"></td>
+										aria-label="" aria-describedby="basic-addon1" style="text-align: center;" disabled></td>
 								<td><input type="text" class="form-control"
 										placeholder="please input {{ get_str('DESCRIPTION') }}"
 										value="{{i+ get_str('DESCRIPTION') }}" aria-label=""
@@ -486,7 +485,7 @@
 	</div>
 </div>
 
-<!--  -->
+<!-- Modify-Assessment-Method -->
 <div class="modal fade bd-example-modal-lg Modify-Assessment-Method" tabindex="-1" role="dialog"
 	aria-labelledby="Modify-Assessment-Method" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -626,4 +625,19 @@
 		</div>
 	</div>
 </div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+	//fix the problem of modal
+	$('.define-box').on('hidden.bs.modal', function (event) {
+	$("body").addClass("modal-open");
+  })
+
+  $('.upload-file').on('hidden.bs.modal', function (event) {
+	$("body").addClass("modal-open");
+  })
+</script>
+
 {% endblock %}
