@@ -8,6 +8,7 @@ from core.exception import ErrorMessage
 from models.user import User
 
 from utils.validation import is_valid_length
+from utils.converter import to_int
 
 
 class AssessmentMethod(db.Model):
@@ -40,10 +41,22 @@ class AssessmentMethod(db.Model):
         self.weight = weight
 
     def edit_method(self, method):
-        new_method = AssessmentMethod(self.course_id, self.method_name, method['weight'])
+        new_method = AssessmentMethod(self.course_id, method['name'], method['weight'])
         new_method.save()
 
     def save(self):
         db.session.add(self)
         db.session.commit()
         db.session.refresh(self)
+
+    @classmethod
+    def find_assessment_method_by_id(cls, id: int):
+        return cls.query.filter_by(id=to_int(id)).first()
+
+    @classmethod
+    def find_assessment_method_by_keyword(cls, keyword: str) -> list:
+        return cls.query.filter(cls.cilo_description.like('%' + keyword + '%')).all()
+
+    @classmethod
+    def find_assessment_methods_by_course_id(cls, course_id) -> list:
+        return cls.query.filter_by(course_id=course_id).all()

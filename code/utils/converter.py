@@ -1,7 +1,7 @@
 from core.lang import get_str
 from core.exception import ErrorMessage
 
-def to_int(d, name):
+def to_int(d, name = ''):
     try:
         return int(d)
     except ValueError:

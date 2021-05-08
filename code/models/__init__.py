@@ -1,5 +1,7 @@
 import models.assessment_method
-import models.course_cilo
+import models.cilo
+import models.cilo_assessment_method
+import models.cilo_dependency
 import models.course_designer
 import models.course_type
 import models.course
