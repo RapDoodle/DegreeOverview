@@ -1,0 +1,10 @@
+import models.assessment_method
+import models.course_cilo
+import models.course_designer
+import models.course_type
+import models.course
+import models.lecturer
+import models.program_degree
+import models.semester
+import models.student
+import models.user
