@@ -28,7 +28,7 @@
     <string name="MESSAGE">Message</string>
     <string name="CONFIRM">Confirm</string>
 
-    <!--course_designer-->
+    <!--courses-->
     <string name="COURSE_DESIGNER_HOME_PAGE">Course Designer Home Page</string>
     <string name="LECTURER_HOME_PAGE">Lecturer Home Page</string>
     <string name="STUDENT_HOME_PAGE">Student Home Page</string>
@@ -48,6 +48,7 @@
     <string name="DESCRIPTION">Description</string>
     <string name="DEPENDENCIES">Dependencies</string>
     <string name="ASSESSMENT_METHODS">Assessment methods</string>
+    <string name="ASSESSMENT">Assessment</string>
     <string name="NAME">Name</string>
     <string name="RELATED_CILOS">Related CILOs</string>
     <string name="PRECENTAGE">Percentage</string>
@@ -63,5 +64,10 @@
     <string name="CHOOSE_FILE">Choose file</string>
     <string name="STUDENT">Student</string>
     <string name="COURSE_DESIGNER">Course Designer</string>
+    <string name="YEAR">Year</string>
+    <string name="TERM">Term</string>
+    <string name="PROGRAM_DEGREE">Program degree</string>
+    <string name="CILOS_NAME">CILOs name</string>
+    <string name=""></string>
     <string name=""></string>
 </resources>
