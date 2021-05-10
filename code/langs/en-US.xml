@@ -9,4 +9,66 @@
     <string name="LOGIN_REQUIRED">Login is required.</string>
     <string name="ACCESS_DENIED">You do not have permission for the operation.</string>
     <string name="SEARCH">Search</string>
+	<string name="INVALID_WEIGHT">The weight is not valid. It should be an integer between 1 and 100.</string>
+	<string name="NOT_INT">The field for %(var_name)s must be an integer.</string>
+	<string name="NOT_DECIMAL">The field for %(var_name)s must be a decimal.</string>
+	<string name="INVALID_LENGTH">The field %(field_name)s was provided with an invalid length. It expects a string that has a minimum length of %(min_len)s and a maximum length of %(max_len)s.</string>
+	<string name="INVALID_REF">Invalid reference to %(field_name)s with key %(key_name)s.</string>
+    <string name="INVALID_MODIFICATION">The form contains invalid data that caused a validation error.</string>
+    <string name="NOT_FOUND_OBJECT">Unkown %(object_name)s.</string>
+    <string name="INVALID_TOTAL_WEIGHT">All the weights must add up to 100%.</string>
+	<string name="INVALID_REF">Invalid reference to %(field_name)s with key %(key)s.</string>
+
+    <!--base-->
+    <string name="COURSES">Courses</string>
+    <string name="PERFORMANCE_REPORT">Performance Report</string>
+    <string name="SEARCH">Search</string>
+    <string name="OUTCOME_DEPENDENCY">Outcome dependency</string>
+    <string name="MENU">Menu</string>
+    <string name="LOGOUT">Logout</string>
+    <string name="MESSAGE">Message</string>
+    <string name="CONFIRM">Confirm</string>
+
+    <!--courses-->
+    <string name="COURSE_DESIGNER_HOME_PAGE">Course Designer Home Page</string>
+    <string name="LECTURER_HOME_PAGE">Lecturer Home Page</string>
+    <string name="STUDENT_HOME_PAGE">Student Home Page</string>
+    <string name="ADD_NEW_COURSE">Add new course</string>    
+    <string name="COURSE_NAME">Course Name</string> 
+    <string name="ACTIONS">Actions</string> 
+    <string name="EDIT_CILOS">Edit CILOs</string> 
+    <string name="MODIFY_ASSESSMENT_METHOD">Modify Assessment Method</string>
+    <string name="NEW_COURSE">New Course</string>
+    <string name="COURSE_TITLE">Course title</string>
+    <string name="LECTURER">Lecturer</string>
+    <string name="COURSE_CODE">Course code</string>
+    <string name="COURSE_TYPE">Course type</string>    
+    <string name="PRE-REQUISITES">Pre-requisites</string>
+    <string name="CILOS">CILOs</string>
+    <string name="IMPORT">Import</string>
+    <string name="DESCRIPTION">Description</string>
+    <string name="DEPENDENCIES">Dependencies</string>
+    <string name="ASSESSMENT_METHODS">Assessment methods</string>
+    <string name="ASSESSMENT">Assessment</string>
+    <string name="NAME">Name</string>
+    <string name="RELATED_CILOS">Related CILOs</string>
+    <string name="PRECENTAGE">Percentage</string>
+    <string name="CANCEL">Cancel</string>
+    <string name="CILO_DEPENDENCIES">CILO Dependencies</string>
+    <string name="TYPE">Type</string>
+    <string name="SEARCH_RESULTS">Search results</string>
+    <string name="COURSE">Course</string>
+    <string name="CILO">CILO</string>
+    <string name="ACTION">Action</string>
+    <string name="ADDED_CILOS">Added CILOs</string>
+    <string name="UPLOAD">Upload</string>
+    <string name="CHOOSE_FILE">Choose file</string>
+    <string name="STUDENT">Student</string>
+    <string name="COURSE_DESIGNER">Course Designer</string>
+    <string name="YEAR">Year</string>
+    <string name="TERM">Term</string>
+    <string name="PROGRAM_DEGREE">Program degree</string>
+    <string name="CILOS_NAME">CILOs name</string>
+    <string name=""></string>
+    <string name=""></string>
 </resources>

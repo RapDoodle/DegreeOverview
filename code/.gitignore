@@ -1,7 +1,11 @@
+# Microsoft Word
+~$*
+
 # Mangee
 security/
 web/
 data.db
+test.db
 
 # IDE specific
 .vscode/

@@ -16,11 +16,11 @@ from core.lang import get_str
 
 from models.user import User
 
-blueprint = Blueprint('login', __name__, template_folder='templates')
+blueprint = Blueprint('courses', __name__, template_folder='templates')
 
-@blueprint.route('/login', methods=['GET', 'POST'])
-@render_context('login.html')
-def login():
+@blueprint.route('/courses', methods=['GET', 'POST'])
+@render_context('courses.html')
+def courses():
     if request.args.get('lang') is not None:
         lang.change_language(request.args.get('lang'))
 
@@ -35,12 +35,12 @@ def login():
             flash(get_str('INVALID_CREDENTIALS'))
 
 
-@blueprint.route('/login/', methods=['GET', 'POST'])
+@blueprint.route('/courses/', methods=['GET', 'POST'])
 def login_redirect():
-    return redirect(url_for('login.login'))
+    return redirect(url_for('courses.courses'))
 
 
-@blueprint.route('/logout', methods=['GET'])
+@blueprint.route('/courses/logout', methods=['GET'])
 def logout():
     session.clear()
-    return redirect(url_for('login.login'))
+    return redirect(url_for('courses.courses'))

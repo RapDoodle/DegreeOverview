@@ -16,7 +16,6 @@ from os.path import isfile, join
 import xml.etree.ElementTree as ET
 
 from flask import current_app
-from flask import render_template
 from flask_language import Language
 from flask_language import current_language
 
@@ -118,10 +117,6 @@ def get_str(key: str, language=None, **kwargs):
 
 def resolve_template(template: str, **kwargs):
     return template % kwargs
-
-
-def render_with_lang(*args, **kwargs):
-    return render_template(*args, **kwargs, get_str=get_str)
 
 
 @lang.allowed_languages
