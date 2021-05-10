@@ -69,6 +69,10 @@
     <string name="TERM">Term</string>
     <string name="PROGRAM_DEGREE">Program degree</string>
     <string name="CILOS_NAME">CILOs name</string>
-    <string name=""></string>
+    
+    <!--Search Results-->
+    <string name="SEARCH_RESULTS">Search Results</string>
+
+
     <string name=""></string>
 </resources>

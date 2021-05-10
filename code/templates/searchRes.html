@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% macro tag_title() -%}
+{% if session['user_type'] == STUDENT %}
+{{ get_str('STUDENT') }}
+{% elif session['user_type'] == LECTURER %}
+{{ get_str('LECTURER') }}
+{% elif session['user_type'] == COURSE_DESIGNER %}
+{{ get_str('COURSE_DESIGNER') }}
+{% endif %}
+{%- endmacro %}
+{% block title %} {{ tag_title() }} {% endblock%}
+
+{% block content %}
+<div class="container text-left" style="vertical-align: middle;">
+    <br>  
+	<h1 class="h3 mb-3 font-weight-normal">{{ get_str('SEARCH_RESULTS') }}</h1>
+      <br>
+      <!-- Search Table -->
+	<table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>CourseName</th>
+        <th>Course Code</th>
+        <th>CILOs</th>
+        {% if session['user_type'] == COURSE_DESIGNER %}
+          <th>Actions</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in range (0,6) %}
+      <tr>
+        <td>Course {{ i+1 }}</td>
+        <td>COMP300{{ i }}</td>
+        <td>{{ get_str('CILO') }}</td>
+        {% if session['user_type'] == COURSE_DESIGNER %}
+        <td>
+			    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		        <span class="fa fa-gear"></span>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Edit CILOs</a>
+            <a class="dropdown-item" href="#">Modify Assessment Methods</a>
+          </div>
+		    </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+	</table>
+
+
+{% endblock %}

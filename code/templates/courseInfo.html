@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% macro tag_title() -%}
+{% if session['user_type'] == STUDENT %}
+{{ get_str('STUDENT') }}
+{% elif session['user_type'] == LECTURER %}
+{{ get_str('LECTURER') }}
+{% elif session['user_type'] == COURSE_DESIGNER %}
+{{ get_str('COURSE_DESIGNER') }}
+{% endif %}
+{%- endmacro %}
+{% block title %} {{ tag_title() }} {% endblock%}
+
+{% block content %}
+<div class="container text-left" style="vertical-align: middle;">
+  <br>
+  <h1 class="h3 mb-3 font-weight-normal">Course Information</h1>
+  <br>
+  <!--course info-->
+  <h5 class="text-center">Course Basic Information</h5>
+  <br>
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>CourseName</th>
+        <th>Course Code</th>
+        <th>CILOs</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in range (0,3) %}
+      <tr>
+        <td>Course {{ i+1 }}</td>
+        <td>COMP300{{ i }}</td>
+        <td>{{ get_str('CILO') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if session['user_type'] != STUDENT %}
+  <!--Analysis Results-->
+  <br>
+  <div class="row no-gutters">
+    <div class="col-sm-11">
+      <h5 class="text-center">Analysis Results</h5>
+      <br>
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th>CourseName</th>
+            <th>Course Code</th>
+            <th>CILOs</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range (0,3) %}
+          <tr>
+            <td>Course {{ i+1 }}</td>
+            <td>COMP300{{ i }}</td>
+            <td><span class="fa fa-share"></span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-1">
+      <button class="btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Year
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for i in range (16,20) %}
+        <a class="dropdown-item" href="#">20{{ i }} - 20{{ i+1 }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+  {% endblock %}

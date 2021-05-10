@@ -13,6 +13,7 @@
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="/static/css/base.css">
 	{% block custom_style %}{% endblock %}
+	{% block header_script %}{% endblock %}
 </head>
 
 <body>
@@ -88,9 +89,8 @@
 	<!-- Bootstrap Related -->
 	<script src="/static/js/popper.min.js"></script>
 	<script src="/static/bootstrap-4.6.0/js/bootstrap.min.js"></script>
-
 	{% block script %}
-
+	
 	{% endblock %}
 
 	<!-- Modal for message -->

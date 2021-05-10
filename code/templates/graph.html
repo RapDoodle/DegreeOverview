@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block header_script %}
+<script src="/static/js/echarts.min.js"></script>
+{% endblock %}
+
+
+{% block content %}
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom容器 -->
+    <div class="row">
+        <div id="main" style="width: 1000px;height:600px;"></div>
+    
+    </div>
+    
+    <script type="text/javascript">
+	
+	var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+	var i = 100;	
+    var option = {
+    
+    title: {
+        text: 'Graph 简单示例'
+    },
+    tooltip: {},
+    animationDurationUpdate: 1000,
+    animationEasingUpdate: 'quinticInOut',
+	
+	symbolSize:45,
+    series: [
+        {
+            type: 'graph',
+            layout: 'force',
+            symbolSize: 105,
+            roam: true,
+            label: {
+                show: true,
+				overflow:"break",
+				width:100//文字自适应
+            },
+            edgeSymbol: ['circle', 'arrow'],
+            edgeSymbolSize: [4, 10],
+            edgeLabel: {
+                fontSize: 20
+            },
+			force: {
+  initLayout: "circular",
+  repulsion: 4000,
+  layoutAnimation: false,
+},
+			overflow:"break",
+            data: [{
+                name: 'linear algebra adfasdfasfesadhqoihgoehgwreghueor@qwiegfuqiegf@grguwwroegj@jfjfhjghfh@',
+				link: 'Calculate'
+				
+            }, {
+                name: 'Calculate',
+				link: 'Calculate'
+            }, {
+                name: 'statistic',
+				link: 'Calculate'
+				
+            }, {
+                name: 'distribution',
+				link: 'Calculate'
+            }],
+            // links: [],
+            links: [{
+                source: 0,
+                target: 3,
+                symbolSize: [1, 20],
+            }, {
+                source: 1,
+                target: 2,
+            }, {
+                source: 0,
+                target: 2
+            }],
+
+        }
+    ]
+};
+		//关系图的话就除了data还要links
+		//格式大致如下links: [{source: "elements1", target: "elements3"}]
+        // 使用刚指定的配置项和数据显示图表。
+		//不知道是否需要用到分类，要的话数据类型就得是data: [name:"",category:0,.....]
+		//图的布局echarts提供了三种，第一种none对于数据多且不确定的图来说基本不可能实现
+		//第二种是circular，第三种是force
+		//
+		//这个网站讲的不错https://www.cnblogs.com/skuld-yi/p/14387263.html
+        myChart.setOption(option);
+		
+//var ROOT_PATH = 'https://echarts.apache.org/examples';
+	//myChart.showLoading();
+	//$.getJSON(ROOT_PATH + '/data/asset/data/les-miserables.json', function (graph) {
+    //myChart.hideLoading();
+	 //});
+    </script>
+{% endblock %}
