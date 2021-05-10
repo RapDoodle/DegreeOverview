@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+{% block base_css %}
+	<link rel="stylesheet" href="/static/css/base.css">
+{% endblock %}
+
+{% block content %}
+<div class="container text-center" style="width: 400px; vertical-align: middle;">
+    <form class="{{ url_for('login.login') }}" method="post">
+      <img class="mb-4" src="/static/logo_horizontal.png" alt="" width=360>
+      <h1 class="h3 mb-3 font-weight-normal">Search</h1>
+      <br>
+        
+      <div class="row no-gutters">
+        <div class="col-sm-3">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Type
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Courses</a>
+            <a class="dropdown-item" href="#">CILOs</a>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <!-- Input Fields -->
+          <label for="Search" class="sr-only">{{ get_str('SEARCH') }}</label>
+          <input type="text" id="search" name="search" class="form-control" placeholder="Search" required=""
+          autofocus="">
+          <br><br>
+        </div>
+      </div>
+
+      <!-- Search Button -->
+      <button class="btn btn-lg btn-outline-primary" type="submit" name="submit">Search</button>
+      <p class="mt-5 mb-3 text-muted">© 2021 Lily Holdings, Ltd</p>
+    </form>
+  </div>
+
+{% endblock %}

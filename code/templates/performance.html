@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Performance{% endblock %}
+{% block base_css %}
+	<link rel="stylesheet" href="/static/css/base.css">
+{% endblock %}
+
+{% block content %}
+<div class="container text-left" style="vertical-align: middle;">
+    <br>
+    <div class="row no-gutters">
+      <div class="col-sm-11">
+	    <h1 class="h3 mb-3 font-weight-normal">Performance</h1>
+      </div>
+      <div class="col-sm-1">
+        <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Course Name
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">2016 - 2017</a>
+        <a class="dropdown-item" href="#">2017 - 2018</a>
+        <a class="dropdown-item" href="#">2018 - 2019</a>
+        <a class="dropdown-item" href="#">2019 - 2020</a>
+      </div>
+      </div>
+    <br>
+    <table class="table table-bordered text-center">
+    <thead class="thead-light">
+      <tr>
+        <th colspan="2">Individual Report</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>CILO</th>
+        <th>Performance</th>
+      </tr>
+      <tr>
+        <td>CILO 1</td>
+        <td>98.75%</td>
+      </tr>
+      <tr>
+        <td>CILO 2</td>
+        <td>96.7%</td>
+      </tr>
+    </tbody>
+	</table>
+
+
+{% endblock %}

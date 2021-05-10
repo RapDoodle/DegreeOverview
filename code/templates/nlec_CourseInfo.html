@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}CourseInfo{% endblock %}
+{% block base_css %}
+	<link rel="stylesheet" href="/static/css/base.css">
+{% endblock %}
+
+{% block content %}
+<div class="container text-left" style="vertical-align: middle;">
+    <br>  
+	<h1 class="h3 mb-3 font-weight-normal">Course Info</h1>
+      <br>
+      <h5 class="text-center">Course Basic Information</h5>
+      <br>
+    <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>CourseName</th>
+        <th>Course Code</th>
+        <th>CILOs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Course 1</td>
+        <td>COMP3000</td>
+        <td><span class="fa fa-share"></span></td>
+      </tr>
+      <tr>
+        <td>Course 2</td>
+        <td>COMP3001</td>
+        <td><span class="fa fa-share"></span></td>
+      </tr>
+      <tr>
+        <td>Course 3</td>
+        <td>COMP3002</td>
+        <td><span class="fa fa-share"></span></td>
+      </tr>
+    </tbody>
+	</table>
+
+
+{% endblock %}
