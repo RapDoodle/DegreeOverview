@@ -9,9 +9,10 @@ from core.exception import ErrorMessage
 
 from utils.validation import is_valid_length
 from utils.converter import to_int
+from models.saveable_model import SaveableModel
 
 
-class CILODependency(db.Model):
+class CILODependency(SaveableModel):
     __tablename__ = 'cilo_dependency'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -43,9 +44,5 @@ class CILODependency(db.Model):
     @classmethod
     def find_dependencies_by_denpending_cilo_id(cls, cilo_id: str) -> list:
         return cls.query.filter_by(depending_cilo_id=to_int(cilo_id)).all()
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-        db.session.refresh(self)
+        
         

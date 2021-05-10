@@ -4,14 +4,12 @@ from flask_language import current_language
 from core.db import db
 from core.lang import get_str
 from core.exception import ErrorMessage
-
-from models.user import User
-
 from utils.validation import is_valid_length
 from utils.converter import to_int
+from models.saveable_model import SaveableModel
 
 
-class AssessmentMethod(db.Model):
+class AssessmentMethod(SaveableModel):
     __tablename__ = 'assessment_method'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

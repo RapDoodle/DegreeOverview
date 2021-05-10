@@ -7,15 +7,14 @@ from sqlalchemy.sql import text
 from core.db import db
 from core.lang import get_str
 from core.exception import ErrorMessage
-
 from core.permission import STUDENT
 from core.permission import LECTURER
 from core.permission import COURSE_DESIGNER
-
 from utils.validation import is_valid_length
+from models.saveable_model import SaveableModel
 
 
-class Course(db.Model):
+class Course(SaveableModel):
     """The model related to users.
 
     Attributes:
@@ -255,11 +254,6 @@ class Course(db.Model):
                 WHERE course.id = cilo.course_id 
                 AND course.id=:course_id)""")
         ).params(course_id=self.id).all()
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-        db.session.refresh(self)
 
     @classmethod
     def find_course_by_id(cls, id):

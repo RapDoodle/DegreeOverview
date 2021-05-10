@@ -9,9 +9,10 @@ from core.exception import ErrorMessage
 
 from utils.validation import is_valid_length
 from utils.converter import to_int
+from models.saveable_model import SaveableModel
 
 
-class CILOAssessmentMethod(db.Model):
+class CILOAssessmentMethod(SaveableModel):
     __tablename__ = 'cilo_assessment_method'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

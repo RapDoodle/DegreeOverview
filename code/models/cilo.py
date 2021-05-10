@@ -6,12 +6,12 @@ from flask_language import current_language
 from core.db import db
 from core.lang import get_str
 from core.exception import ErrorMessage
-
 from utils.validation import is_valid_length
 from utils.converter import to_int
+from models.saveable_model import SaveableModel
 
 
-class CILO(db.Model):
+class CILO(SaveableModel):
     __tablename__ = 'cilo'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -50,7 +50,6 @@ class CILO(db.Model):
 
         self.display = False
         self.save()
-        # TO-DO: Update the linkage
 
     def get_cilo_performance(self) -> dict:
         pass
@@ -74,8 +73,4 @@ class CILO(db.Model):
     @classmethod
     def find_cilos_by_course_id(cls, course_id) -> list:
         return cls.query.filter_by(course_id=course_id).all()
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-        db.session.refresh(self)
+        
