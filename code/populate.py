@@ -98,44 +98,32 @@ def populate_course():
             course_name='Linear Algebra', 
             course_code='MATH1003', 
             course_type_id=1,
-            program_degree_id=12,
-            since=[2008, 1], 
-            ends=None),
+            program_degree_id=12),
         Course(
             course_name='Data Structures and Algorithms', 
             course_code='COMP2003', 
             course_type_id=1,
-            program_degree_id=12,
-            since=[2015, 1], 
-            ends=None),
+            program_degree_id=12),
         Course(
             course_name='Object-Oriented Programming', 
             course_code='COMP2013', 
             course_type_id=1,
-            program_degree_id=12,
-            since=[2015, 1], 
-            ends=None),
+            program_degree_id=12),
         Course(
             course_name='Operating Systems', 
             course_code='COMP3033', 
             course_type_id=2,
-            program_degree_id=12,
-            since=[2015, 1], 
-            ends=None),
+            program_degree_id=12),
         Course(
             course_name='Software Testing', 
             course_code='COMP3123', 
             course_type_id=2,
-            program_degree_id=12,
-            since=[2015, 1], 
-            ends=None),
+            program_degree_id=12),
         Course(
             course_name='Quantum Finance and Intelligent Financial Trading Systems', 
             course_code='COMP4153', 
             course_type_id=2,
-            program_degree_id=12,
-            since=[2018, 1], 
-            ends=None),
+            program_degree_id=12),
     ]
 
     all_courses = []
@@ -149,7 +137,7 @@ def populate_course():
                         {
                             "cilo_index": 0,
                             "cilo_description": "Perform basic calculations on a given matrix and find properties for that matrix.",
-                            "depending_cilos": []
+                            "depending_cilos": [],
                         },
                         {
                             "cilo_index": 1,
@@ -182,6 +170,30 @@ def populate_course():
                             "depending_cilos": []
                         }
                     ])
+            course.add_assessment_methods([
+                        {
+                            "method_index": 0,
+                            "method_name": "Assignments",
+                            "weight": 40,
+                            "since": (2020, 1),
+                            "cilos_addressed": [1]
+                        },
+                        {
+                            "method_index": 1,
+                            "method_name": "Group project",
+                            "weight": 30,
+                            "since": (2020, 1),
+                            "cilos_addressed": [1]
+                        },
+                        {
+                            "method_index": 2,
+                            "method_name": "Final examination",
+                            "weight": 30,
+                            "since": (2020, 1),
+                            "cilos_addressed": [1]
+                        },
+                    ])
+
 
         if idx == 4:
             course.add_cilos([

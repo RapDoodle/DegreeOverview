@@ -19,23 +19,20 @@ class CILOAssessmentMethod(SaveableModel):
     cilo_id = db.Column(db.Integer, db.ForeignKey('cilo.id'))
     assessment_method_id = db.Column(db.Integer, db.ForeignKey('assessment_method.id'))
 
-    def __init__(self, course_id, cilo_id: int, assessment_method_id: int):
-        cilo = models.cilo.CILO.find_cilo_by_id(cilo_id)
+    def __init__(self, course_id: int, assessment_method_id: int, cilo_index: int):
+        cilo = models.cilo.CILO.find_cilo_by_course_id_and_cilo_index(course_id, cilo_index)
         assessment_method = models.assessment_method.AssessmentMethod.find_assessment_method_by_id(assessment_method_id)
 
         # Data validation
+        # TO-DO: The validation error message is not complete
         if cilo is None:
-            raise ErrorMessage(get_str('INVALID_REF', field_name='CILO', key=str(cilo_id)))
+            raise ErrorMessage(get_str('INVALID_REF'))
         if assessment_method is None:
-            raise ErrorMessage(get_str('INVALID_REF', field_name='denpending assessment method', key=str(depending_cilo_id)))
+            raise ErrorMessage(get_str('INVALID_REF'))
 
         # Store the data in the object
         self.cilo_id = cilo.id
         self.assessment_method_id = assessment_method.id
-
-    def delete_dependency(self):
-        db.session.delete(self)
-        db.session.commit()
 
     @classmethod
     def find_relationship_by_id(cls, id: int):
@@ -48,9 +45,5 @@ class CILOAssessmentMethod(SaveableModel):
     @classmethod
     def find_relationships_by_assessment_method_id(cls, method_id: str) -> list:
         return cls.query.filter_by(assessment_method_id=to_int(method_id)).all()
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-        db.session.refresh(self)
+        
         

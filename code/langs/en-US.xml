@@ -18,6 +18,7 @@
     <string name="NOT_FOUND_OBJECT">Unkown %(object_name)s.</string>
     <string name="INVALID_TOTAL_WEIGHT">All the weights must add up to 100%.</string>
 	<string name="INVALID_REF">Invalid reference to %(field_name)s with key %(key)s.</string>
+    <string name="NO_RELATED_CILO">No related CILO were specified. Please specify at least one course CILO.</string>
 
     <!--base-->
     <string name="COURSES">Courses</string>

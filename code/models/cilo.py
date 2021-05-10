@@ -18,9 +18,9 @@ class CILO(SaveableModel):
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     cilo_index = db.Column(db.Integer)
     cilo_description = db.Column(db.String(1024))
-    display = db.Column(db.Boolean)
+    revision = db.Column(db.Integer)
 
-    def __init__(self, course_id, cilo_index, cilo_description):
+    def __init__(self, course_id, cilo_index, cilo_description, revision):
         # Clean the data
         course_id = str(course_id).strip()
         cilo_index = str(cilo_index).strip()
@@ -38,17 +38,12 @@ class CILO(SaveableModel):
         self.course_id = course_id
         self.cilo_index = cilo_index
         self.cilo_description = cilo_description
-        self.display = True
+        self.revision = revision
 
-    def edit_cilo(self, cilo):  
-        # The description is the same, no need to change
-        if cilo['cilo_description'] == self.cilo_description:
-            return
-
-        new_cilo = CILO(self.course_id, self.cilo_index, cilo['cilo_description'])
+    def edit_cilo(self, cilo, revision):
+        new_cilo = CILO(self.course_id, self.cilo_index, cilo['cilo_description'], revision)
         new_cilo.save()
 
-        self.display = False
         self.save()
 
     def get_cilo_performance(self) -> dict:
@@ -73,4 +68,8 @@ class CILO(SaveableModel):
     @classmethod
     def find_cilos_by_course_id(cls, course_id) -> list:
         return cls.query.filter_by(course_id=course_id).all()
-        
+
+    @classmethod
+    def find_cilo_by_course_id_and_cilo_index(cls, course_id, cilo_index) -> list:
+        return cls.query.filter_by(course_id=course_id, cilo_index=cilo_index).first()
+

@@ -29,11 +29,10 @@ class Course(SaveableModel):
     course_name = db.Column(db.String(128))
     course_code = db.Column(db.String(16))
     course_type_id = db.Column(db.Integer, db.ForeignKey('course_type.id'))
-    since_semester_id = db.Column(db.Integer, db.ForeignKey('semester.id'))
-    ends_semester_id = db.Column(db.Integer, db.ForeignKey('semester.id'), nullable=True)
     program_degree_id = db.Column(db.Integer, db.ForeignKey('semester.id'))
+    revision = db.Column(db.Integer, default=0)
 
-    def __init__(self, course_name, course_code, course_type_id, program_degree_id, since, ends=None):
+    def __init__(self, course_name, course_code, course_type_id, program_degree_id):
         """since and ends should be a list or tuple. The first element is the year 
         and the second element indicates the term
         """        
@@ -51,11 +50,7 @@ class Course(SaveableModel):
         course_type = models.course_type.CourseType.find_course_type_by_id(course_type_id)
         if course_type is None:
             raise ErrorMessage(get_str('INVALID_REF', ref_name='course type id', key=course_type_id))
-        assert len(since) == 2
-        since_semester = models.semester.Semester.get_semester(since[0], since[1])
-        if ends is not None:
-            assert len(ends) == 2
-            ends_semester = models.semester.Semester.get_semester(ends[0], ends[1])  
+        
         program_degree = models.program_degree.ProgramDegree.find_program_degree_by_id(program_degree_id)
         if program_degree is None:
             raise ErrorMessage(get_str('INVALID_REF', ref_name='program degree id', key=program_degree_id))
@@ -64,9 +59,6 @@ class Course(SaveableModel):
         self.course_name = course_name
         self.course_code = course_code
         self.course_type_id = course_type_id
-        self.since_semester_id = since_semester.id
-        if ends is not None:
-            self.ends_semester_id = ends_semester.id
         self.program_degree_id = program_degree.id
 
     def add_cilos(self, cilos: list):
@@ -94,7 +86,7 @@ class Course(SaveableModel):
                     ]
         """
         for cilo in cilos:
-            cilo_obj = models.cilo.CILO(self.id, cilo['cilo_index'], cilo['cilo_description'])
+            cilo_obj = models.cilo.CILO(self.id, cilo['cilo_index'], cilo['cilo_description'], 0)
             cilo_obj.save()
 
             # Add dependency relationships
@@ -102,10 +94,9 @@ class Course(SaveableModel):
                 linkage_obj = models.cilo_dependency.CILODependency(self.id, cilo_obj.id, denpend_cilo_id)
                 linkage_obj.save()
 
+    def revise_course(self, cilos: list, methods: list):
+        """Perform a course revision. In other words, update the course's CILOs and assessment methods
 
-    def edit_cilos(self, cilos: list):
-        """Edit CILOs to the current course
-        
         Args:
             cilos: a list of dictionaries containing the information of ALL the CILOs
                 An example of the list goes as follows:
@@ -129,55 +120,6 @@ class Course(SaveableModel):
                             "depending_cilos": []
                         },
                     ]
-        """
-        for cilo in cilos:
-            cilo_obj = models.cilo.CILO.find_cilo_by_id(cilo['id'])
-            if cilo_obj is None:
-                raise ErrorMessage(get_str('INVALID_MODIFICATION'))
-            if cilo_obj.course_id != self.id:
-                raise ErrorMessage(get_str('NOT_FOUND_OBJECT', object_name='CILO'))
-            cilo_obj.edit_cilo(cilo)
-
-    def add_assessment_methods(self, methods: list):
-        """Add assessment method to the current course
-        
-        Args:
-            methods: a list of dictionaries containing the information of ALL the 
-                assessment methods. An example of the list goes as follows:
-                    [
-                        {
-                            "method_index": 0,
-                            "method_name": "Assignments",
-                            "weight": 40
-                        },
-                        {
-                            "method_index": 1,
-                            "method_name": "Group project",
-                            "weight": 30
-                        },
-                        {
-                            "method_index": 2,
-                            "method_name": "Final examination",
-                            "weight": 30
-                        },
-                    ]
-        """
-        # Check for the weights (in total, it should add up to 100%)
-        weight_total = 0
-        for method in methods:
-            weight_total = weight_total + method['weight']
-        if weight_total != 100:
-            raise ErrorMessage('INVALID_TOTAL_WEIGHT')
-        
-        # Add methods to database
-        for method in methods:
-            method_obj = models.assessment_method.AssessmentMethod(
-                self.id, method['method_name'], method['weight'])
-
-    def edit_assessment_methods(self, methods: list):
-        """Edit assessment methods of the current course
-        
-        Args:
             methods: a list of dictionaries containing the information of ALL the 
                 assessment methods. An example of the list goes as follows:
                     [
@@ -201,6 +143,77 @@ class Course(SaveableModel):
                         },
                     ]
         """
+        pass
+
+
+    def edit_cilos(self, cilos: list):
+        for cilo in cilos:
+            cilo_obj = models.cilo.CILO.find_cilo_by_id(cilo['id'])
+            if cilo_obj is None:
+                raise ErrorMessage(get_str('INVALID_MODIFICATION'))
+            if cilo_obj.course_id != self.id:
+                raise ErrorMessage(get_str('NOT_FOUND_OBJECT', object_name='CILO'))
+            cilo_obj.edit_cilo(cilo, self.revision + 1)
+        self.revision = self.revision + 1
+        self.save()
+
+    def add_assessment_methods(self, methods: list):
+        """Add assessment method to the current course
+        
+        Args:
+            methods: a list of dictionaries containing the information of ALL the 
+                assessment methods. An example of the list goes as follows:
+                    [
+                        {
+                            "method_index": 0,
+                            "method_name": "Assignments",
+                            "weight": 40,
+                            "cilos_addressed": []  // 
+                        },
+                        {
+                            "method_index": 1,
+                            "method_name": "Group project",
+                            "weight": 30,
+                            "cilos_addressed": []
+                        },
+                        {
+                            "method_index": 2,
+                            "method_name": "Final examination",
+                            "weight": 30,
+                            "cilos_addressed": []
+                        },
+                    ]'
+                Note: In the list `cilos_addressed`, it contains the INDEX of 
+                    the course's CILOs, NOT the id of the CILO.
+        """
+        # Check for "cilos_addressed"
+        for method in methods:
+            if len(method['cilos_addressed']) == 0:
+                raise ErrorMessage(get_str('NO_RELATED_CILO'))
+
+        # Check for the weights (in total, it should add up to 100%)
+        weight_total = 0
+        for method in methods:
+            weight_total = weight_total + method['weight']
+        if weight_total != 100:
+            raise ErrorMessage('INVALID_TOTAL_WEIGHT')
+        
+        # Add methods to database
+        for method in methods:
+            method_obj = models.assessment_method.AssessmentMethod(
+                self.id, method['method_name'], method['weight'], method['cilos_addressed'], method['since'], 0)
+            method_obj.save()
+
+            # Add linkage between assessment method and CILO
+            for cilo_index in method['cilos_addressed']:
+                linkage_obj = models.cilo_assessment_method.CILOAssessmentMethod(self.id, method_obj.id, cilo_index)
+                linkage_obj.save()
+
+    def edit_assessment_methods(self, methods: list):
+        """Edit assessment methods of the current course
+        
+        
+        """
         # Check for the weights (in total, it should add up to 100%)
         weight_total = 0
         for method in methods:
@@ -213,25 +226,6 @@ class Course(SaveableModel):
             if method_obj is None:
                 raise ErrorMessage(get_str('NOT_FOUND_OBJECT', object_name='method'))
             method_obj.edit_assessment_methods()
-
-
-    def get_couse_type(self):
-        return models.course_type.CourseType.find_course_type_by_id(self.course_type_id)
-
-    def get_since(self):
-        return models.semester.Semester.find_semester_by_id(self.since_semester_id)
-
-    def get_ends(self):
-        return models.semester.Semester.find_semester_by_id(self.ends_semester_id)
-
-    def get_program(self):
-        return models.program_degree.ProgramDegree.find_program_degree_by_id(self.program_degree_id)
-
-    def get_cilos(self):
-        return models.cilo.CILO.find_cilos_by_course_id(self.id)
-
-    def get_assessment_methods(self):
-        return models.program_degree.ProgramDegree.find_program_degree_by_id(self.program_degree_id)
 
     def get_course_prerequisites(self):
         return db.session.query(Course).from_statement(
@@ -254,6 +248,24 @@ class Course(SaveableModel):
                 WHERE course.id = cilo.course_id 
                 AND course.id=:course_id)""")
         ).params(course_id=self.id).all()
+
+    def get_couse_type(self):
+        return models.course_type.CourseType.find_course_type_by_id(self.course_type_id)
+
+    def get_since(self):
+        return models.semester.Semester.find_semester_by_id(self.since_semester_id)
+
+    def get_ends(self):
+        return models.semester.Semester.find_semester_by_id(self.ends_semester_id)
+
+    def get_program(self):
+        return models.program_degree.ProgramDegree.find_program_degree_by_id(self.program_degree_id)
+
+    def get_cilos(self):
+        return models.cilo.CILO.find_cilos_by_course_id(self.id)
+
+    def get_assessment_methods(self):
+        return models.program_degree.ProgramDegree.find_program_degree_by_id(self.program_degree_id)
 
     @classmethod
     def find_course_by_id(cls, id):
