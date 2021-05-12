@@ -13,7 +13,7 @@
     <div id="main" style="width: 1000px;height:600px;"></div>
     
     <script type="text/javascript">
-	
+	//如果要导入数据就用myChart.setOption去设置option！！！
 	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
 	var i = 100;	
@@ -62,7 +62,7 @@
 				
             }, {
                 name: 'distribution',
-				link: 'Calculate'
+				link: 'statistic'
             }],
             // links: [],
             links: [{
@@ -95,6 +95,13 @@
 	//$.getJSON(ROOT_PATH + '/data/asset/data/les-miserables.json', function (graph) {
     //myChart.hideLoading();
 	 //});
+	
+	  myChart.setOption(option);
+        // 处理点击事件并且弹出数据名称
+        myChart.on('click', function (params) {
+            alert("link is " + params.data.link);
+        });
+
     </script>
 </body>
 </html>
