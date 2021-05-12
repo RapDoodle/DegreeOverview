@@ -21,15 +21,15 @@ class BaseTestCase(TestCase):
     def setUp(self):
         # Create a student
         self.test_student = Student('teststudent1', '12345678', 'Test Student 1', 'n830000000')
-        self.test_student.save()
+        self.test_student.save(commit=True)
 
         # Create a lecturer (lecturer)
         self.test_lecturer = Lecturer('testlecturer1', '12345678', 'Test Lecturer 1', 'a100000000')
-        self.test_lecturer.save()
+        self.test_lecturer.save(commit=True)
 
         # Create a course designer
         self.test_course_designer = CourseDesigner('testcd1', '12345678', 'Test Course Designer 1', 'a100000001')
-        self.test_course_designer.save()
+        self.test_course_designer.save(commit=True)
 
     def tearDown(self):
         # pass

@@ -15,7 +15,7 @@ from core.permission import LECTURER
 from core.permission import COURSE_DESIGNER
 
 
-class User(db.Model):
+class User(models.saveable_model.SaveableModel):
     """The model related to users.
 
     Attributes:
@@ -44,11 +44,6 @@ class User(db.Model):
         self.username = username
         self._password = password_hash
         self.full_name = full_name
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-        db.session.refresh(self)
 
     def get_id(self):
         return self.id
