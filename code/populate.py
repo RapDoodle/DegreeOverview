@@ -25,13 +25,13 @@ def main():
 
 def populate_user():
     # Create a student
-    Student('teststudent1', '12345678', 'Test Student 1', 'n830000000').save()
+    Student('teststudent1', '12345678', 'Test Student 1', 'n830000000').save(commit=True)
 
     # Create a lecturer (lecturer)
-    Lecturer('testlecturer1', '12345678', 'Test Lecturer 1', 'a100000000').save()
+    Lecturer('testlecturer1', '12345678', 'Test Lecturer 1', 'a100000000').save(commit=True)
 
     # Create a course designer
-    CourseDesigner('testcd1', '12345678', 'Test Course Designer 1', 'a100000001').save()
+    CourseDesigner('testcd1', '12345678', 'Test Course Designer 1', 'a100000001').save(commit=True)
 
 
 def populate_semester():
@@ -129,7 +129,7 @@ def populate_course():
     all_courses = []
 
     for idx, course in enumerate(courses):
-        course.save()
+        course.save(commit=True)
         all_courses.append(course)
 
         if idx == 0:
