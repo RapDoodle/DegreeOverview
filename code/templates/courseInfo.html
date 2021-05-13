@@ -16,26 +16,44 @@
   <h1 class="h3 mb-3 font-weight-normal">Course Information</h1>
   <br>
   <!--course info-->
-  <h5 class="text-center">Course Basic Information</h5>
+  <div class="row text-center" style="margin-top: 2%; margin-right: 7%">
+    <h5 class="col">Course Basic Information</h5>
+  </div>
   <br>
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-        <th>CourseName</th>
-        <th>Course Code</th>
-        <th>CILOs</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for i in range (0,3) %}
-      <tr>
-        <td>Course {{ i+1 }}</td>
-        <td>COMP300{{ i }}</td>
-        <td>{{ get_str('CILO') }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="row align-items-start" style="margin-bottom: 1%">
+    <div class="col-4">Course Title: </div>
+    <div class="col-4">Course Code: </div>
+  </div>
+  <div class="row align-items-start" style="margin-bottom: 1%">
+    <div class="col-4">Course Type: </div>
+    <div class="col-4">Lecturer: </div>
+  </div>
+  <div class="row align-items-start" style="margin-bottom: 1%">
+    <div class="col">Prerequisites Courses: </div>
+  </div>
+  <div class="row align-items-center" style="margin-top: 2%; margin-right: 7%">
+    <div class="col-10">
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="text-center">
+          <tr>
+            <th colspan=3>CILOs</th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Dependencies</th>
+          </tr>
+        </thead>
+        {% for i in range (0,3) %}
+        <tr>
+          <td>CILO {{ i+1 }}</td>
+          <td>CILO Description {{ i+1 }}</td>
+          <td>Dependencies {{ i+1 }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    </div>
   {% if session['user_type'] != STUDENT %}
   <!--Analysis Results-->
   <br>
@@ -46,17 +64,17 @@
       <table class="table table-bordered table-striped table-hover">
         <thead>
           <tr>
-            <th>CourseName</th>
-            <th>Course Code</th>
-            <th>CILOs</th>
+            <th>Name</th>
+            <th>Related CILOs</th>
+            <th>Percentage</th>
           </tr>
         </thead>
         <tbody>
           {% for i in range (0,3) %}
           <tr>
-            <td>Course {{ i+1 }}</td>
-            <td>COMP300{{ i }}</td>
-            <td><span class="fa fa-share"></span></td>
+            <td>Assignment</td>
+            <td>CILO 1, 4</td>
+            <td>25%</td>
           </tr>
           {% endfor %}
         </tbody>
