@@ -23,12 +23,19 @@ def main():
         populate_program()
         populate_degree()
         populate_type()
-        # populate_course()
+        populate_course()
 
 
 def populate_user():
     # Create a student
-    Student('teststudent1', '12345678', 'Test Student 1', 'n830000000').save(commit=True)
+    Student('teststudent1', '12345678', 'Test Student 1', 'n830026001').save(commit=True)
+    Student('teststudent2', '12345678', 'Test Student 2', 'n830026002').save(commit=True)
+    Student('teststudent3', '12345678', 'Test Student 3', 'n830026003').save(commit=True)
+    Student('teststudent4', '12345678', 'Test Student 4', 'n830026004').save(commit=True)
+    Student('teststudent5', '12345678', 'Test Student 5', 'n830026005').save(commit=True)
+    Student('teststudent6', '12345678', 'Test Student 6', 'n830026006').save(commit=True)
+    Student('teststudent7', '12345678', 'Test Student 7', 'n830026007').save(commit=True)
+    Student('teststudent8', '12345678', 'Test Student 8', 'n830026008').save(commit=True)
 
     # Create a lecturer (lecturer)
     Lecturer('testlecturer1', '12345678', 'Test Lecturer 1', 'a100000000').save(commit=True)
@@ -133,159 +140,437 @@ def populate_type():
 
 def populate_course():
     courses = [
-        Course(
-            course_name='Linear Algebra', 
-            course_code='MATH1003', 
-            course_type_id=1,
-            program_degree_id=12),
-        Course(
-            course_name='Data Structures and Algorithms', 
-            course_code='COMP2003', 
-            course_type_id=1,
-            program_degree_id=12),
-        Course(
-            course_name='Object-Oriented Programming', 
-            course_code='COMP2013', 
-            course_type_id=1,
-            program_degree_id=12),
-        Course(
-            course_name='Operating Systems', 
-            course_code='COMP3033', 
-            course_type_id=2,
-            program_degree_id=12),
-        Course(
-            course_name='Software Testing', 
-            course_code='COMP3123', 
-            course_type_id=2,
-            program_degree_id=12),
-        Course(
-            course_name='Quantum Finance and Intelligent Financial Trading Systems', 
-            course_code='COMP4153', 
-            course_type_id=2,
-            program_degree_id=12),
+        {
+            "course_name": "Speaking of Statistics",
+            "course_code": "GCNU1003",
+            "course_type_id": 3,
+            "program_id": 27,
+            "effective_since": 2012,
+            "cilos": [
+                {
+                    "cilo_index": 1,
+                    "cilo_description": "Manipulate the tool of statistics for exploring quantitative relationships",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 2,
+                    "cilo_description": "Apply statistics to identify, model and solve relevant problems in our society",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 3,
+                    "cilo_description": "Explain the interrelationships between everyday phenomena and statistics",
+                    "depending_cilos": []
+                }
+            ],
+            "assessment_methods": [
+                {
+                    "method_index": 1,
+                    "method_name": "Quizzes",
+                    "weight": 10,
+                    "cilos_addressed": [1]
+                },
+                {
+                    "method_index": 2,
+                    "method_name": "Assignments",
+                    "weight": 20,
+                    "cilos_addressed": [2, 3]
+                },
+                {
+                    "method_index": 3,
+                    "method_name": "Group projects",
+                    "weight": 20,
+                    "cilos_addressed": [2, 3]
+                },
+                {
+                    "method_index": 4,
+                    "method_name": "Mid-term test",
+                    "weight": 10,
+                    "cilos_addressed": [1, 2, 3]
+                },
+                {
+                    "method_index": 5,
+                    "method_name": "Final examination",
+                    "weight": 40,
+                    "cilos_addressed": [2, 3]
+                }
+            ]
+        },
+        {
+            "course_name": "Structured Programming",
+            "course_code": "COMP1003",
+            "course_type_id": 1,
+            "program_id": 20,
+            "effective_since": 2019,
+            "cilos": [
+                {
+                    "cilo_index": 1,
+                    "cilo_description": "Explain the basic principles of structured programming;",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 2,
+                    "cilo_description": "Use a structured programming language and apply structured programming principles to develop medium-scale program individually and as a team ",
+                    "depending_cilos": []
+                }
+            ],
+            "assessment_methods": [
+                {
+                    "method_index": 1,
+                    "method_name": "Assignments / Quizzes",
+                    "weight": 15,
+                    "cilos_addressed": [1]
+                },
+                {
+                    "method_index": 2,
+                    "method_name": "Labs",
+                    "weight": 25,
+                    "cilos_addressed": [2]
+                },
+                {
+                    "method_index": 3,
+                    "method_name": "Projects",
+                    "weight": 10,
+                    "cilos_addressed": [1, 2]
+                },
+                {
+                    "method_index": 4,
+                    "method_name": "Examination",
+                    "weight": 50,
+                    "cilos_addressed": [1, 2]
+                }
+            ]
+        },
+        {
+            "course_name": "Data Structures and Algorithms",
+            "course_code": "COMP2003",
+            "course_type_id": 1,
+            "program_id": 20,
+            "effective_since": 2016,
+            "cilos": [
+                {
+                    "cilo_index": 1,
+                    "cilo_description": "Describe abstract data types such as heaps, trees and graphs",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 2,
+                    "cilo_description": "CILO 2	Implement abstract data types such as heaps, trees and graphs using C++",
+                    "depending_cilos": [5]
+                },
+                {
+                    "cilo_index": 3,
+                    "cilo_description": "Design efficient algorithm using appropriate data structures to basic problems such as sorting and searching",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 4,
+                    "cilo_description": "Evaluate the complexity of algorithms",
+                    "depending_cilos": []
+                }
+            ],
+            "assessment_methods": [
+                {
+                    "method_index": 1,
+                    "method_name": "Written Assignments",
+                    "weight": 15,
+                    "cilos_addressed": [1, 4]
+                },
+                {
+                    "method_index": 2,
+                    "method_name": "Programming Assignments",
+                    "weight": 15,
+                    "cilos_addressed": [1, 2, 3]
+                },
+                {
+                    "method_index": 3,
+                    "method_name": "Midterm Test",
+                    "weight": 30,
+                    "cilos_addressed": [1, 4]
+                },
+                {
+                    "method_index": 4,
+                    "method_name": "Final Examination",
+                    "weight": 40,
+                    "cilos_addressed": [1, 3, 4]
+                }
+            ]
+        },
+        {
+            "course_name": "Database Management Systems",
+            "course_code": "COMP3013",
+            "course_type_id": 1,
+            "program_id": 20,
+            "effective_since": 2016,
+            "cilos": [
+                {
+                    "cilo_index": 1,
+                    "cilo_description": "write relational algebra and SQL queries to retrieve information from a database proficiently;",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 2,
+                    "cilo_description": "design a relational database management system;",
+                    "depending_cilos": [5]
+                },
+                {
+                    "cilo_index": 3,
+                    "cilo_description": "write discipline-related documents for a project to be presented; and",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 4,
+                    "cilo_description": "collaborate in a team.",
+                    "depending_cilos": []
+                }
+            ],
+            "assessment_methods": [
+                {
+                    "method_index": 1,
+                    "method_name": "Assignment",
+                    "weight": 10,
+                    "cilos_addressed": [1, 2]
+                },
+                {
+                    "method_index": 2,
+                    "method_name": "Midterm Examination",
+                    "weight": 20,
+                    "cilos_addressed": [1, 2]
+                },
+                {
+                    "method_index": 3,
+                    "method_name": "Group Project",
+                    "weight": 30,
+                    "cilos_addressed": [1, 2, 3, 4]
+                },
+                {
+                    "method_index": 4,
+                    "method_name": "Final Examination",
+                    "weight": 40,
+                    "cilos_addressed": [1, 2]
+                }
+            ]
+        },
+        {
+            "course_name": "Linear Algebra",
+            "course_code": "MATH1003",
+            "course_type_id": 1,
+            "program_id": 20,
+            "effective_since": 2016,
+            "cilos": [
+                {
+                    "cilo_index": 1,
+                    "cilo_description": "Perform basic calculations on a given matrix and find properties for that matrix.",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 2,
+                    "cilo_description": "Identify relationship among different concepts of matrices and prove algebraic statements about them.",
+                    "depending_cilos": [5]
+                },
+                {
+                    "cilo_index": 3,
+                    "cilo_description": "Present basic ideas of matrix use as shown in the textbook or distributed materials. ",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 4,
+                    "cilo_description": "Analyse real problems and apply matrix theory to solve them.",
+                    "depending_cilos": []
+                }
+            ],
+            "assessment_methods": [
+                {
+                    "method_index": 1,
+                    "method_name": "Assignment",
+                    "weight": 15,
+                    "cilos_addressed": [1, 2, 3, 4]
+                },
+                {
+                    "method_index": 2,
+                    "method_name": "Class exercises",
+                    "weight": 5,
+                    "cilos_addressed": [1, 2]
+                },
+                {
+                    "method_index": 3,
+                    "method_name": "Quiz",
+                    "weight": 20,
+                    "cilos_addressed": [1, 2, 3]
+                },
+                {
+                    "method_index": 4,
+                    "method_name": "Final Examination",
+                    "weight": 60,
+                    "cilos_addressed": [1, 2, 3, 4]
+                }
+            ]
+        },
+        {
+            "course_name": "Computer Graphics",
+            "course_code": "COMP4033",
+            "course_type_id": 1,
+            "program_id": 20,
+            "effective_since": 2016,
+            "cilos": [
+                {
+                    "cilo_index": 1,
+                    "cilo_description": "Explain the underlying concepts and write representations of different algorithms of computer graphics.",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 2,
+                    "cilo_description": "Apply fundamental techniques in computer graphics using OpenGL API or Java.",
+                    "depending_cilos": [5, 8]
+                },
+                {
+                    "cilo_index": 3,
+                    "cilo_description": "Present basic ideas of matrix use as shown in the textbook or distributed materials. ",
+                    "depending_cilos": [8]
+                },
+                {
+                    "cilo_index": 4,
+                    "cilo_description": "Analyse real problems and apply matrix theory to solve them.",
+                    "depending_cilos": []
+                }
+            ],
+            "assessment_methods": [
+                {
+                    "method_index": 1,
+                    "method_name": "Assignment",
+                    "weight": 15,
+                    "cilos_addressed": [1, 2, 3, 4]
+                },
+                {
+                    "method_index": 2,
+                    "method_name": "Class exercises",
+                    "weight": 5,
+                    "cilos_addressed": [1, 2]
+                },
+                {
+                    "method_index": 3,
+                    "method_name": "Quiz",
+                    "weight": 20,
+                    "cilos_addressed": [1, 2, 3]
+                },
+                {
+                    "method_index": 4,
+                    "method_name": "Final Examination",
+                    "weight": 60,
+                    "cilos_addressed": [1, 2, 3, 4]
+                }
+            ]
+        },
+        {
+            "course_name": "Operating Systems",
+            "course_code": "COMP3033",
+            "course_type_id": 1,
+            "program_id": 20,
+            "effective_since": 2020,
+            "cilos": [
+                {
+                    "cilo_index": 1,
+                    "cilo_description": "Explain the basic principles of the operating system.",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 2,
+                    "cilo_description": "Implement operating systems concepts in detail.",
+                    "depending_cilos": [5]
+                }
+            ],
+            "assessment_methods": [
+                {
+                    "method_index": 1,
+                    "method_name": "Hands-on Exercise",
+                    "weight": 10,
+                    "cilos_addressed": [1]
+                },
+                {
+                    "method_index": 2,
+                    "method_name": "Programming Assignment",
+                    "weight": 20,
+                    "cilos_addressed": [1, 2]
+                },
+                {
+                    "method_index": 3,
+                    "method_name": "Project",
+                    "weight": 10,
+                    "cilos_addressed": [1, 2]
+                },
+                {
+                    "method_index": 4,
+                    "method_name": "Quiz",
+                    "weight": 10,
+                    "cilos_addressed": [1]
+                },
+                {
+                    "method_index": 5,
+                    "method_name": "Final examination",
+                    "weight": 50,
+                    "cilos_addressed": [1, 2]
+                }
+            ]
+        },
+        {
+            "course_name": "Design and Analysis of Algorithms",
+            "course_code": "COMP3023",
+            "course_type_id": 1,
+            "program_id": 20,
+            "effective_since": 2020,
+            "cilos": [
+                {
+                    "cilo_index": 1,
+                    "cilo_description": "Describe problem solving techniques, such as dynamic programming and greedy, and their representative algorithms",
+                    "depending_cilos": []
+                },
+                {
+                    "cilo_index": 2,
+                    "cilo_description": "Design algorithms to common problems using the techniques introduced.",
+                    "depending_cilos": [7]
+                },
+                {
+                    "cilo_index": 3,
+                    "cilo_description": "Evaluate the correctness of algorithms and their efficiency.",
+                    "depending_cilos": [9]
+                }
+            ],
+            "assessment_methods": [
+                {
+                    "method_index": 1,
+                    "method_name": "Written Assignment",
+                    "weight": 15,
+                    "cilos_addressed": [1, 3]
+                },
+                {
+                    "method_index": 2,
+                    "method_name": "Programming Assignment",
+                    "weight": 15,
+                    "cilos_addressed": [1, 2]
+                },
+                {
+                    "method_index": 3,
+                    "method_name": "Quizzes",
+                    "weight": 30,
+                    "cilos_addressed": [1, 3]
+                },
+                {
+                    "method_index": 4,
+                    "method_name": "Final Examination",
+                    "weight": 40,
+                    "cilos_addressed": [1, 2, 3]
+                }
+            ]
+        },
     ]
 
-    all_courses = []
-
-    for idx, course in enumerate(courses):
-        course.save(commit=True)
-        all_courses.append(course)
-
-        if idx == 0:
-            course.add_cilos([
-                        {
-                            "cilo_index": 0,
-                            "cilo_description": "Perform basic calculations on a given matrix and find properties for that matrix.",
-                            "depending_cilos": [],
-                        },
-                        {
-                            "cilo_index": 1,
-                            "cilo_description": "Identify relationship among different concepts of matrices and prove algebraic statements about them.",
-                            "depending_cilos": []
-                        },
-                        {
-                            "cilo_index": 2,
-                            "cilo_description": "Present basic ideas of matrix use as shown in the textbook or distributed materials.",
-                            "depending_cilos": []
-                        },
-                        {
-                            "cilo_index": 3,
-                            "cilo_description": "Analyse real problems and apply matrix theory to solve them.",
-                            "depending_cilos": []
-                        },
-                    ])
-            
+    for content in courses:
+        course_obj = Course.add_course(content)
         
-        if idx == 3:
-            course.add_cilos([
-                        {
-                            "cilo_index": 0,
-                            "cilo_description": "Explain the conceptual framework of object-oriented programming.",
-                            "depending_cilos": []
-                        },
-                        {
-                            "cilo_index": 1,
-                            "cilo_description": "Programme in JAVA to enable the solution of non-elementary programming tasks.",
-                            "depending_cilos": []
-                        }
-                    ])
-            course.add_assessment_methods([
-                        {
-                            "method_index": 0,
-                            "method_name": "Assignments",
-                            "weight": 40,
-                            "since": (2020, 1),
-                            "cilos_addressed": [1]
-                        },
-                        {
-                            "method_index": 1,
-                            "method_name": "Group project",
-                            "weight": 30,
-                            "since": (2020, 1),
-                            "cilos_addressed": [1]
-                        },
-                        {
-                            "method_index": 2,
-                            "method_name": "Final examination",
-                            "weight": 30,
-                            "since": (2020, 1),
-                            "cilos_addressed": [1]
-                        },
-                    ])
+    db.session.commit()
 
-
-        if idx == 4:
-            course.add_cilos([
-                        {
-                            "cilo_index": 0,
-                            "cilo_description": "Explain the basic principles of the operating system.",
-                            "depending_cilos": [1]
-                        },
-                        {
-                            "cilo_index": 1,
-                            "cilo_description": "Implement operating systems concepts in detail.",
-                            "depending_cilos": [5]
-                        }
-                    ])
-
-        if idx == 5:
-            course.add_cilos([
-                        {
-                            "cilo_index": 0,
-                            "cilo_description": "explain the basic concepts of quantum finance and its underlying technologies;",
-                            "depending_cilos": [1]
-                        },
-                        {
-                            "cilo_index": 1,
-                            "cilo_description": "incorrect cilo;",
-                            "depending_cilos": []
-                        },
-                        {
-                            "cilo_index": 2,
-                            "cilo_description": "apply the quantum finance and intelligent trading methodologies, tools and codes to develop intelligent financial trading systems, individually and as a group.",
-                            "depending_cilos": [1]
-                        },
-                    ])
-
-            course.edit_cilos([
-                        {
-                            "id": 9,
-                            "cilo_index": 0,
-                            "cilo_description": "explain the basic concepts of quantum finance and its underlying technologies;"
-                        },
-                        {
-                            "id": 10,
-                            "cilo_index": 1,
-                            "cilo_description": "formulate financial models and intelligent trading strategies from the quantum finance perspective"
-                        },
-                        {
-                            "id": 11,
-                            "cilo_index": 2,
-                            "cilo_description": "apply the quantum finance and intelligent trading methodologies, tools and codes to develop intelligent financial trading systems, individually and as a group."
-                        },
-                    ])
-
-    for idx, course in enumerate(courses):
+    queried_courses = Course.find_course_by_keyword('')
+    for idx, course in enumerate(queried_courses):
         print('========== ' + str(idx + 1) + ' ==========')
         print(course.course_name)
         print(course.get_cilos())
