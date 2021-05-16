@@ -19,11 +19,11 @@
 	<table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th>CourseName</th>
-        <th>Course Code</th>
-        <th>CILOs</th>
+        <th>{{ get_str('COURSE_NAME') }}</th>
+        <th>{{ get_str('COURSE_CODE') }}</th>
+        <th>{{ get_str('CILOS') }}</th>
         {% if session['user_type'] == COURSE_DESIGNER %}
-          <th>Actions</th>
+          <th>{{ get_str('ACTIONS') }}</th>
         {% endif %}
       </tr>
     </thead>
@@ -32,7 +32,7 @@
       <tr>
         <td>Course {{ i+1 }}</td>
         <td>COMP300{{ i }}</td>
-        <td>{{ get_str('CILO') }}</td>
+        <td>CILO {{i+1}}, {{i+2}}</td>
         {% if session['user_type'] == COURSE_DESIGNER %}
         <td>
 			    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -40,8 +40,8 @@
 		        <span class="fa fa-gear"></span>
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Edit CILOs</a>
-            <a class="dropdown-item" href="#">Modify Assessment Methods</a>
+            <a class="dropdown-item" href="#">{{ get_str('EDIT_CILOS') }}</a>
+            <a class="dropdown-item" href="#">{{ get_str('MODIFY_METHOD') }}</a>
           </div>
 		    </td>
         {% endif %}

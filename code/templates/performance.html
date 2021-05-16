@@ -1,45 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container text-left" style="vertical-align: middle;">
-    <br>
-    <div class="row no-gutters">
-      <div class="col-sm-11">
-	    <h1 class="h3 mb-3 font-weight-normal">Performance</h1>
-      </div>
-      <div class="col-sm-1">
-        <button class="btn btn-outline-link btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        Course Name
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        {% for i in range (0,4) %}
-        <a class="dropdown-item" href="#">Course {{ i+1 }}</a>
-        {% endfor %}
-      </div>
-      </div>
-    <br>
+<div class="row no-gutters" style="margin-left: 5%; margin-right: 5%; margin-top: 2%">
+  <div class="col-sm-9">
+    <h1 class="h3 mb-3 font-weight-normal">{{ get_str('PERFORMANCE') }}</h1>
+  </div>
+  <div class="col-sm-1" style="margin-left:5%; margin-top: 1%">
+    <button class="btn btn-outline-link btn dropdown-toggle" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ get_str('COURSE_NAME') }}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      {% for i in range (0,4) %}
+      <a class="dropdown-item" href="#">Course {{ i+1 }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="row no-gutters" style="margin-left: 5%; margin-right: 5%">
+  <div class="col-sm-12">
     <table class="table table-bordered text-center">
-    <thead class="thead-light">
-      <tr>
-        <th colspan="2">Individual Report</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>CILO</th>
-        <th>Performance</th>
-      </tr>
-      <tr>
-        <td>CILO 1</td>
-        <td>98.75%</td>
-      </tr>
-      <tr>
-        <td>CILO 2</td>
-        <td>96.7%</td>
-      </tr>
-    </tbody>
-	</table>
+      <thead class="thead-light">
+        <tr>
+          <th colspan="2">{{ get_str('PERFORMANCE_REPORT') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>CILO</th>
+          <th>{{ get_str('PERFORMANCE') }}</th>
+        </tr>
+        <tr>
+          <td>CILO 1</td>
+          <td>98.75%</td>
+        </tr>
+        <tr>
+          <td>CILO 2</td>
+          <td>96.7%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 
 {% endblock %}

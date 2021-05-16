@@ -8,7 +8,7 @@
 <div class="container text-center" style="width: 400px; vertical-align: middle;">
     <form class="{{ url_for('login.login') }}" method="post">
       <img class="mb-4" src="/static/logo_horizontal.png" alt="" width=360>
-      <h1 class="h3 mb-3 font-weight-normal">Search</h1>
+      <h1 class="h3 mb-3 font-weight-normal">{{ get_str('SEARCH') }}</h1>
       <br>
         
       <div class="row no-gutters">
@@ -18,8 +18,8 @@
             Type
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Courses</a>
-            <a class="dropdown-item" href="#">CILOs</a>
+            <a class="dropdown-item" href="#">{{ get_str('COURSES') }}</a>
+            <a class="dropdown-item" href="#">{{ get_str('CILOS') }}</a>
           </div>
         </div>
         <div class="col-sm-9">
