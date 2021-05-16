@@ -13,5 +13,6 @@ IMPORT_RESOURCES = {
 IMPORT_BLUEPRINTS = [
     'login',
     'dashboard',
-    'test'
+    'test',
+    'courses'
 ]

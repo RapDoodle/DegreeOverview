@@ -19,8 +19,13 @@
     <string name="INVALID_TOTAL_WEIGHT">All the weights must add up to 100%.</string>
 	<string name="INVALID_REF">Invalid reference to %(field_name)s with key %(key)s.</string>
     <string name="NO_RELATED_CILO">No related CILO were specified. Please specify at least one course CILO.</string>
+    <string name="INVALID_EFFECTIVE_SINCE">The effective year cannot be earlier or equal to the course's latest revision. The latest revision of the course was in %(year)s.</string>
+    <string name="CREATED">The %(obj_name)s has been created.</string>
+    <string name="INVALID_INDEX">Invalid index of %(invalid_index)s while it should be %(correct_index)s. Please check the order before submission.</string>
 
     <!--base-->
+    <string name="COURSE">Course</string>
+    <string name="ACOURSE">course</string>
     <string name="COURSES">Courses</string>
     <string name="PERFORMANCE_REPORT">Performance Report</string>
     <string name="SEARCH">Search</string>

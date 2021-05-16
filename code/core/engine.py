@@ -10,6 +10,7 @@ from flask import current_app
 from core.lang import get_str
 from core.exception import ErrorMessage
 from core.exception import ErrorMessagePromise
+from core.db import db
 
 from core.permission import STUDENT
 from core.permission import LECTURER
@@ -23,16 +24,19 @@ default_context = {
 }
 
 def render(*args, **kwargs):
-    return render_template(*args, **kwargs, **default_context)
+    return render_template(*args, **kwargs, **default_context), kwargs.get('status_code', 200)
 
 
-def render_context(template = ''):
+def render_context(template = '', commit_on_success=True, rollback_on_exception=True):
     def context(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
             data = {}
+            status_code = 200
             try:
                 returned = fn(*args, **kwargs)
+                if commit_on_success:
+                    db.session.commit()
                 if returned is not None:
                     if type(returned) == dict:
                         data = returned
@@ -40,10 +44,16 @@ def render_context(template = ''):
                         return returned
             except (ErrorMessage, ErrorMessagePromise) as e:
                 flash(str(e))
+                status_code = 400
+                if rollback_on_exception:
+                    db.session.rollback()
             except Exception as e:
                 current_app.logger.critical(str(e))
                 traceback.print_exc(file=sys.stdout)
                 flash(get_str('INTERNAL_ERROR'))
-            return render(template, data=data)
+                status_code = 500
+                if rollback_on_exception:
+                    db.session.rollback()
+            return render(template, data=data, status_code=status_code)
         return wrapper
     return context

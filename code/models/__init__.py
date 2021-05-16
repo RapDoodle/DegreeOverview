@@ -11,3 +11,4 @@ import models.semester
 import models.student
 import models.user
 import models.saveable_model
+import models.program

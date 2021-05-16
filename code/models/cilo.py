@@ -18,9 +18,9 @@ class CILO(SaveableModel):
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     cilo_index = db.Column(db.Integer)
     cilo_description = db.Column(db.String(1024))
-    revision = db.Column(db.Integer)
+    course_version_id = db.Column(db.Integer, db.ForeignKey('course_version.id'))
 
-    def __init__(self, course_id, cilo_index, cilo_description, revision):
+    def __init__(self, course_id, cilo_index, cilo_description, course_version_id):
         # Clean the data
         course_id = str(course_id).strip()
         cilo_index = str(cilo_index).strip()
@@ -38,7 +38,7 @@ class CILO(SaveableModel):
         self.course_id = course_id
         self.cilo_index = cilo_index
         self.cilo_description = cilo_description
-        self.revision = revision
+        self.course_version_id = course_version_id
 
     def edit_cilo(self, cilo, revision):
         new_cilo = CILO(self.course_id, self.cilo_index, cilo['cilo_description'], revision)
@@ -49,13 +49,13 @@ class CILO(SaveableModel):
     def get_cilo_performance(self) -> dict:
         pass
 
-    def get_dependent_cilos(self) -> list:
-        return CILO.query(CILO).join(CILO, CILO.id == models.cilo_dependency.CILODependency.cilo_id)\
-            .filter(models.cilo_dependency.CILODependency.cilo_id==to_int(cilo_id)).all()
+    def get_dependee_cilos(self) -> list:
+        """Get the CILOs that this CILOs dependes on."""
+        return models.cilo_dependency.CILODependency.find_dependencies_by_cilo_id(self.id)
 
-    def get_cilos_depended(self) -> list:
-        return CILO.query(CILO).join(CILO, CILO.id == models.cilo_dependency.CILODependency.cilo_id)\
-            .filter(models.cilo_dependency.CILODependency.depending_cilo_id==to_int(cilo_id)).all()
+    def get_dependeding_cilos(self) -> list:
+        """Get the CILOs that depend on this CILO."""
+        return models.cilo_dependency.CILODependency.find_dependencies_by_denpending_cilo_id(self.id)
 
     @classmethod
     def find_cilo_by_id(cls, id: int):
@@ -66,8 +66,8 @@ class CILO(SaveableModel):
         return cls.query.filter(cls.cilo_description.like('%' + keyword + '%')).all()
 
     @classmethod
-    def find_cilos_by_course_id(cls, course_id) -> list:
-        return cls.query.filter_by(course_id=course_id).all()
+    def find_cilos_by_course_id(cls, course_id, course_version_id) -> list:
+        return cls.query.filter_by(course_id=course_id, course_version_id=course_version_id).all()
 
     @classmethod
     def find_cilo_by_course_id_and_cilo_index(cls, course_id, cilo_index) -> list:

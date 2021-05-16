@@ -8,6 +8,8 @@ from models.semester import Semester
 from models.program_degree import ProgramDegree
 from models.course_type import CourseType
 from models.course import Course
+from models.program import Program
+from models.course_version import CourseVersion
 
 
 def main():
@@ -18,9 +20,10 @@ def main():
 
         populate_user()
         populate_semester()
+        populate_program()
         populate_degree()
         populate_type()
-        populate_course()
+        # populate_course()
 
 
 def populate_user():
@@ -40,6 +43,42 @@ def populate_semester():
         for term in [1, 2]:
             Semester.get_semester(year, term)
 
+def populate_program():
+    programs = [
+        'Accounting Programme',
+        'Applied Economics Programme',
+        'e-Business Management and Information Systems Programme',
+        'Entrepreneurship and Innovation Programme',
+        'Finance Programme',
+        'Management of Human Resources Programme',
+        'Marketing Management Programme',
+        'Cinema and Television Programme',
+        'Culture, Creativity and Management Programme',
+        'Media Arts and Design Programme',
+        'Musical Arts Programme',
+        'Applied Translation Studies Programme',
+        'English Language and Literature Studies Programme',
+        'Globalisation and Development Programme',
+        'Media and Communication Studies Programme',
+        'Public Relations and Advertising Programme',
+        'Social Work and Social Administration Programme',
+        'Applied Mathematics Programme',
+        'Applied Psychology Programme',
+        'Computer Science and Technology Programme',
+        'Data Science Programme',
+        'Environmental Science Programme',
+        'Financial Mathematics Programme',
+        'Food Science and Technology Programme',
+        'Statistics Programme',
+        'Whole Person Education',
+        'General Education',
+        'Chinese Language and Culture Centre',
+        'English Language Centre',
+        'Continuing Education'
+    ]
+    for program_name in programs:
+        program = Program(program_name)
+        save(program)
 
 def populate_degree():
     degrees = [
@@ -76,7 +115,7 @@ def populate_degree():
     for degree in degrees:
         program_degree = ProgramDegree(degree)
         save(program_degree)
-    
+
 
 def populate_type():
     course_types = [
