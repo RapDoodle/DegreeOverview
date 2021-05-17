@@ -25,5 +25,9 @@ blueprint = Blueprint('test', __name__, template_folder='templates')
 @blueprint.route('/test/<name>', methods=['GET', 'POST'])
 @render_context()
 def test_route(name):
+    data = {}
+    data['search_type'] = 0
+    # 0 for course
+    # 1 for CILO
     session['user_type'] = 2
-    return render(name + '.html')
+    return render(name + '.html', data=data)

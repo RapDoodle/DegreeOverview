@@ -84,8 +84,6 @@
     <!--Search Results-->
     <string name="SEARCH_RESULTS">Search Results</string>
     <string name="ACTIONS">Actions</string>
-    <string name="EDIT_CILOS">Edit CILOs</string>
-    <string name="MODIFY_METHOD">Modify Assessment Medthods</string>
 
     <!--Course Information-->
     <string name="COURSES_INFO">Course Information</string>
