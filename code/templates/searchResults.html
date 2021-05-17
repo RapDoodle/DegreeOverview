@@ -1,0 +1,742 @@
+{% extends "base.html" %}
+{% macro tag_title() -%}
+{% if session['user_type'] == STUDENT %}
+{{ get_str('STUDENT') }}
+{% elif session['user_type'] == LECTURER %}
+{{ get_str('LECTURER') }}
+{% elif session['user_type'] == COURSE_DESIGNER %}
+{{ get_str('COURSE_DESIGNER') }}
+{% endif %}
+{%- endmacro %}
+{% block title %} {{ tag_title() }} {% endblock%}
+
+{% block content %}
+<div class="container text-left" style="vertical-align: middle;">
+    <br>  
+	<h1 class="h3 mb-3 font-weight-normal">{{ get_str('SEARCH_RESULTS') }}</h1>
+      <br>
+      <!-- Search Table -->
+	<table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+		{% if data['search_type'] == 1 %}
+		  <th>{{ get_str('CILOS') }}</th>
+		{% endif %}
+        <th>{{ get_str('COURSE_NAME') }}</th>
+        <th>{{ get_str('COURSE_CODE') }}</th>
+        {% if session['user_type'] == COURSE_DESIGNER %}
+          <th>{{ get_str('ACTIONS') }}</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in range (0,6) %}
+      <tr>
+		{% if data['search_type'] == 1 %}
+		  <td>CILO {{i+1}}, {{i+2}}</td>
+		{% endif %}
+        <td>Course {{ i+1 }}</td>
+        <td>COMP300{{ i }}</td>
+        {% if session['user_type'] == COURSE_DESIGNER %}
+        <td>
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" id="maangeButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-gear"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target=".edit-CILOs"
+                data-category-id="id" data-category-name="name" data-category-priority="priority">{{
+                get_str('EDIT') }}</a>
+            </div>
+          </div>
+		    </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+	</table>
+
+<!-- Large modal -->
+<!--
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".define-box">Large modal</button>
+-->
+
+
+<div class="modal fade bd-example-modal-lg add-course" tabindex="-1" role="dialog" aria-labelledby="add-course"
+	aria-hidden="true" style="overflow:auto">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h4 class="modal-title" id="myLargeModalLabel">{{ get_str('NEW_COURSE') }}</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<!-- top 7 input areas -->
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<div class="col">
+						<h5>{{ get_str('COURSE_TITLE') }}</h5>
+						<input type="text" class="form-control" id="new-course-title" name="new_couse_title"
+							placeholder="" aria-label="" aria-describedby="basic-addon1">
+					</div>
+					<div class="col">
+						<h5>{{ get_str('LECTURER') }}</h5>
+						<input type="text" class="form-control" id="new-course-lecturer" name="new_course_lecturer"
+							placeholder="" aria-label="" aria-describedby="basic-addon1">
+					</div>
+				</div>
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%">
+					<div class="col">
+						<h5>{{ get_str('COURSE_CODE') }}</h5>
+						<input type="text" class="form-control" id="new-course-code" name="new_course_code"
+							placeholder="" aria-label="" aria-describedby="basic-addon1">
+					</div>
+					<div class="col">
+						<h5>{{ get_str('COURSE_TYPE') }}</h5>
+						<input type="text" class="form-control" id="new-course-type" name="new_course_type"
+							placeholder="" aria-label="" aria-describedby="basic-addon1">
+					</div>
+				</div>
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%">
+					<div class="col-3">
+						<h5>{{ get_str('YEAR') }}</h5>
+						<input type="text" class="form-control" id="new-course-year" name="new_course_year"
+							placeholder="" aria-label="" aria-describedby="basic-addon1">
+					</div>
+					<div class="col-3">
+						<h5>{{ get_str('TERM') }}</h5>
+						<div class="input-group">
+							<input type="text" class="form-control" id="new-course-term" name="new_course_term"
+								placeholder="" aria-label="" aria-describedby="basic-addon1" disabled>
+							<div class="input-group-append">
+								<div class="dropdown" style="display: inline; ">
+
+									<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+										aria-expanded="false" style="float:right">
+
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
+											data-category-id="id" data-category-name="name"
+											data-category-priority="priority" onclick="term_select(1)">1</a>
+										<hr>
+										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
+											data-category-id="category_id" data-category-name="category_name"
+											onclick="term_select(2)">2</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6">
+						<h5>{{ get_str('PROGRAM_DEGREE') }}</h5>
+						<div class="input-group">
+							<input type="text" class="form-control" id="new-course-program-degree"
+								name="new_course_program_degree" placeholder="" aria-label=""
+								aria-describedby="basic-addon1" disabled>
+							<div class="input-group-append">
+								<div class="dropdown" style="display: inline; ">
+
+									<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+										aria-expanded="false" style="float:right">
+
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
+											data-category-id="id" data-category-name="name"
+											data-category-priority="priority" onclick="term_select(1)">1</a>
+										<hr>
+										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
+											data-category-id="category_id" data-category-name="category_name"
+											onclick="term_select(2)">2</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- top 7 input areas end -->
+
+
+				<!-- Pre-requisites -->
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<div class="col">
+						<h5>{{ get_str('PRE-REQUISITES') }}</h5>
+						<table class="table table-bordered table-striped ">
+
+							<tr style="text-align: center;">
+								<th>
+									<h5>{{ get_str('COURSE_NAME') }}</h5>
+								</th>
+							</tr>
+							{% for i in ["test1","test2","test3"] %}
+							<tr style="text-align: center;">
+								<td>{{i}}</td>
+							</tr>
+							{% endfor %}
+
+						</table>
+					</div>
+				</div>
+
+				<!-- CILOs -->
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<h5>{{ get_str('CILOS') }}</h5>
+							</div>
+							<div class="col" style="text-align: right;">
+								<button type="button" class="btn btn-success" id="CILOs-import" data-toggle="modal"
+									data-target=".upload-file">{{ get_str('IMPORT') }}</button>
+								<button type="button" class="btn btn-light" id="CILOs-add">
+									<i class="fa fa-plus"></i>
+								</button>
+							</div>
+
+						</div>
+						<table class="table table-bordered table-striped " id="CILOs-table" style="margin-top: 5px;">
+
+							<tr style="text-align: center;">
+								<th>
+									<h5>{{ get_str('CILO') }}</h5>
+								</th>
+								<th>
+									<h5>{{ get_str('DESCRIPTION') }}</h5>
+								</th>
+								<th>
+									<h5>{{ get_str('DEPENDENCIES') }}</h5>
+								</th>
+								<th></th>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<!-- Assessment methods -->
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<h5>{{ get_str('ASSESSMENT_METHODS') }}</h5>
+							</div>
+							<div class="col" style="text-align: right;">
+								<button type="button" class="btn btn-success" data-toggle="modal"
+									data-target=".upload-file">{{ get_str('IMPORT') }}</button>
+								<button type="button" class="btn btn-light" id="Assessment-methods-add">
+									<i class="fa fa-plus"></i>
+								</button>
+							</div>
+
+						</div>
+						<table class="table table-bordered table-striped " id="Assessment-methods-table"
+							style="margin-top: 5px;">
+
+							<tr style="text-align: center;">
+								<th>
+									<h5>{{ get_str('ASSESSMENT') }}</h5>
+								</th>
+								<th>
+									<h5>{{ get_str('RELATED_CILOS') }}</h5>
+								</th>
+								<th>
+									<h5>{{ get_str('PRECENTAGE') }}</h5>
+								</th>
+								<th></th>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<!-- button area -->
+				<div class="row" style="margin: 2.5%;">
+					<div class="col" style="text-align: right;">
+						<button type="button" class="btn btn-warning" data-dismiss="modal">
+							{{ get_str('CANCEL') }}
+						</button>
+						<button type="button" class="btn btn-primary" style="margin-left: 5px;">
+							{{ get_str('CONFIRM') }}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- define-box -->
+<div class="modal fade bd-example-modal-lg define-box" tabindex="-1" role="dialog" aria-labelledby="define-box"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h4 class="modal-title" id="myLargeModalLabel">{{ get_str('CILO_DEPENDENCIES') }}</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<div class="dropdown" style="display: inline; ">
+
+								<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+									aria-expanded="false" style="float:right">
+									{{ get_str('TYPE') }}
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item" href="#" data-toggle="modal" data-target="#editModal"
+										data-target="#editModal" data-category-id="id" data-category-name="name"
+										data-category-priority="priority">{{ get_str('COURSES') }}</a>
+									<hr>
+									<a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteModal"
+										data-category-id="category_id" data-category-name="category_name">{{
+										get_str('CILOS') }}</a>
+								</div>
+							</div>
+						</div>
+						<input type="text" class="form-control" placeholder="Search" value="" aria-label=""
+							aria-describedby="basic-addon2">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<div class="col">
+						<div class="row">
+							<div class="col" style="text-align: center;">
+								<h5>{{ get_str('SEARCH_RESULTS') }}</h5>
+							</div>
+						</div>
+						<table class="table table-bordered table-striped " style="margin-top: 5px;">
+							<tr style="text-align: center;">
+								<th>
+									<h5>{{ get_str('COURSE') }}</h5>
+								</th>
+								<th>
+									<h5>{{ get_str('CILO') }}</h5>
+								</th>
+								<th style="width: 30px;">
+									<h5>{{ get_str('ACTION') }}</h5>
+								</th>
+							</tr>
+							{% for i in ["1","2","3"] %}
+							<tr style="text-align: center;">
+								<td>{{'Course '+i}}</td>
+								<td>{{'CILO '+i}}</td>
+								<td><button type="button" class="btn btn-light">
+										<i class="fa fa-plus"></i>
+									</button></td>
+							</tr>
+							{% endfor %}
+
+						</table>
+					</div>
+				</div>
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<div class="col">
+						<div class="row">
+							<div class="col" style="text-align: center;">
+								<h5>{{ get_str('ADDED_CILOS') }}</h5>
+							</div>
+						</div>
+						<table class="table table-bordered table-striped " style="margin-top: 5px;">
+
+							<tr style="text-align: center;">
+								<th>
+									<h5>{{ get_str('COURSE') }}</h5>
+								</th>
+								<th>
+									<h5>{{ get_str('CILO') }}</h5>
+								</th>
+								<th style="width: 30px;">
+									<h5>{{ get_str('ACTION') }}</h5>
+								</th>
+							</tr>
+							{% for i in ["1","2","3"] %}
+							<tr style="text-align: center;">
+								<td>{{'Course '+i}}</td>
+								<td>{{'CILO '+i}}</td>
+								<td><button type="button" class="btn btn-light">
+										<i class="fa fa-minus"></i>
+									</button></td>
+							</tr>
+							{% endfor %}
+
+						</table>
+					</div>
+				</div>
+				<div class="row" style="margin: 2.5%;">
+					<div class="col" style="text-align: right;">
+						<button type="button" class="btn btn-warning" data-dismiss="modal">
+							{{ get_str('CANCEL') }}
+						</button>
+						<button type="button" class="btn btn-primary" style="margin-left: 5px;">
+							{{ get_str('CONFIRM') }}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- edit-CILOs and Modify-Assessment-Method -->
+<div class="modal fade bd-example-modal-lg edit-CILOs" tabindex="-1" role="dialog" aria-labelledby="edit-CILOs"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h4 class="modal-title" id="myLargeModalLabel">{{ get_str('EDIT') }}</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<h4>{{ get_str('COURSE_TITLE') }} : Course 1</h4>
+				</div>
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<h4>{{ get_str('COURSE_CODE') }} : COMP3043</h4>
+				</div>
+				<hr>
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<h4>{{ get_str('CILOS') }}</h4>
+							</div>
+						</div>
+						<table class="table table-bordered table-striped " style="margin-top: 5px;">
+
+							<tr style="text-align: center; width: auto;">
+								<th>
+									<h5>{{ get_str('CILO') }}</h5>
+								</th>
+								<th>
+									<h5>{{ get_str('DESCRIPTION') }}</h5>
+								</th>
+
+							</tr>
+							{% for i in ["test1","test2","test3"] %}
+							<tr style="text-align: center;">
+								<td>{{i}}</td>
+								<td><input type="text" class="form-control"
+										placeholder="please input {{ get_str('DESCRIPTION') }}"
+										value="{{i+ get_str('DESCRIPTION') }}" aria-label=""
+										aria-describedby="basic-addon1"
+										style="text-align: left; word-wrap: break-word;"></td>
+
+							</tr>
+							{% endfor %}
+
+						</table>
+					</div>
+				</div>
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<h4>{{ get_str('ASSESSMENT_METHODS') }}</h4>
+							</div>
+						</div>
+						<table class="table table-bordered table-striped " style="margin-top: 5px;">
+
+							<tr style="text-align: center;">
+								<th>
+									<h5>{{ get_str('NAME') }}</h5>
+								</th>
+								<th>
+									<h5>{{ get_str('RELATED_CILOS') }}</h5>
+								</th>
+								<th>
+									<h5>{{ get_str('PRECENTAGE') }}</h5>
+								</th>
+							</tr>
+
+							{% for i in ["test1","test2","test3"] %}
+							<tr style="text-align: center;">
+								<td><input type="text" class="form-control" placeholder="please input name"
+										value="{{'Assignment'}}" aria-label="" aria-describedby="basic-addon1"
+										style="text-align: center;"></td>
+								<td>
+									<div class="input-group ">
+										<input type="text" class="form-control" placeholder="please choose CILOs"
+											value="{{'1,4'}}" aria-label="" aria-describedby="basic-addon2"
+											style="text-align: center;" disabled>
+										<div class="input-group-append">
+											<div class="dropdown" style="display: inline; ">
+
+												<button class="btn btn-outline-secondary dropdown-toggle"
+													data-toggle="dropdown" aria-expanded="false" style="float:right">
+
+												</button>
+												<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+													{% for i in ["1,3","1,2"] %}
+													<div class="input-group mb-3">
+														<div class="input-group-prepend">
+															<div class="input-group-text">
+																<input type="checkbox"
+																	aria-label="Checkbox for following text input"
+																	onchange="">
+															</div>
+														</div>
+														<input type="text" class="form-control" placeholder="{{i}}"
+															aria-label="Text input with checkbox" disabled>
+													</div>
+													{% endfor %}
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</td>
+								<td>25%</td>
+							</tr>
+							{% endfor %}
+
+						</table>
+					</div>
+				</div>
+				<div class="row" style="margin: 2.5%;margin-bottom: 5%">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<h4>{{ get_str('EFFECTIVE_SINCE') }}</h4>
+							</div>
+						</div>
+						<div class="row" style="margin-top:2%">
+							<div class="col">
+								<h5>{{ get_str('YEAR') }}</h5>
+								<input type="text" class="form-control" id="effective-course-year"
+									name="effective_course_year" placeholder="" aria-label=""
+									aria-describedby="basic-addon1">
+							</div>
+							<div class="col">
+								<h5>{{ get_str('TERM') }}</h5>
+								<div class="input-group">
+									<input type="text" class="form-control" id="effective-course-term"
+										name="effective_course_term" placeholder="" aria-label=""
+										aria-describedby="basic-addon1" disabled>
+									<div class="input-group-append">
+										<div class="dropdown" style="display: inline; ">
+
+											<button class="btn btn-outline-secondary dropdown-toggle"
+												data-toggle="dropdown" aria-expanded="false" style="float:right">
+
+											</button>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+												<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
+													data-category-id="id" data-category-name="name"
+													data-category-priority="priority" onclick="term_select(1)">1</a>
+												<hr>
+												<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
+													data-category-id="category_id" data-category-name="category_name"
+													onclick="term_select(2)">2</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="margin: 2.5%;">
+					<div class="col" style="text-align: right;">
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target=".upload-file">
+							{{ get_str('IMPORT') }}
+						</button>
+						<button type="button" class="btn btn-warning" data-dismiss="modal" style="margin-left: 5px;">
+							{{ get_str('CANCEL') }}
+						</button>
+						<button type="button" class="btn btn-primary" style="margin-left: 5px;">
+							{{ get_str('CONFIRM') }}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- upload -->
+<div class="modal fade upload-file" tabindex="-1" role="dialog" aria-labelledby="upload-file" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="newproductModalLabel">{{ get_str('UPLOAD') }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="img-update-form" action="" method="POST" enctype="multipart/form-data">
+					<input type="hidden" name="csrf_token" value="" />
+					<input type="hidden" name="update_type" id="update-type" />
+					<input type="hidden" name="product_id" id="product-id" />
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" id="customFile" name="file" accept="image/*">
+						<label class="custom-file-label" for="customFile">{{ get_str('CHOOSE_FILE') }}</label>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning" data-dismiss="modal">{{ get_str('CANCEL') }}</button>
+				<button type="submit" class="btn btn-primary" form="img-update-form">{{ get_str('UPLOAD') }}</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+	//fix the problem of modal
+	$('.define-box').on('hidden.bs.modal', function (event) {
+		$("body").addClass("modal-open");
+	})
+
+	$('.upload-file').on('hidden.bs.modal', function (event) {
+		$("body").addClass("modal-open");
+	})
+
+	//CILOs add function
+	$(document).ready(function () {
+		$("#CILOs-add").click(function () {
+			var index = $("#CILOs-table tr").length;
+			var CILOsAdditon = '<tr style="text-align: center;"><td class="CILO-order">CILO-' + index + '</td><td><input type="text" class="form-control CILOs-description" id="CILOs-description-' + index + '" title="bad" oninput="descrption_update($(this))" placeholder="please input {{ get_str('DESCRIPTION') }}" value="" aria-label="" aria-describedby="basic-addon1" data-toggle="tooltip" style="text-align: center;"></td><td><button type="button" class="btn btn-info" id="CILOs-define" data-toggle="modal" data-target=".define-box"> {{ get_str('DEFINE') }}</button></td><td><button type="button" class="btn btn-light CILOs-minus" onclick="CILOs_remove(this)"><i class="fa fa-minus"></i></button></td></tr>';
+			$("#CILOs-table").append(CILOsAdditon);
+			get_line_nums();
+		});
+	});
+
+	// $(document).ready(function(){
+	// 	$(".CILOs-minus").click(function(){
+	// 		$(this).parent().parent().remove();
+
+	// 	});
+	// });
+
+	// function test {
+	//  const test = 5
+	//  express.fetch('https://google.com/api?xxxx').then(() => {
+	//   console.log(test);
+	//  })
+	// }
+
+	function minus(obj) {
+		var e = obj;
+		$(e).parent().parent().remove();
+		//console.log("🙃");
+	}
+
+	function term_select(num) {
+		$("#new-course-term").attr("value", num);
+		console.log("😌");
+		console.log("😶");
+		console.log("🙃");
+		console.log("😅");
+		console.log("🤔");
+		console.log("🤨");
+		console.log("😑");
+		console.log("🙄");
+		console.log("😫");
+		console.log("🤐");
+		console.log("😴");
+	}
+
+	//$(document).ready
+	//sleepy, do it tomorrow
+	//related CILOs drop box automatically get values from CILOs table
+
+	//edit CILOs and assessment effective since， format as year and term
+
+	function get_line_nums() {
+		var num = $("#CILOs-table tr").length;
+		var text1 = '<div class="input-group mb-3"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" aria-label="Checkbox for following text input" onchange="" ></div></div><input type="text" class="form-control" placeholder="" aria-label="Text input with checkbox" value="'
+		var text2 = '" disabled></div>'
+		//console.log(num - 1);
+		$(".Related-CILOs-dropmenu").children().remove();
+
+		for (var i = 1; i < num; i++) {
+			$(".Related-CILOs-dropmenu").append(text1 + i + text2)
+		}
+	}
+
+
+	function CILOs_remove(obj) {
+		minus(obj);
+		update_CILOs_table();
+		get_line_nums();
+	}
+
+	//add Assessment methods function
+	$(document).ready(function () {
+		$("#Assessment-methods-add").click(function () {
+			var append_text = '<tr style="text-align: center;"><td><input type="text" class="form-control" placeholder="please input name" value="" aria-label="" aria-describedby="basic-addon1" style="text-align: center;"></td><td><div class="input-group "><input type="text" class="form-control" placeholder="please choose CILOs" value="" aria-label="" aria-describedby="basic-addon2" style="text-align: center;" disabled><div class="input-group-append"><div class="dropdown" style="display: inline; "><button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="float:right"></button><div class="dropdown-menu Related-CILOs-dropmenu" aria-labelledby="dropdownMenuLink"></div></div></div></div></td><td><input type="text" class="form-control" placeholder="please input name" value="25%" aria-label="" aria-describedby="basic-addon1" style="text-align: center;"></td><td><button type="button" class="btn btn-light" onclick="minus(this)"><i class="fa fa-minus"></i></button></td></tr>';
+			$("#Assessment-methods-table").append(append_text);
+			get_line_nums();
+		});
+	});
+
+	$(function () {
+		$('.CILOs-description').tooltip();
+		//console.log("good");
+	});
+
+	// $(function () {
+	// 	$('.CILOs-description').keydown($(this).title = $(this).value);
+	// 	console.log($(this).value);
+	// })
+
+	function descrption_update(obj){
+		var e = obj;
+		
+		// var text = ''+$(e).attr("value")
+		$(e).attr("title",document.getElementById($(e).attr('id')).value)
+		// console.log($(e).attr('title'))
+		//console.log($(e).attr('value'))	
+		// console.log($(text))
+		// console.log($(e).attr('id'));
+		// console.log(document.getElementById($(e).attr('id')).value)
+	}
+
+	//this has still didn't work, please fix it
+	function update_CILOs_table(){
+		var index = 1
+		$("#CILOs-table").children("td.CILO-order").html(() => {
+			var text = "CILO-"+$index
+			$index++
+			return text
+		})
+		$index = 1
+		$("#CILOs-table").children("input.CILOs-description").attr("id",()=>{
+			var text = "CILOs-description-"+$index
+			$index++
+			return text
+		})
+		console.log(1);
+	}
+
+	//-----------please connect Pre-requisites and CILO Dependencies
+
+</script>
+
+{% endblock %}

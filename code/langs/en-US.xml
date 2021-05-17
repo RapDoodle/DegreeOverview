@@ -31,7 +31,6 @@
     <string name="ACOURSE">course</string>
     <string name="COURSES">Courses</string>
     <string name="PERFORMANCE_REPORT">Performance Report</string>
-    <string name="SEARCH">Search</string>
     <string name="OUTCOME_DEPENDENCY">Outcome dependency</string>
     <string name="MENU">Menu</string>
     <string name="LOGOUT">Logout</string>
@@ -82,9 +81,30 @@
     <string name="EFFECTIVE_SINCE">Effective since</string>
     <string name="DEFINE">Define</string>
 
+    <!--Search-->
+    <string name="SEARCH">Search</string>
+
     <!--Search Results-->
     <string name="SEARCH_RESULTS">Search Results</string>
+    <string name="ACTIONS">Actions</string>
 
+    <!--Course Information-->
+    <string name="COURSES_INFO">Course Information</string>
+    <string name="BASICINFO">Course Basic Information</string>
+    <string name="COURSE_TITLE">Course Title</string>
+    <string name="COURSE_CODE">Course Code</string>
+    <string name="COURSE_TYPE">Course Type</string>
+    <string name="LECTURER">Lecturer</string>
+    <string name="PRECOURSES">Prerequisites Courses</string>
+    <string name="DESCRIPTION">Description</string>
+    <string name="DEPENDENCIES">Dependencies</string>
+    <string name="ANALYSIS">Analysis Results</string>
+    <string name="YEAR">Year</string>
+    <string name="RELATED_CILOS">Related CILOs</string>
+    <string name="PERCENTAGE">Percentage</string>
+    
+    <!--Performance-->
+    <string name="PERFORMANCE">Performance</string>
 
     <string name=""></string>
 </resources>
