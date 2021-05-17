@@ -13,34 +13,42 @@ from flask_language import current_language
 from core.engine import render_context
 from core.lang import lang
 from core.lang import get_str
+from core.db import db
+from core.exception import ErrorMessage
 
 from models.user import User
+from models.course import Course
+from models.course_version import CourseVersion
 
 blueprint = Blueprint('courses', __name__, template_folder='templates')
+
 
 @blueprint.route('/courses', methods=['GET', 'POST'])
 @render_context('courses.html')
 def courses():
-    if request.args.get('lang') is not None:
-        lang.change_language(request.args.get('lang'))
+    pass
 
+
+@blueprint.route('/courses/add', methods=['POST'])
+@render_context('courses.html', commit_on_success=False, rollback_on_exception=False)
+def add_course():
     if request.method == 'POST':
-        user = User.find_user_by_username(request.values.get('username'))
-        if user and user.verify_password(request.values.get('password')):
-            session['user_id'] = user.get_id()
-            session['user_type'] = user.get_user_type()
-            session['full_name'] = user.get_full_name()
-            return redirect(url_for('dashboard.dashboard'))
-        else:
-            flash(get_str('INVALID_CREDENTIALS'))
+        content = request.get_json()
+        Course.add_course(content)
+        flash(get_str('CREATED', obj_name=get_str('ACOURSE')))
+
+
+@blueprint.route('/courses/edit', methods=['POST'])
+@render_context('courses.html', commit_on_success=True, rollback_on_exception=True)
+def modify_course():
+    if request.method == 'POST':
+        content = request.get_json()
+        course = Course.find_course_by_id(content['course_id'])
+        if course is None:
+            raise ErrorMessage(get_str('NOT_FOUND_OBJECT', object_name='course'))
+        course.modify_course(content)
 
 
 @blueprint.route('/courses/', methods=['GET', 'POST'])
-def login_redirect():
-    return redirect(url_for('courses.courses'))
-
-
-@blueprint.route('/courses/logout', methods=['GET'])
-def logout():
-    session.clear()
+def empty_redirect():
     return redirect(url_for('courses.courses'))

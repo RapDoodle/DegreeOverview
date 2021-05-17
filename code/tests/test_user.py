@@ -22,15 +22,15 @@ class TestUser(BaseTestCase):
 
         # Student
         self.student = Student('n830000000', self.password, 'Shawn WU', '1830000001')
-        self.student.save()
+        self.student.save(commit=True)
 
         # Lecturer
         self.lecturer = Lecturer('alicelee', self.password, 'Alice LEE', 'a200000001')
-        self.lecturer.save()
+        self.lecturer.save(commit=True)
 
         # Course Designer
         self.cd = CourseDesigner('davidwong', self.password, 'David WONG', 'a200000002')
-        self.cd.save()
+        self.cd.save(commit=True)
 
     def test_user_verify_password(self):
         # Student

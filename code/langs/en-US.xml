@@ -2,6 +2,7 @@
     <string name="INTERNAL_ERROR">Server internal error.</string>
     <string name="NOT_FOUND">Not found.</string>
     <string name="INVALID_CREDENTIALS">Invalid username or password.</string>
+    <string name="PERMISSION_DENIED">Permission denied. You do not have permission for the operation.</string>
     <string name="LOGIN">Login</string>
     <string name="USERNAME">Username</string>
     <string name="PASSWORD">Password</string>
@@ -16,14 +17,20 @@
 	<string name="INVALID_REF">Invalid reference to %(field_name)s with key %(key_name)s.</string>
     <string name="INVALID_MODIFICATION">The form contains invalid data that caused a validation error.</string>
     <string name="NOT_FOUND_OBJECT">Unkown %(object_name)s.</string>
-    <string name="INVALID_TOTAL_WEIGHT">All the weights must add up to 100%.</string>
+    <string name="INVALID_TOTAL_WEIGHT">All the weights must add up to 100%%.</string>
 	<string name="INVALID_REF">Invalid reference to %(field_name)s with key %(key)s.</string>
     <string name="NO_RELATED_CILO">No related CILO were specified. Please specify at least one course CILO.</string>
+    <string name="INVALID_EFFECTIVE_SINCE">The effective year cannot be earlier or equal to the course's latest revision. The latest revision of the course was in %(year)s.</string>
+    <string name="CREATED">The %(obj_name)s has been created.</string>
+    <string name="INVALID_INDEX">Invalid index of %(invalid_index)s while it should be %(correct_index)s. Please check the order before submission.</string>
+    <string name="COURSE_UPDATED">The course %(course_name)s was updated successfully.</string>
+    <string name="CILO_NUM_MISMATCH">The number of CILOs compared to the latest revision does not match.</string>
 
     <!--base-->
+    <string name="COURSE">Course</string>
+    <string name="ACOURSE">course</string>
     <string name="COURSES">Courses</string>
     <string name="PERFORMANCE_REPORT">Performance Report</string>
-    <string name="SEARCH">Search</string>
     <string name="OUTCOME_DEPENDENCY">Outcome dependency</string>
     <string name="MENU">Menu</string>
     <string name="LOGOUT">Logout</string>
@@ -74,9 +81,30 @@
     <string name="EFFECTIVE_SINCE">Effective since</string>
     <string name="DEFINE">Define</string>
 
+    <!--Search-->
+    <string name="SEARCH">Search</string>
+
     <!--Search Results-->
     <string name="SEARCH_RESULTS">Search Results</string>
+    <string name="ACTIONS">Actions</string>
 
+    <!--Course Information-->
+    <string name="COURSES_INFO">Course Information</string>
+    <string name="BASICINFO">Course Basic Information</string>
+    <string name="COURSE_TITLE">Course Title</string>
+    <string name="COURSE_CODE">Course Code</string>
+    <string name="COURSE_TYPE">Course Type</string>
+    <string name="LECTURER">Lecturer</string>
+    <string name="PRECOURSES">Prerequisites Courses</string>
+    <string name="DESCRIPTION">Description</string>
+    <string name="DEPENDENCIES">Dependencies</string>
+    <string name="ANALYSIS">Analysis Results</string>
+    <string name="YEAR">Year</string>
+    <string name="RELATED_CILOS">Related CILOs</string>
+    <string name="PERCENTAGE">Percentage</string>
+    
+    <!--Performance-->
+    <string name="PERFORMANCE">Performance</string>
 
     <string name=""></string>
 </resources>

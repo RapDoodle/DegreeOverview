@@ -18,9 +18,9 @@ class AssessmentMethod(SaveableModel):
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     method_name = db.Column(db.String(128))
     weight = db.Column(db.Integer)
-    revision = db.Column(db.Integer)
+    course_version_id = db.Column(db.Integer, db.ForeignKey('course_version.id'))
 
-    def __init__(self, course_id, method_name, weight, cilos_addressed, since, revision):
+    def __init__(self, course_id, method_name, weight, course_version_id):
         # Clean the data
         course_id = str(course_id).strip()
         method_name = str(method_name).strip()
@@ -36,14 +36,11 @@ class AssessmentMethod(SaveableModel):
         if weight <= 0 or weight > 100:
             raise ErrorMessage(get_str('INVALID_WEIGHT'))
 
-        assert len(since) == 2
-        since_semester = models.semester.Semester.get_semester(since[0], since[1])
-
         # Store the data in the object
         self.course_id = course_id
         self.method_name = method_name
         self.weight = weight
-        self.revision = revision
+        self.course_version_id = course_version_id
 
     def edit_method(self, method):
         new_method = AssessmentMethod(self.course_id, method['name'], method['weight'])
@@ -55,8 +52,8 @@ class AssessmentMethod(SaveableModel):
 
     @classmethod
     def find_assessment_method_by_keyword(cls, keyword: str) -> list:
-        return cls.query.filter(cls.cilo_description.like('%' + keyword + '%')).all()
+        return cls.query.filter(cls.method_name.like('%' + keyword + '%')).all()
 
     @classmethod
-    def find_assessment_methods_by_course_id(cls, course_id) -> list:
-        return cls.query.filter_by(course_id=course_id).all()
+    def find_assessment_methods_by_course_id(cls, course_id, course_version_id) -> list:
+        return cls.query.filter_by(course_id=course_id, course_version_id=course_version_id).all()

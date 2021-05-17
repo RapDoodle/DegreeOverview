@@ -35,14 +35,13 @@ class CILODependency(SaveableModel):
 
     @classmethod
     def find_dependency_by_id(cls, id: int):
-        return cls.query.filter_by(id=to_int(id)).first()
+        return cls.query.filter_by(id=id).first()
 
     @classmethod
-    def find_dependencies_by_cilo_id(cls, cilo_id: str) -> list:
-        return cls.query.filter_by(cilo_id=to_int(cilo_id)).all()
+    def find_dependencies_by_cilo_id(cls, cilo_id: int) -> list:
+        return cls.query.filter_by(cilo_id=cilo_id).all()
 
     @classmethod
-    def find_dependencies_by_denpending_cilo_id(cls, cilo_id: str) -> list:
-        return cls.query.filter_by(depending_cilo_id=to_int(cilo_id)).all()
-        
+    def find_dependencies_by_denpending_cilo_id(cls, cilo_id: int) -> list:
+        return cls.query.filter_by(depending_cilo_id=cilo_id).all()
         

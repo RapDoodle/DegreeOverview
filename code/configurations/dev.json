@@ -16,9 +16,6 @@
             "days": 31
         }
     },
-    "JWT_TOKEN_LOCATION": ["cookies"],
-    "JWT_COOKIE_CSRF_PROTECT": false,
-    "JWT_COOKIE_SECURE": false,
     "ENABLE_HTTPS": false,
     "HTTPS_CERT_PATH": "./security/cert.pem",
     "HTTPS_PRIVATE_KEY_PATH": "./security/privkey.pem"
