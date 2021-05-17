@@ -209,7 +209,7 @@ class Course(SaveableModel):
         for method in methods:
             weight_total = weight_total + method['weight']
         if weight_total != 100:
-            raise ErrorMessage('INVALID_TOTAL_WEIGHT')
+            raise ErrorMessage(get_str('INVALID_TOTAL_WEIGHT'))
         
         # Add methods to database
         for method in methods:
@@ -254,6 +254,12 @@ class Course(SaveableModel):
         """
         current_cilos = self.get_cilos()
         current_assessment_methods = self.get_assessment_methods()
+
+        print()
+
+        # Length validation
+        if len(current_cilos) != len(content['cilos']):
+            raise ErrorMessage(get_str('CILO_NUM_MISMATCH'))
 
         new_course_vesion_obj = models.course_version.CourseVersion(
             course_id=self.id,

@@ -8,17 +8,17 @@ from core.exception import ErrorMessagePromise
 from utils.converter import to_int
 
 
-class ReportEntry(db.Model):
+class StudentReport(db.Model):
     """A student's grade entry"""
-    __tablename__ = 'report_entry'
+    __tablename__ = 'student_report'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     report_id = db.Column(db.Integer, db.ForeignKey('report.id'))
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'))
 
-    def __init__(self, report_id, semester_id):
-        self.semester_id = report_id
-        self.semester_id = semester_id
+    def __init__(self, report_id, student_id):
+        self.report_id = report_id
+        self.student_id = student_id
 
     @classmethod
     def find_report_entry_by_id(cls, id: int):

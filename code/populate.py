@@ -10,6 +10,9 @@ from models.course_type import CourseType
 from models.course import Course
 from models.program import Program
 from models.course_version import CourseVersion
+from models.report import Report
+from models.student_report import StudentReport
+from models.grade_item import GradeItem
 
 
 def main():
@@ -24,6 +27,7 @@ def main():
         populate_degree()
         populate_type()
         populate_course()
+        populate_report()
 
 
 def populate_user():
@@ -255,7 +259,7 @@ def populate_course():
                 },
                 {
                     "cilo_index": 2,
-                    "cilo_description": "CILO 2	Implement abstract data types such as heaps, trees and graphs using C++",
+                    "cilo_description": "Implement abstract data types such as heaps, trees and graphs using C++",
                     "depending_cilos": [5]
                 },
                 {
@@ -576,7 +580,121 @@ def populate_course():
         print(course.get_cilos())
         print(course.get_course_prerequisites())
         print(course.get_dependent_courses())
+    
 
+def populate_report():
+    # Grade for Structured Programming
+    report_obj = Report(
+        course_id=2, 
+        semester_id=24)
+    save(report_obj)
+
+    student_grade_obj_1 = StudentReport(
+        report_id=report_obj.id, 
+        student_id=1)
+    save(student_grade_obj_1)
+
+    grade_item_1_1 = GradeItem(
+        student_report_id=student_grade_obj_1.id, 
+        assessment_method_id=6, 
+        score=96,
+        use_percentage=True)
+    save(grade_item_1_1)
+
+    grade_item_1_2 = GradeItem(
+        student_report_id=student_grade_obj_1.id, 
+        assessment_method_id=6, 
+        score=80,
+        use_percentage=True)
+    save(grade_item_1_2)
+
+    grade_item_1_3 = GradeItem(
+        student_report_id=student_grade_obj_1.id, 
+        assessment_method_id=6, 
+        score=78,
+        use_percentage=True)
+    save(grade_item_1_3)
+
+    grade_item_1_4 = GradeItem(
+        student_report_id=student_grade_obj_1.id, 
+        assessment_method_id=6, 
+        score=64,
+        use_percentage=True)
+    save(grade_item_1_4)
+
+    # Student 2's grade
+    student_grade_obj_2 = StudentReport(
+        report_id=report_obj.id, 
+        student_id=2)
+    save(student_grade_obj_2)
+
+    grade_item_2_1 = GradeItem(
+        student_report_id=student_grade_obj_2.id, 
+        assessment_method_id=6, 
+        score=88,
+        use_percentage=True)
+    save(grade_item_2_1)
+
+    grade_item_2_2 = GradeItem(
+        student_report_id=student_grade_obj_2.id, 
+        assessment_method_id=6, 
+        score=76,
+        use_percentage=True)
+    save(grade_item_2_2)
+
+    grade_item_2_3 = GradeItem(
+        student_report_id=student_grade_obj_2.id, 
+        assessment_method_id=6, 
+        score=92,
+        use_percentage=True)
+    save(grade_item_2_3)
+
+    grade_item_2_4 = GradeItem(
+        student_report_id=student_grade_obj_2.id, 
+        assessment_method_id=6, 
+        score=88,
+        use_percentage=True)
+    save(grade_item_2_4)
+
+    # DSA
+    # Grade for Structured Programming
+    report_obj_2 = Report(
+        course_id=3, 
+        semester_id=26)
+    save(report_obj_2)
+
+    student_grade_obj_3 = StudentReport(
+        report_id=report_obj_2.id, 
+        student_id=1)
+    save(student_grade_obj_3)
+
+    save(GradeItem(
+        student_report_id=student_grade_obj_3.id, 
+        assessment_method_id=10, 
+        score=80,
+        use_percentage=True))
+
+    save(GradeItem(
+        student_report_id=student_grade_obj_3.id, 
+        assessment_method_id=11, 
+        score=76,
+        use_percentage=True))
+
+    save(GradeItem(
+        student_report_id=student_grade_obj_3.id, 
+        assessment_method_id=12, 
+        score=90,
+        use_percentage=True))
+
+    save(GradeItem(
+        student_report_id=student_grade_obj_3.id, 
+        assessment_method_id=13, 
+        score=85,
+        use_percentage=True))
+
+    print(report_obj.get_full_report())
+    print('===========')
+    print(Report.get_student_completed_course(1))
 
 def save(obj):
     db.session.add(obj)
