@@ -138,20 +138,20 @@
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
 											data-category-id="id" data-category-name="name"
-											data-category-priority="priority" onclick="term_select(1)">1</a>
+											data-category-priority="priority" onclick="term_select(this)">1</a>
 										<hr>
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
 											data-category-id="category_id" data-category-name="category_name"
-											onclick="term_select(2)">2</a>
+											onclick="term_select(this)">2</a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-6">
-						<h5>{{ get_str('PROGRAM_DEGREE') }}</h5>
+						<h5>{{ get_str('PROGRAM') }}</h5>
 						<div class="input-group">
-							<input type="text" class="form-control" id="new-course-program-degree"
+							<input type="text" class="form-control" id="new-course-program"
 								name="new_course_program_degree" placeholder="" aria-label=""
 								aria-describedby="basic-addon1" disabled>
 							<div class="input-group-append">
@@ -164,11 +164,11 @@
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
 											data-category-id="id" data-category-name="name"
-											data-category-priority="priority" onclick="term_select(1)">1</a>
+											data-category-priority="priority" onclick="program_select(this)">CST</a>
 										<hr>
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
 											data-category-id="category_id" data-category-name="category_name"
-											onclick="term_select(2)">2</a>
+											onclick="program_select(this)">DS</a>
 									</div>
 								</div>
 							</div>
@@ -623,7 +623,7 @@
 	</div>
 </div>
 
-<button class="btn btn-success" onclick="get_line_nums()"></button>
+<!--<button class="btn btn-success" onclick="get_line_nums()"></button>-->
 
 {% endblock %}
 
@@ -634,7 +634,6 @@
 	$('.define-box').on('hidden.bs.modal', function (event) {
 		$("body").addClass("modal-open");
 	})
-
 	$('.upload-file').on('hidden.bs.modal', function (event) {
 		$("body").addClass("modal-open");
 	})
@@ -643,7 +642,15 @@
 	$(document).ready(function () {
 		$("#CILOs-add").click(function () {
 			var index = $("#CILOs-table tr").length;
-			var CILOsAdditon = '<tr style="text-align: center;"><td class="CILO-order">CILO-' + index + '</td><td><input type="text" class="form-control CILOs-description" id="CILOs-description-' + index + '" title="bad" oninput="descrption_update($(this))" placeholder="please input {{ get_str('DESCRIPTION') }}" value="" aria-label="" aria-describedby="basic-addon1" data-toggle="tooltip" style="text-align: center;"></td><td><button type="button" class="btn btn-info" id="CILOs-define" data-toggle="modal" data-target=".define-box"> {{ get_str('DEFINE') }}</button></td><td><button type="button" class="btn btn-light CILOs-minus" onclick="CILOs_remove(this)"><i class="fa fa-minus"></i></button></td></tr>';
+			var CILOsAdditon = 
+			'<tr style="text-align: center;">\
+				<td class="CILO-order">CILO-' + index + '</td>\
+				<td><input type="text" class="form-control CILOs-description" id="CILOs-description-' + index + '" title=""\
+						oninput="descrption_update($(this))" placeholder="please input {{ get_str('DESCRIPTION') }}" value=""\
+						aria-label="" aria-describedby="basic-addon1" data-toggle="tooltip" style="text-align: center;"></td>\
+				<td><button type="button" class="btn btn-info" id="CILOs-define" data-toggle="modal" data-target=".define-box"> {{get_str('DEFINE') }}</button></td>\
+				<td><button type="button" class="btn btn-light CILOs-minus" onclick="CILOs_remove(this)"><i class="fa fa-minus"></i></button></td>\
+			</tr>';
 			$("#CILOs-table").append(CILOsAdditon);
 			get_line_nums();
 		});
@@ -669,20 +676,31 @@
 		//console.log("🙃");
 	}
 
-	function term_select(num) {
-		$("#new-course-term").attr("value", num);
-		console.log("😌");
-		console.log("😶");
-		console.log("🙃");
-		console.log("😅");
-		console.log("🤔");
-		console.log("🤨");
-		console.log("😑");
-		console.log("🙄");
-		console.log("😫");
-		console.log("🤐");
-		console.log("😴");
+	function term_select(obj) {
+		var e = obj;
+		
+		$("#new-course-term").attr("value", $(e).text());
+		// console.log("😌");
+		// console.log("😶");
+		// console.log("🙃");
+		// console.log("😅");
+		// console.log("🤔");
+		// console.log("🤨");
+		// console.log("😑");
+		// console.log("🙄");
+		// console.log("😫");
+		// console.log("🤐");
+		// console.log("😴");
 	}
+	
+	function program_select(obj) {
+		var e = obj;
+		var text = $(e).text();
+		//console.log(text);
+		$("#new-course-program").attr("value", text);
+	}
+
+
 
 	//$(document).ready
 	//sleepy, do it tomorrow
@@ -692,13 +710,19 @@
 
 	function get_line_nums() {
 		var num = $("#CILOs-table tr").length;
-		var text1 = '<div class="input-group mb-3"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" aria-label="Checkbox for following text input" onchange="" ></div></div><input type="text" class="form-control" placeholder="" aria-label="Text input with checkbox" value="'
-		var text2 = '" disabled></div>'
+		var text1 = 
+		'<div class="input-group mb-3">\
+			<div class="input-group-prepend">\
+				<div class="input-group-text"><input type="checkbox" class="Related_CILOs_CheckBox" aria-label="Checkbox for following text input" value="'
+		var text2 =			'" onchange="test(this)" >\
+				</div>\
+			</div><input type="text" class="form-control related-CILOs-dropbox-value" placeholder="" aria-label="Text input with checkbox" value="'
+		var text3 = '" disabled></div>'
 		//console.log(num - 1);
 		$(".Related-CILOs-dropmenu").children().remove();
 
 		for (var i = 1; i < num; i++) {
-			$(".Related-CILOs-dropmenu").append(text1 + i + text2)
+			$(".Related-CILOs-dropmenu").append(text1 + i + text2 + i + text3)
 		}
 	}
 
@@ -712,12 +736,32 @@
 	//add Assessment methods function
 	$(document).ready(function () {
 		$("#Assessment-methods-add").click(function () {
-			var append_text = '<tr style="text-align: center;"><td><input type="text" class="form-control" placeholder="please input name" value="" aria-label="" aria-describedby="basic-addon1" style="text-align: center;"></td><td><div class="input-group "><input type="text" class="form-control" placeholder="please choose CILOs" value="" aria-label="" aria-describedby="basic-addon2" style="text-align: center;" disabled><div class="input-group-append"><div class="dropdown" style="display: inline; "><button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="float:right"></button><div class="dropdown-menu Related-CILOs-dropmenu" aria-labelledby="dropdownMenuLink"></div></div></div></div></td><td><input type="text" class="form-control" placeholder="please input name" value="25%" aria-label="" aria-describedby="basic-addon1" style="text-align: center;"></td><td><button type="button" class="btn btn-light" onclick="minus(this)"><i class="fa fa-minus"></i></button></td></tr>';
+			var append_text = 
+			'<tr style="text-align: center;">\
+			<td><input type="text" class="form-control" placeholder="please input name" value="" aria-label=""\
+					aria-describedby="basic-addon1" style="text-align: center;"></td>\
+			<td>\
+				<div class="input-group Related-CILOs-input"><input type="text" class="form-control Related-CILOs-input-area" placeholder="please choose CILOs" value=""\
+						aria-label="" aria-describedby="basic-addon2" style="text-align: center;" disabled>\
+					<div class="input-group-append">\
+						<div class="dropdown" style="display: inline; ">\
+							<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"\
+								aria-expanded="false" style="float:right"></button>\
+							<div class="dropdown-menu Related-CILOs-dropmenu" aria-labelledby="dropdownMenuLink"></div>\
+						</div>\
+					</div>\
+				</div>\
+			</td>\
+			<td><input type="text" class="form-control" placeholder="please input name" value="25%" aria-label=""\
+					aria-describedby="basic-addon1" style="text-align: center;"></td>\
+			<td><button type="button" class="btn btn-light" onclick="minus(this)"><i class="fa fa-minus"></i></button></td>\
+		</tr>';
 			$("#Assessment-methods-table").append(append_text);
 			get_line_nums();
 		});
 	});
 
+	//mouse hold message show: title
 	$(function () {
 		$('.CILOs-description').tooltip();
 		//console.log("good");
@@ -740,24 +784,57 @@
 		// console.log(document.getElementById($(e).attr('id')).value)
 	}
 
-	//this has still didn't work, please fix it
+
+	//update CILOs table
+	//let CILOsIndex = 1
 	function update_CILOs_table(){
-		var index = 1
-		$("#CILOs-table").children("td.CILO-order").html(() => {
-			var text = "CILO-"+$index
-			$index++
+		let CILOsIndex = 1
+		//console.log($("#CILOs-table").children("td.CILO-order").index);
+		$("#CILOs-table").find("td.CILO-order").html(() => {
+			var text = "CILO-"+CILOsIndex
+			CILOsIndex++
+			//console.log(text+",,"+CILOsIndex)
 			return text
 		})
-		$index = 1
-		$("#CILOs-table").children("input.CILOs-description").attr("id",()=>{
-			var text = "CILOs-description-"+$index
-			$index++
+		CILOsIndex = 1
+		$("#CILOs-table").find("input.CILOs-description").attr("id",()=>{
+			var text = "CILOs-description-"+CILOsIndex
+			CILOsIndex++
+			//console.log(text+",,"+CILOsIndex)
 			return text
 		})
-		console.log(1);
+		//console.log(1);
 	}
 
-	//-----------please connect Pre-requisites and CILO Dependencies
+
+	function set_new_course_Related_CILOs_value(){}
+	//function(){ return $(this).parents(".input-group").find(".related-CILOs-dropbox-value").attr("value")}
+	
+	var related_CILOs_text = ""
+	function test(obj){
+		var e = obj
+		related_CILOs_text = ""
+		//$(e).parents(".Related-CILOs-dropmenu").css({"color":"red","border":"2px solid red"})
+		//text += $("#Assessment-methods-table").find(".Related_CILOs_CheckBox",":checked").length
+		$(e).parents(".Related-CILOs-dropmenu").find(":checked").each(function() {
+			//related_CILOs_text += $(this).parents(".input-group").find(".related-CILOs-dropbox-value").css({"color":"red","border":"2px solid red"})
+			if(related_CILOs_text===""){
+				related_CILOs_text += + $(this).val()	
+			}else{
+				related_CILOs_text += "," + $(this).val()
+			}
+			//console.log($(this).val());
+		})
+		//console.log(related_CILOs_text);
+		$(e).parents(".Related-CILOs-input").find(".Related-CILOs-input-area").attr("value",related_CILOs_text)
+		
+	}
+	/**
+	 * please connect Pre-requisites and CILO Dependencies
+	 * hide table for CILO define
+	 * (done)Related CILOs get value
+	 * Edit page
+	*/
 
 </script>
 
