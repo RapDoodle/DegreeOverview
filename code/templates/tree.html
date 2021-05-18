@@ -44,6 +44,7 @@ var data = {
         },
         {
             "name": "flex",
+			"flag":1,
             "children": [
                 {"name": "FlareVis", "value": 4116}
             ]
@@ -52,7 +53,7 @@ var data = {
            "name": "query",
            "children": [
             {"name": "AggregateExpression", "value": 1616},
-            {"name": "And", "value": 1027},
+            {"name": "And", "value": 1027,"flag":1},
             {"name": "Arithmetic", "value": 3891},
             {"name": "Average", "value": 891},
             {"name": "BinaryExpression", "value": 2893},
@@ -264,6 +265,15 @@ myChart.setOption(option = {
         }
     ]
 });
+//选择dataIndex可以访问CILOs
+ myChart.on('click', function (params) {
+            //alert("link is " + params.data.link);
+			
+			console.log(params.dataIndex);
+			//再这儿，当然也可以在json里面加flag
+			if(params.dataIndex/2 != 4)
+			window.open('https://www.bilibili.com/video/av545616712/')
+        });
     </script>
 </body>
 </html>
