@@ -182,19 +182,13 @@
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
 					<div class="col">
 						<h5>{{ get_str('PRE-REQUISITES') }}</h5>
-						<table class="table table-bordered table-striped ">
+						<table class="table table-bordered table-striped " id="Pre-requisites-table">
 
 							<tr style="text-align: center;">
 								<th>
 									<h5>{{ get_str('COURSE_NAME') }}</h5>
 								</th>
 							</tr>
-							{% for i in ["test1","test2","test3"] %}
-							<tr style="text-align: center;">
-								<td>{{i}}</td>
-							</tr>
-							{% endfor %}
-
 						</table>
 					</div>
 				</div>
@@ -217,7 +211,7 @@
 						</div>
 						<table class="table table-bordered table-striped " id="CILOs-table" style="margin-top: 5px;">
 
-							<tr style="text-align: center;">
+							<tr class="new-CILOs-tbale-tr" style="text-align: center;">
 								<th>
 									<h5>{{ get_str('CILO') }}</h5>
 								</th>
@@ -337,8 +331,11 @@
 								<h5>{{ get_str('SEARCH_RESULTS') }}</h5>
 							</div>
 						</div>
-						<table class="table table-bordered table-striped " style="margin-top: 5px;">
+						<table class="table table-bordered table-striped define-box-result-table" style="margin-top: 5px;">
 							<tr style="text-align: center;">
+								<th>
+									CILOs unique ID
+								</th>
 								<th>
 									<h5>{{ get_str('COURSE') }}</h5>
 								</th>
@@ -350,10 +347,19 @@
 								</th>
 							</tr>
 							{% for i in ["1","2","3"] %}
-							<tr style="text-align: center;">
-								<td>{{'Course '+i}}</td>
-								<td>{{'CILO '+i}}</td>
-								<td><button type="button" class="btn btn-light">
+							<tr class="CLIOs-define-tr" style="text-align: center;">
+								<td class="CILO-ID-td">{{ i }}</td>
+								<td class="course-name-td">{{'Course '+i}}</td>
+								<td class="CILO-description-td">{{'CILO '+i}}</td>
+								<td class="CILOs-button-td"><button type="button" class="btn btn-light" onclick="CILOs_define_page_add(this)">
+										<i class="fa fa-plus"></i>
+									</button></td>
+							</tr>
+							<tr class="CLIOs-define-tr" style="text-align: center;">
+								<td class="CILO-ID-td">{{ i }}</td>
+								<td class="course-name-td">{{'Course '+i}}</td>
+								<td class="CILO-description-td">{{'CILO '+i}}</td>
+								<td class="CILOs-button-td"><button type="button" class="btn btn-light" onclick="CILOs_define_page_add(this)">
 										<i class="fa fa-plus"></i>
 									</button></td>
 							</tr>
@@ -369,9 +375,12 @@
 								<h5>{{ get_str('ADDED_CILOS') }}</h5>
 							</div>
 						</div>
-						<table class="table table-bordered table-striped " style="margin-top: 5px;">
+						<table class="table table-bordered table-striped define-box-added-table" style="margin-top: 5px;">
 
 							<tr style="text-align: center;">
+								<th>
+									CILOs unique ID
+								</th>
 								<th>
 									<h5>{{ get_str('COURSE') }}</h5>
 								</th>
@@ -383,10 +392,11 @@
 								</th>
 							</tr>
 							{% for i in ["1","2","3"] %}
-							<tr style="text-align: center;">
-								<td>{{'Course '+i}}</td>
-								<td>{{'CILO '+i}}</td>
-								<td><button type="button" class="btn btn-light">
+							<tr class="CLIOs-define-tr" style="text-align: center;">
+								<td class="CILO-ID-td">{{ i }}</td>
+								<td class="course-name-td">{{'Course '+i}}</td>
+								<td class="CILO-description-td">{{'CILO '+i}}</td>
+								<td class="CILOs-button-td"><button type="button" class="btn btn-light" onclick="CILOs_define_page_minus()">
 										<i class="fa fa-minus"></i>
 									</button></td>
 							</tr>
@@ -400,7 +410,7 @@
 						<button type="button" class="btn btn-warning" data-dismiss="modal">
 							{{ get_str('CANCEL') }}
 						</button>
-						<button type="button" class="btn btn-primary" style="margin-left: 5px;">
+						<button type="button" class="btn btn-primary" style="margin-left: 5px;" onclick="write_CILOs()" data-dismiss="modal">
 							{{ get_str('CONFIRM') }}
 						</button>
 					</div>
@@ -641,20 +651,136 @@
 	//CILOs add function
 	$(document).ready(function () {
 		$("#CILOs-add").click(function () {
-			var index = $("#CILOs-table tr").length;
-			var CILOsAdditon = 
-			'<tr style="text-align: center;">\
+			var index = $("#CILOs-table .new-CILOs-tbale-tr").length;
+			var CILOsAdditon = //style="display:none"<tr><td>testetsetstetse</td></tr>
+			'<tr class="new-CILOs-tbale-tr" style="text-align: center;">\
 				<td class="CILO-order">CILO-' + index + '</td>\
 				<td><input type="text" class="form-control CILOs-description" id="CILOs-description-' + index + '" title=""\
 						oninput="descrption_update($(this))" placeholder="please input {{ get_str('DESCRIPTION') }}" value=""\
 						aria-label="" aria-describedby="basic-addon1" data-toggle="tooltip" style="text-align: center;"></td>\
-				<td><button type="button" class="btn btn-info" id="CILOs-define" data-toggle="modal" data-target=".define-box"> {{get_str('DEFINE') }}</button></td>\
+				<td><button type="button" class="btn btn-info" id="CILOs-define" data-toggle="modal" data-target=".define-box" onclick="read_CILOs(this)"> {{get_str('DEFINE') }}</button>\
+					<table class="CILOs-hide-table" id="CILOs-hide-table-'+index+'">\
+						<tr style="text-align: center;">\
+								<th>\
+									CILOs unique ID\
+								</th>\
+								<th>\
+									<h5>{{ get_str('COURSE') }}</h5>\
+								</th>\
+								<th>\
+									<h5>{{ get_str('CILO') }}</h5>\
+								</th>\
+								<th style="width: 30px;">\
+									<h5>{{ get_str('ACTION') }}</h5>\
+								</th>\
+							</tr>\
+						</table>\
+				</td>\
 				<td><button type="button" class="btn btn-light CILOs-minus" onclick="CILOs_remove(this)"><i class="fa fa-minus"></i></button></td>\
 			</tr>';
 			$("#CILOs-table").append(CILOsAdditon);
 			get_line_nums();
 		});
 	});
+
+	//cilos define read function
+	function read_CILOs(obj) {
+		var e = obj
+		var id_text = $(e).parent().find(".CILOs-hide-table").attr("id");
+		var table_concent = $(e).parent().find(".CILOs-hide-table").html();
+		$(".define-box-added-table").children().remove();
+		$(".define-box-added-table").attr("value",id_text);
+		$(".define-box-added-table").append(table_concent);
+		console.log($(".define-box-added-table").attr("value"))
+	}
+
+	function write_CILOs() {
+		var id = "#"+$(".define-box-added-table").attr("value");
+		var update_content = $(".define-box-added-table").html();
+		$(id).children().remove();
+		$(id).append(update_content);
+		update_Pre_requisites();
+	}
+
+	var same_CILO_flag = false;
+	function CILOs_define_page_add(obj) {
+		var e = obj;
+		var e2 = $(e).parents(".CLIOs-define-tr")
+		same_CILO_flag = false;
+		// if($(e2).find(".CILO-ID-td").text()===$(".define-box-added-table").find(".CILO-ID-td").text()){
+		// 	alert("This CILO is already added!");
+		// 	$(e2).remove();
+		// 	return;
+		// }
+		$(".define-box-added-table").find(".CILO-ID-td").each( flag = function() {
+			if($(this).text()===$(e2).find(".CILO-ID-td").text()){
+				alert("This CILO is already added!");
+				//console.log($(e2).html())
+				$(e2).remove();
+				same_CILO_flag = true;
+			}
+		})
+		if(same_CILO_flag){return}
+		var minus = '<button type="button" class="btn btn-light" onclick="CILOs_define_page_minus(this)">\
+										<i class="fa fa-minus"></i>\
+									</button>'
+		$(e).parents(".CILOs-button-td").html(minus);
+		var content = $(e2).html()
+		var content_text = '<tr class="CLIOs-define-tr" style="text-align: center;">'+ content +'</tr>'
+		//console.log($(e2).html())
+		$(".define-box-added-table").append(content_text);
+		$(e2).remove();
+	}
+
+	function CILOs_define_page_minus(obj) {
+		var e = obj;
+		var e2 = $(e).parents(".CLIOs-define-tr")
+		var plus = '<button type="button" class="btn btn-light" onclick="CILOs_define_page_add(this)">\
+										<i class="fa fa-plus"></i>\
+									</button>'
+		$(e).parents(".CILOs-button-td").html(plus);
+		var content = $(e2).html()
+		var content_text = '<tr class="CLIOs-define-tr" style="text-align: center;">'+ content +'</tr>'
+		//console.log($(e2).html())
+		$(".define-box-result-table").append(content_text);
+		$(e2).remove();
+	}
+///////////////////////////////////////////////////////////
+	var Pre_requisites_list
+	function update_Pre_requisites() {
+		
+		Pre_requisites_list = new Array();
+		
+		$("#CILOs-table").find(".course-name-td").each( function () {
+			console.log($(this).text())
+			Pre_requisites_list.push($(this).text())
+		})
+		console.log(Pre_requisites_list);
+		var temp_array = uniq(Pre_requisites_list);
+		console.log(Pre_requisites_list);
+		for(var i = 0;i<temp_array.length;i++){
+			$("#Pre-requisites-table").append('<tr style="text-align: center;"><td>'+ temp_array[i] +"</tr></td>")
+			console.log("<tr><td>"+ temp_array[i] +"</tr></td>")
+		}
+	}
+//!!!!!!!!!!!!!!!!!!!!!!this function has some problems 
+	function uniq(array){
+		var temp = {}, r = [], len = array.length, val, type;
+		for (var i = 0; i < len; i++) {
+			val = array[i];
+			type = typeof val;
+			if (!temp[val]) {
+				temp[val] = [type];
+				r.push(val);
+			} else if (temp[val].indexOf(type) < 0) {
+				temp[val].push(type);
+				r.push(val);
+			}
+		}
+		return r;
+	}
+//////////////////////////////////////////////////////////////
+
 
 	// $(document).ready(function(){
 	// 	$(".CILOs-minus").click(function(){
@@ -709,12 +835,12 @@
 	//edit CILOs and assessment effective since， format as year and term
 
 	function get_line_nums() {
-		var num = $("#CILOs-table tr").length;
+		var num = $("#CILOs-table .new-CILOs-tbale-tr").length;
 		var text1 = 
 		'<div class="input-group mb-3">\
 			<div class="input-group-prepend">\
 				<div class="input-group-text"><input type="checkbox" class="Related_CILOs_CheckBox" aria-label="Checkbox for following text input" value="'
-		var text2 =			'" onchange="test(this)" >\
+		var text2 =			'" onchange="set_new_course_Related_CILOs_value(this)" >\
 				</div>\
 			</div><input type="text" class="form-control related-CILOs-dropbox-value" placeholder="" aria-label="Text input with checkbox" value="'
 		var text3 = '" disabled></div>'
@@ -806,12 +932,9 @@
 		//console.log(1);
 	}
 
-
-	function set_new_course_Related_CILOs_value(){}
 	//function(){ return $(this).parents(".input-group").find(".related-CILOs-dropbox-value").attr("value")}
-	
 	var related_CILOs_text = ""
-	function test(obj){
+	function set_new_course_Related_CILOs_value(obj){
 		var e = obj
 		related_CILOs_text = ""
 		//$(e).parents(".Related-CILOs-dropmenu").css({"color":"red","border":"2px solid red"})
@@ -830,8 +953,9 @@
 		
 	}
 	/**
-	 * hide table for CILO define
-	 * !!!be careful about that we should record the CILOs ID (which is from the server database)
+	 * (done)hide table for CILO define
+	 * (done)!!!be careful about that we should record the CILOs ID (which is from the server database)
+	 * (done)carefual about selecting the same CILO in the search result
 	 * please connect Pre-requisites and CILO Dependencies
 	 * (done)Related CILOs get value
 	 * Edit page, also hide table
