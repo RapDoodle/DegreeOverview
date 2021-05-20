@@ -331,7 +331,8 @@
 								<h5>{{ get_str('SEARCH_RESULTS') }}</h5>
 							</div>
 						</div>
-						<table class="table table-bordered table-striped define-box-result-table" style="margin-top: 5px;">
+						<table class="table table-bordered table-striped define-box-result-table"
+							style="margin-top: 5px;">
 							<tr style="text-align: center;">
 								<th>
 									CILOs unique ID
@@ -351,7 +352,8 @@
 								<td class="CILO-ID-td">{{ i }}</td>
 								<td class="course-name-td">{{'Course '+i}}</td>
 								<td class="CILO-description-td">{{'CILO '+i}}</td>
-								<td class="CILOs-button-td"><button type="button" class="btn btn-light" onclick="CILOs_define_page_add(this)">
+								<td class="CILOs-button-td"><button type="button" class="btn btn-light"
+										onclick="CILOs_define_page_add(this)">
 										<i class="fa fa-plus"></i>
 									</button></td>
 							</tr>
@@ -359,7 +361,8 @@
 								<td class="CILO-ID-td">{{ i }}</td>
 								<td class="course-name-td">{{'Course '+i}}</td>
 								<td class="CILO-description-td">{{'CILO '+i}}</td>
-								<td class="CILOs-button-td"><button type="button" class="btn btn-light" onclick="CILOs_define_page_add(this)">
+								<td class="CILOs-button-td"><button type="button" class="btn btn-light"
+										onclick="CILOs_define_page_add(this)">
 										<i class="fa fa-plus"></i>
 									</button></td>
 							</tr>
@@ -375,7 +378,8 @@
 								<h5>{{ get_str('ADDED_CILOS') }}</h5>
 							</div>
 						</div>
-						<table class="table table-bordered table-striped define-box-added-table" style="margin-top: 5px;">
+						<table class="table table-bordered table-striped define-box-added-table"
+							style="margin-top: 5px;">
 
 							<tr style="text-align: center;">
 								<th>
@@ -396,7 +400,8 @@
 								<td class="CILO-ID-td">{{ i }}</td>
 								<td class="course-name-td">{{'Course '+i}}</td>
 								<td class="CILO-description-td">{{'CILO '+i}}</td>
-								<td class="CILOs-button-td"><button type="button" class="btn btn-light" onclick="CILOs_define_page_minus()">
+								<td class="CILOs-button-td"><button type="button" class="btn btn-light"
+										onclick="CILOs_define_page_minus()">
 										<i class="fa fa-minus"></i>
 									</button></td>
 							</tr>
@@ -410,7 +415,8 @@
 						<button type="button" class="btn btn-warning" data-dismiss="modal">
 							{{ get_str('CANCEL') }}
 						</button>
-						<button type="button" class="btn btn-primary" style="margin-left: 5px;" onclick="write_CILOs()" data-dismiss="modal">
+						<button type="button" class="btn btn-primary" style="margin-left: 5px;" onclick="write_CILOs()"
+							data-dismiss="modal">
 							{{ get_str('CONFIRM') }}
 						</button>
 					</div>
@@ -460,15 +466,14 @@
 								</th>
 
 							</tr>
-							{% for i in ["test1","test2","test3"] %}
-							<tr style="text-align: center;">
-								<td>{{i}}</td>
-								<td><input type="text" class="form-control"
-										placeholder="please input {{ get_str('DESCRIPTION') }}"
-										value="{{i+ get_str('DESCRIPTION') }}" aria-label=""
-										aria-describedby="basic-addon1"
-										style="text-align: left; word-wrap: break-word;"></td>
-
+							{% for i in ['1','2','3'] %}
+							<tr class="Edit-CILOs-tbale-tr" style="text-align: center;">
+								<td class="CILO-order">CILO-{{i}}</td>
+								<td><input type="text" class="form-control CILOs-description"
+										id="edit-CILOs-description-{{i}}" title="" oninput="descrption_update($(this))"
+										placeholder="please input {{ get_str('DESCRIPTION') }}" value="" aria-label=""
+										aria-describedby="basic-addon1" data-toggle="tooltip"
+										style="text-align: center;"></td>
 							</tr>
 							{% endfor %}
 
@@ -494,46 +499,29 @@
 								<th>
 									<h5>{{ get_str('PRECENTAGE') }}</h5>
 								</th>
+								<th></th>
 							</tr>
 
-							{% for i in ["test1","test2","test3"] %}
+							{% for i in ["1","2","3"] %}
 							<tr style="text-align: center;">
-								<td><input type="text" class="form-control" placeholder="please input name"
-										value="{{'Assignment'}}" aria-label="" aria-describedby="basic-addon1"
-										style="text-align: center;"></td>
+								<td><input type="text" class="form-control" placeholder="please input name" value="" aria-label=""
+										aria-describedby="basic-addon1" style="text-align: center;"></td>
 								<td>
-									<div class="input-group ">
-										<input type="text" class="form-control" placeholder="please choose CILOs"
-											value="{{'1,4'}}" aria-label="" aria-describedby="basic-addon2"
+									<div class="input-group Related-CILOs-input"><input type="text" class="form-control Related-CILOs-input-area"
+											placeholder="please choose CILOs" value="" aria-label="" aria-describedby="basic-addon2"
 											style="text-align: center;" disabled>
 										<div class="input-group-append">
 											<div class="dropdown" style="display: inline; ">
-
-												<button class="btn btn-outline-secondary dropdown-toggle"
-													data-toggle="dropdown" aria-expanded="false" style="float:right">
-
-												</button>
-												<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-													{% for i in ["1,3","1,2"] %}
-													<div class="input-group mb-3">
-														<div class="input-group-prepend">
-															<div class="input-group-text">
-																<input type="checkbox"
-																	aria-label="Checkbox for following text input"
-																	onchange="">
-															</div>
-														</div>
-														<input type="text" class="form-control" placeholder="{{i}}"
-															aria-label="Text input with checkbox" disabled>
-													</div>
-													{% endfor %}
-												</div>
+												<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+													aria-expanded="false" style="float:right"></button>
+												<div class="dropdown-menu Related-CILOs-dropmenu" aria-labelledby="dropdownMenuLink"></div>
 											</div>
 										</div>
 									</div>
-
 								</td>
-								<td>25%</td>
+								<td><input type="text" class="form-control" placeholder="please input percentage" value="" aria-label=""
+										aria-describedby="basic-addon1" style="text-align: center;"></td>
+								<td><button type="button" class="btn btn-light" onclick="minus(this)"><i class="fa fa-minus"></i></button></td>
 							</tr>
 							{% endfor %}
 
@@ -653,13 +641,13 @@
 		$("#CILOs-add").click(function () {
 			var index = $("#CILOs-table .new-CILOs-tbale-tr").length;
 			var CILOsAdditon = //style="display:none"<tr><td>testetsetstetse</td></tr>
-			'<tr class="new-CILOs-tbale-tr" style="text-align: center;">\
+				'<tr class="new-CILOs-tbale-tr" style="text-align: center;">\
 				<td class="CILO-order">CILO-' + index + '</td>\
 				<td><input type="text" class="form-control CILOs-description" id="CILOs-description-' + index + '" title=""\
 						oninput="descrption_update($(this))" placeholder="please input {{ get_str('DESCRIPTION') }}" value=""\
 						aria-label="" aria-describedby="basic-addon1" data-toggle="tooltip" style="text-align: center;"></td>\
 				<td><button type="button" class="btn btn-info" id="CILOs-define" data-toggle="modal" data-target=".define-box" onclick="read_CILOs(this)"> {{get_str('DEFINE') }}</button>\
-					<table class="CILOs-hide-table" id="CILOs-hide-table-'+index+'">\
+					<table class="CILOs-hide-table" id="CILOs-hide-table-'+ index + '">\
 						<tr style="text-align: center;">\
 								<th>\
 									CILOs unique ID\
@@ -689,13 +677,13 @@
 		var id_text = $(e).parent().find(".CILOs-hide-table").attr("id");
 		var table_concent = $(e).parent().find(".CILOs-hide-table").html();
 		$(".define-box-added-table").children().remove();
-		$(".define-box-added-table").attr("value",id_text);
+		$(".define-box-added-table").attr("value", id_text);
 		$(".define-box-added-table").append(table_concent);
 		console.log($(".define-box-added-table").attr("value"))
 	}
 
 	function write_CILOs() {
-		var id = "#"+$(".define-box-added-table").attr("value");
+		var id = "#" + $(".define-box-added-table").attr("value");
 		var update_content = $(".define-box-added-table").html();
 		$(id).children().remove();
 		$(id).append(update_content);
@@ -712,21 +700,21 @@
 		// 	$(e2).remove();
 		// 	return;
 		// }
-		$(".define-box-added-table").find(".CILO-ID-td").each( flag = function() {
-			if($(this).text()===$(e2).find(".CILO-ID-td").text()){
+		$(".define-box-added-table").find(".CILO-ID-td").each(function () {
+			if ($(this).text() === $(e2).find(".CILO-ID-td").text()) {
 				alert("This CILO is already added!");
 				//console.log($(e2).html())
 				$(e2).remove();
 				same_CILO_flag = true;
 			}
 		})
-		if(same_CILO_flag){return}
+		if (same_CILO_flag) { return }
 		var minus = '<button type="button" class="btn btn-light" onclick="CILOs_define_page_minus(this)">\
 										<i class="fa fa-minus"></i>\
 									</button>'
 		$(e).parents(".CILOs-button-td").html(minus);
 		var content = $(e2).html()
-		var content_text = '<tr class="CLIOs-define-tr" style="text-align: center;">'+ content +'</tr>'
+		var content_text = '<tr class="CLIOs-define-tr" style="text-align: center;">' + content + '</tr>'
 		//console.log($(e2).html())
 		$(".define-box-added-table").append(content_text);
 		$(e2).remove();
@@ -740,46 +728,42 @@
 									</button>'
 		$(e).parents(".CILOs-button-td").html(plus);
 		var content = $(e2).html()
-		var content_text = '<tr class="CLIOs-define-tr" style="text-align: center;">'+ content +'</tr>'
+		var content_text = '<tr class="CLIOs-define-tr" style="text-align: center;">' + content + '</tr>'
 		//console.log($(e2).html())
 		$(".define-box-result-table").append(content_text);
 		$(e2).remove();
 	}
-///////////////////////////////////////////////////////////
+
 	var Pre_requisites_list
 	function update_Pre_requisites() {
-		
+
 		Pre_requisites_list = new Array();
-		
-		$("#CILOs-table").find(".course-name-td").each( function () {
-			console.log($(this).text())
+
+		$("#CILOs-table").find(".course-name-td").each(function () {
+			//console.log($(this).text())
 			Pre_requisites_list.push($(this).text())
 		})
-		console.log(Pre_requisites_list);
-		var temp_array = uniq(Pre_requisites_list);
-		console.log(Pre_requisites_list);
-		for(var i = 0;i<temp_array.length;i++){
-			$("#Pre-requisites-table").append('<tr style="text-align: center;"><td>'+ temp_array[i] +"</tr></td>")
-			console.log("<tr><td>"+ temp_array[i] +"</tr></td>")
-		}
-	}
-//!!!!!!!!!!!!!!!!!!!!!!this function has some problems 
-	function uniq(array){
-		var temp = {}, r = [], len = array.length, val, type;
-		for (var i = 0; i < len; i++) {
-			val = array[i];
-			type = typeof val;
-			if (!temp[val]) {
-				temp[val] = [type];
-				r.push(val);
-			} else if (temp[val].indexOf(type) < 0) {
-				temp[val].push(type);
-				r.push(val);
+		//console.log(Pre_requisites_list);
+		var temp_array = new Array();
+		for (var i = 0; i < Pre_requisites_list.length; i++) {
+			var flag = true;
+			for (var j = 0; j < temp_array.length; j++) {
+				if (temp_array[j] === Pre_requisites_list[i]) {
+					flag = false;
+					break;
+				}
+			}
+			if (flag) {
+				temp_array.push(Pre_requisites_list[i]);
 			}
 		}
-		return r;
+		$("#Pre-requisites-table").find(".Pre-requisites-tr").remove();
+		//console.log(temp_array);
+		for (var i = 0; i < temp_array.length; i++) {
+			$("#Pre-requisites-table").append('<tr class="Pre-requisites-tr" style="text-align: center;"><td>' + temp_array[i] + "</tr></td>")
+			//console.log("<tr><td>"+ temp_array[i] +"</tr></td>")
+		}
 	}
-//////////////////////////////////////////////////////////////
 
 
 	// $(document).ready(function(){
@@ -804,7 +788,7 @@
 
 	function term_select(obj) {
 		var e = obj;
-		
+
 		$("#new-course-term").attr("value", $(e).text());
 		// console.log("😌");
 		// console.log("😶");
@@ -818,7 +802,7 @@
 		// console.log("🤐");
 		// console.log("😴");
 	}
-	
+
 	function program_select(obj) {
 		var e = obj;
 		var text = $(e).text();
@@ -836,11 +820,11 @@
 
 	function get_line_nums() {
 		var num = $("#CILOs-table .new-CILOs-tbale-tr").length;
-		var text1 = 
-		'<div class="input-group mb-3">\
+		var text1 =
+			'<div class="input-group mb-3">\
 			<div class="input-group-prepend">\
 				<div class="input-group-text"><input type="checkbox" class="Related_CILOs_CheckBox" aria-label="Checkbox for following text input" value="'
-		var text2 =			'" onchange="set_new_course_Related_CILOs_value(this)" >\
+		var text2 = '" onchange="set_new_course_Related_CILOs_value(this)" >\
 				</div>\
 			</div><input type="text" class="form-control related-CILOs-dropbox-value" placeholder="" aria-label="Text input with checkbox" value="'
 		var text3 = '" disabled></div>'
@@ -862,8 +846,8 @@
 	//add Assessment methods function
 	$(document).ready(function () {
 		$("#Assessment-methods-add").click(function () {
-			var append_text = 
-			'<tr style="text-align: center;">\
+			var append_text =
+				'<tr style="text-align: center;">\
 			<td><input type="text" class="form-control" placeholder="please input name" value="" aria-label=""\
 					aria-describedby="basic-addon1" style="text-align: center;"></td>\
 			<td>\
@@ -881,7 +865,7 @@
 			<td><input type="text" class="form-control" placeholder="please input percentage" value="" aria-label=""\
 					aria-describedby="basic-addon1" style="text-align: center;"></td>\
 			<td><button type="button" class="btn btn-light" onclick="minus(this)"><i class="fa fa-minus"></i></button></td>\
-		</tr>';
+			</tr>';
 			$("#Assessment-methods-table").append(append_text);
 			get_line_nums();
 		});
@@ -898,11 +882,11 @@
 	// 	console.log($(this).value);
 	// })
 
-	function descrption_update(obj){
+	function descrption_update(obj) {
 		var e = obj;
-		
+
 		// var text = ''+$(e).attr("value")
-		$(e).attr("title",document.getElementById($(e).attr('id')).value)
+		$(e).attr("title", document.getElementById($(e).attr('id')).value)
 		// console.log($(e).attr('title'))
 		//console.log($(e).attr('value'))	
 		// console.log($(text))
@@ -913,18 +897,18 @@
 
 	//update CILOs table
 	//let CILOsIndex = 1
-	function update_CILOs_table(){
+	function update_CILOs_table() {
 		let CILOsIndex = 1
 		//console.log($("#CILOs-table").children("td.CILO-order").index);
 		$("#CILOs-table").find("td.CILO-order").html(() => {
-			var text = "CILO-"+CILOsIndex
+			var text = "CILO-" + CILOsIndex
 			CILOsIndex++
 			//console.log(text+",,"+CILOsIndex)
 			return text
 		})
 		CILOsIndex = 1
-		$("#CILOs-table").find("input.CILOs-description").attr("id",()=>{
-			var text = "CILOs-description-"+CILOsIndex
+		$("#CILOs-table").find("input.CILOs-description").attr("id", () => {
+			var text = "CILOs-description-" + CILOsIndex
 			CILOsIndex++
 			//console.log(text+",,"+CILOsIndex)
 			return text
@@ -934,33 +918,33 @@
 
 	//function(){ return $(this).parents(".input-group").find(".related-CILOs-dropbox-value").attr("value")}
 	var related_CILOs_text = ""
-	function set_new_course_Related_CILOs_value(obj){
+	function set_new_course_Related_CILOs_value(obj) {
 		var e = obj
 		related_CILOs_text = ""
 		//$(e).parents(".Related-CILOs-dropmenu").css({"color":"red","border":"2px solid red"})
 		//text += $("#Assessment-methods-table").find(".Related_CILOs_CheckBox",":checked").length
-		$(e).parents(".Related-CILOs-dropmenu").find(":checked").each(function() {
+		$(e).parents(".Related-CILOs-dropmenu").find(":checked").each(function () {
 			//related_CILOs_text += $(this).parents(".input-group").find(".related-CILOs-dropbox-value").css({"color":"red","border":"2px solid red"})
-			if(related_CILOs_text===""){
-				related_CILOs_text += + $(this).val()	
-			}else{
+			if (related_CILOs_text === "") {
+				related_CILOs_text += + $(this).val()
+			} else {
 				related_CILOs_text += "," + $(this).val()
 			}
 			//console.log($(this).val());
 		})
 		//console.log(related_CILOs_text);
-		$(e).parents(".Related-CILOs-input").find(".Related-CILOs-input-area").attr("value",related_CILOs_text)
-		
+		$(e).parents(".Related-CILOs-input").find(".Related-CILOs-input-area").attr("value", related_CILOs_text)
+
 	}
 	/**
 	 * (done)hide table for CILO define
 	 * (done)!!!be careful about that we should record the CILOs ID (which is from the server database)
 	 * (done)carefual about selecting the same CILO in the search result
-	 * please connect Pre-requisites and CILO Dependencies
+	 * (done)please connect Pre-requisites and CILO Dependencies
 	 * (done)Related CILOs get value
-	 * Edit page, also hide table
-	 * main page each course should also has hide table
-	 * slider
+	 * Edit page, also hide table(not done yet)
+	 * main page each course should also has hide table(do this first)
+	 * slider user can choose 5,10,15 lines to show and buttons to next or pervious pages
 	*/
 
 </script>
@@ -969,3 +953,23 @@
 
 
 
+<tr style="text-align: center;">
+	<td><input type="text" class="form-control" placeholder="please input name" value="" aria-label=""
+			aria-describedby="basic-addon1" style="text-align: center;"></td>
+	<td>
+		<div class="input-group Related-CILOs-input"><input type="text" class="form-control Related-CILOs-input-area"
+				placeholder="please choose CILOs" value="" aria-label="" aria-describedby="basic-addon2"
+				style="text-align: center;" disabled>
+			<div class="input-group-append">
+				<div class="dropdown" style="display: inline; ">
+					<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+						aria-expanded="false" style="float:right"></button>
+					<div class="dropdown-menu Related-CILOs-dropmenu" aria-labelledby="dropdownMenuLink"></div>
+				</div>
+			</div>
+		</div>
+	</td>
+	<td><input type="text" class="form-control" placeholder="please input percentage" value="" aria-label=""
+			aria-describedby="basic-addon1" style="text-align: center;"></td>
+	<td><button type="button" class="btn btn-light" onclick="minus(this)"><i class="fa fa-minus"></i></button></td>
+</tr>
