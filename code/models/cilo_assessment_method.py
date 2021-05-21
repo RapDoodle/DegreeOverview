@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
 import models
-
-from flask_language import current_language
-
 from core.db import db
 from core.lang import get_str
 from core.exception import ErrorMessage
-
-from utils.validation import is_valid_length
 from utils.converter import to_int
 from models.saveable_model import SaveableModel
 

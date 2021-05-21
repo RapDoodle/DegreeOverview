@@ -1,18 +1,11 @@
 # -*- coding: utf-8 -*-
 import models
-
-from flask_language import current_language
-
 from core.db import db
-from core.lang import get_str
-from core.exception import ErrorMessagePromise
-
-from utils.hash import hash_data
-from utils.hash import verify_hash
-
 from core.permission import STUDENT
 from core.permission import LECTURER
 from core.permission import COURSE_DESIGNER
+from utils.hash import hash_data
+from utils.hash import verify_hash
 
 
 class User(models.saveable_model.SaveableModel):

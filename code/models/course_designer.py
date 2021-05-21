@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask_language import current_language
-
 from core.db import db
-from core.lang import get_str
-from core.exception import ErrorMessagePromise
-
-from models.user import User
 from models.lecturer import Lecturer
 
 

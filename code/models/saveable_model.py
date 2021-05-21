@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+"""This module should be inherited by all models that save
+is an allowed operation in the current system.
+"""
 from core.db import db
 
 

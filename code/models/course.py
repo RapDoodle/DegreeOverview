@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 import models
-
-from flask_language import current_language
 from sqlalchemy.sql import text
-
 from core.db import db
 from core.lang import get_str
 from core.exception import ErrorMessage

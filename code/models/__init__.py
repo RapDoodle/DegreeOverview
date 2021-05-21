@@ -1,17 +1,19 @@
 import models.assessment_method
-import models.cilo
 import models.cilo_assessment_method
 import models.cilo_dependency
+import models.cilo
 import models.course_designer
 import models.course_type
+import models.course_version
 import models.course
+import models.grade_item
 import models.lecturer
 import models.program_degree
-import models.semester
-import models.student
-import models.user
-import models.saveable_model
 import models.program
 import models.report
+import models.saveable_model
+import models.semester
+import models.student
 import models.student_report
-import models.grade_item
+import models.user
+

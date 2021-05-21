@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask_language import current_language
-
 from core.db import db
-from core.lang import get_str
-from core.exception import ErrorMessagePromise
-
-from utils.converter import to_int
-
 
 class StudentReport(db.Model):
     """A student's grade entry"""

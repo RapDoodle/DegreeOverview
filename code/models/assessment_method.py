@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 import models
-
-from flask_language import current_language
-
 from core.db import db
 from core.lang import get_str
 from core.exception import ErrorMessage
 from utils.validation import is_valid_length
 from utils.converter import to_int
 from models.saveable_model import SaveableModel
-
 
 class AssessmentMethod(SaveableModel):
     __tablename__ = 'assessment_method'
@@ -27,8 +23,7 @@ class AssessmentMethod(SaveableModel):
         weight = str(weight).strip()
 
         # Data validation
-        from models.course import Course
-        if not Course.find_course_by_id(course_id):
+        if not models.course.Course.find_course_by_id(course_id):
             raise ErrorMessage(get_str('INVALID_REF', ref_name='course id', key=course_id))        
         if not is_valid_length(method_name, 1, 128):
             raise ErrorMessage(get_str('INVALID_LENGTH', field_name='method name', min_len=1, max_len=128))

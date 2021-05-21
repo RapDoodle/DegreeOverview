@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 import models
-from flask_language import current_language
-
 from core.db import db
-from core.lang import get_str
-from core.exception import ErrorMessagePromise
-
-from utils.converter import to_int
 
 
 class GradeItem(db.Model):
