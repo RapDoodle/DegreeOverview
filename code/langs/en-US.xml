@@ -57,6 +57,7 @@
     <string name="DESCRIPTION">Description</string>
     <string name="DEPENDENCIES">Dependencies</string>
     <string name="ASSESSMENT_METHODS">Assessment methods</string>
+    <string name="ASSESSMENT_METHOD">Assessment method</string>
     <string name="ASSESSMENT">Assessment</string>
     <string name="NAME">Name</string>
     <string name="RELATED_CILOS">Related CILOs</string>
@@ -83,6 +84,10 @@
 
     <!--Search-->
     <string name="SEARCH">Search</string>
+    <string name="SEARCH_TYPE_EMPTY">The search type cannot be empty.</string>
+    <string name="SEARCH_KEYWORD_EMPTY">Keyword not provided.</string>
+    <string name="INVALID_SEARCH_TYPE">Invalid search type.</string>
+
 
     <!--Search Results-->
     <string name="SEARCH_RESULTS">Search Results</string>
@@ -102,9 +107,11 @@
     <string name="YEAR">Year</string>
     <string name="RELATED_CILOS">Related CILOs</string>
     <string name="PERCENTAGE">Percentage</string>
+    <string name="COURSE_NOT_FOUND">Course not found.</string>
+    <string name="NAME">Name</string>
+    <string name="WEIGHTING">Weighting</string>
+    <string name="CILOS_ADDRESSED">CILOs to be addressed</string>
     
     <!--Performance-->
     <string name="PERFORMANCE">Performance</string>
-
-    <string name=""></string>
 </resources>

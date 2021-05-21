@@ -7,33 +7,33 @@
 {% block content %}
 <div class="container text-center">
   <form class="search" method="post">
+    <br>
     <img class="mb-4" src="/static/logo_horizontal.png" alt="" width=360>
     <h1 class="h3 mb-3 font-weight-normal">{{ get_str('SEARCH') }}</h1>
     <br><br>
     <form class="bs-example bs-example-form" role="form">
       <div class="row justify-content-center bg-light">
-        <div class="col-lg-8 align-self-center">
+        <div class="col-lg-10 align-self-center">
           <div class="input-group">
             <div class="input-group-btn">
               <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 {{ get_str('COURSES') }}
               </button>
-              </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" style="margin-top: -1px">
                 <li>
-                  <a class="dropdown-item" href="#" id="type_course" onclick="search_type_select(this)">{{ get_str('COURSES') }}</a>
+                  <a class="dropdown-item" href="#" id="type_course" onclick="search_type_select(this)" data-type="course">{{ get_str('COURSES') }}</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#" id="type_CILO" onclick="search_type_select(this)">{{ get_str('CILOS') }}</a>
+                  <a class="dropdown-item" href="#" id="type_CILO" onclick="search_type_select(this)" data-type="cilo">{{ get_str('CILOS') }}</a>
                 </li>
               </ul>
             </div>
             <label for="Search" class="sr-only">{{ get_str('SEARCH') }}</label>
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search" required=""
-              autofocus="">
+            <input type="text" name="search" class="form-control" placeholder="Search" required=""
+              autofocus="" id="searchKeywords">
             <div>
-              <button class="btn btn-light" type="submit" name="submit"><a href="searchResults">Search</a></button>
+              <button class="btn btn-light" type="button" name="submit" id="searchBtn"><a href="#">Search</a></button>
             </div>
           </div>
         </div>
@@ -60,12 +60,30 @@
   //     
   //   });
   // });
+  var searchType = 'course';
 
-    function search_type_select(obj) {
-      var e = obj
-      var text = $(e).text();
-		//console.log(text);
-		$("#dropdownMenuButton").text(text);
+  $("#searchBtn").on("click", search);
+
+  function search() {
+    window.location.href = '{{ url_for("search.search_result") }}?type=' 
+      + searchType + '&keyword=' + encodeURI($('#searchKeywords').val());
+  }
+
+  $('#searchKeywords').keypress(function(event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    // When entered pressed
+    if(keycode == '13') {
+      event.preventDefault();
+      search();
     }
+  });
+
+  function search_type_select(obj) {
+    var e = obj
+    var text = $(obj).text();
+    searchType = $(obj).attr('data-type');
+    console.log(searchType);
+    $("#dropdownMenuButton").text(text);
+  }
 </script>
 {% endblock %}
