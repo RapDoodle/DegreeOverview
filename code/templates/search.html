@@ -17,15 +17,15 @@
             <div class="input-group-btn">
               <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                {{ get_str('TYPE') }}
+                {{ get_str('COURSES') }}
               </button>
               </button>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" href="#" id="type_course">{{ get_str('COURSES') }}</a>
+                  <a class="dropdown-item" href="#" id="type_course" onclick="search_type_select(this)">{{ get_str('COURSES') }}</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#" id="type_CILO">{{ get_str('CILOS') }}</a>
+                  <a class="dropdown-item" href="#" id="type_CILO" onclick="search_type_select(this)">{{ get_str('CILOS') }}</a>
                 </li>
               </ul>
             </div>
@@ -61,5 +61,11 @@
   //   });
   // });
 
+    function search_type_select(obj) {
+      var e = obj
+      var text = $(e).text();
+		//console.log(text);
+		$("#dropdownMenuButton").text(text);
+    }
 </script>
 {% endblock %}
