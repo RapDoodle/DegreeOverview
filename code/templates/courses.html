@@ -112,9 +112,28 @@
 							placeholder="" aria-label="" aria-describedby="basic-addon1">
 					</div>
 					<div class="col">
-						<h5>{{ get_str('COURSE_TYPE') }}</h5>
-						<input type="text" class="form-control" id="new-course-type" name="new_course_type"
-							placeholder="" aria-label="" aria-describedby="basic-addon1">
+							<h5>{{ get_str('COURSE_TYPE') }}</h5>
+							<div class="input-group">
+								<input type="text" class="form-control" id="new-course-type"
+									name="new_course_program_degree" placeholder="" aria-label=""
+									aria-describedby="basic-addon1" disabled>
+								<div class="input-group-append">
+									<div class="dropdown" style="display: inline; ">
+										<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+											aria-expanded="false" style="float:right">
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
+												data-category-id="id" data-category-name="name"
+												data-category-priority="priority" onclick="course_type_select(this)">FE</a>
+											<hr>
+											<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
+												data-category-id="category_id" data-category-name="category_name"
+												onclick="course_type_select(this)">ME</a>
+										</div>
+									</div>
+								</div>
+							</div>
 					</div>
 				</div>
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%">
@@ -808,6 +827,12 @@
 		var text = $(e).text();
 		//console.log(text);
 		$("#new-course-program").attr("value", text);
+	}	
+	function course_type_select(obj) {
+		var e = obj;
+		var text = $(e).text();
+		//console.log(text);
+		$("#new-course-type").attr("value", text);
 	}
 
 
@@ -945,6 +970,7 @@
 	 * Edit page, also hide table(not done yet)
 	 * main page each course should also has hide table(do this first)
 	 * slider user can choose 5,10,15 lines to show and buttons to next or pervious pages
+	 * course code, program, category
 	*/
 
 </script>
@@ -960,7 +986,8 @@
 		<div class="input-group Related-CILOs-input"><input type="text" class="form-control Related-CILOs-input-area"
 				placeholder="please choose CILOs" value="" aria-label="" aria-describedby="basic-addon2"
 				style="text-align: center;" disabled>
-			<div class="input-group-append">
+			<div class="input-group-apv
+			.pend">
 				<div class="dropdown" style="display: inline; ">
 					<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
 						aria-expanded="false" style="float:right"></button>
