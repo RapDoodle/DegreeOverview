@@ -41,7 +41,7 @@ class Course(SaveableModel):
         
         program = models.program.Program.find_program_by_id(program_id)
         if program is None:
-            raise ErrorMessage(get_str('INVALID_REF', ref_name='program id', key=program_degree_id))
+            raise ErrorMessage(get_str('INVALID_REF', ref_name='program id', key=program_id))
 
         # Store the data in the object
         self.course_name = course_name
