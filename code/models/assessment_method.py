@@ -41,6 +41,16 @@ class AssessmentMethod(SaveableModel):
         new_method = AssessmentMethod(self.course_id, method['name'], method['weight'])
         new_method.save()
 
+    def get_cilos_addressed(self):
+        relationships = models.cilo_assessment_method.CILOAssessmentMethod\
+            .find_relationships_by_assessment_method_id(self.id)
+        cilos = []
+        for relationship in relationships:
+            cilo = models.cilo.CILO.find_cilo_by_id(relationship.cilo_id)
+            if cilo is not None:
+                cilos.append(cilo)
+        return sorted(cilos, key=lambda cilo: cilo.cilo_index)
+
     @classmethod
     def find_assessment_method_by_id(cls, id: int):
         return cls.query.filter_by(id=to_int(id)).first()

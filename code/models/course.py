@@ -340,7 +340,7 @@ class Course(SaveableModel):
         return models.semester.Semester.find_semester_by_id(self.ends_semester_id)
 
     def get_program(self):
-        return models.program_degree.ProgramDegree.find_program_degree_by_id(self.program_degree_id)
+        return models.program.Program.find_program_by_id(self.program_id)
 
     @classmethod
     def find_course_by_id(cls, id):

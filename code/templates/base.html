@@ -18,21 +18,12 @@
 
 <body>
 	{% macro input() -%}
-		<!--<p>{{get_str('PASSWORD')}}</p>-->
+		<a href="{{ url_for('courses.courses') }}" class="list-group-item list-group-item-action bg-light">{{ get_str('COURSES') }}</a>
 		{% if session['user_type'] == STUDENT %}
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('COURSES') }}</a>
 			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('PERFORMANCE_REPORT') }}</a>
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('SEARCH') }}</a>
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('OUTCOME_DEPENDENCY') }}</a>
-		{% elif session['user_type'] == LECTURER %}
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('COURSES') }}</a>
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('SEARCH') }}</a>
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('OUTCOME_DEPENDENCY') }}</a>
-		{% elif session['user_type'] == COURSE_DESIGNER %}
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('COURSES') }}</a>
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('SEARCH') }}</a>
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('OUTCOME_DEPENDENCY') }}</a>
 		{% endif %}
+		<a href="{{ url_for('search.search') }}" class="list-group-item list-group-item-action bg-light">{{ get_str('SEARCH') }}</a>
+		<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('OUTCOME_DEPENDENCY') }}</a>
 	{%- endmacro %}
 	<div class="d-flex" id="wrapper">
 
@@ -62,10 +53,9 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-user-circle-o"></i> {{ session['username'] }}
-							</a>
+								<i class="fa fa-user-circle-o"></i> {{ session['full_name'] }}</a>
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="">{{ get_str('LOGOUT') }}</a>
+								<a class="dropdown-item" href="{{ url_for('logout.logout') }}">{{ get_str('LOGOUT') }}</a>
 							</div>
 						</li>
 					</ul>
@@ -120,34 +110,20 @@
 		</div>
 	</div>
 
-	
-
+	<!-- Message Modal Script -->
 	<script type="text/javascript">
-
 		// Message Modal Script
 		if ($('#returned-message').text().length > 0) {
 			$('#messageModal').modal('show')
 		}
-
 		// Menu Toggle Script
 		$("#menu-toggle").click(function (e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled")
 		})
-
 		// Tooltip for changing password
 		$('#password-new-password').tooltip({'trigger':'focus', 'title': 'The password should be 8-24 characters long, containing upper and lower case letters, and digits.'})
 	</script>
-	<!-- Message Modal Script -->
-	
-		
-
-	<!--  -->
-		
-
-		
-	</script>
-
 </body>
 
 </html>

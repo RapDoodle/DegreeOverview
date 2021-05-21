@@ -24,8 +24,7 @@ class CILO(SaveableModel):
         cilo_description = str(cilo_description).strip()
 
         # Data validation
-        from models.course import Course
-        if not Course.find_course_by_id(course_id):
+        if not models.course.Course.find_course_by_id(course_id):
             raise ErrorMessage(get_str('INVALID_REF', ref_name='course id', key=course_id))
         cilo_index = to_int(cilo_index, 'CILO index')
         if not is_valid_length(cilo_description, 0, 1024):

@@ -22,18 +22,18 @@
               </button>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" href="#" id="type_course" onclick="search_type_select(this)">{{ get_str('COURSES') }}</a>
+                  <a class="dropdown-item" href="#" id="type_course" onclick="search_type_select(this)" data-type="course">{{ get_str('COURSES') }}</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#" id="type_CILO" onclick="search_type_select(this)">{{ get_str('CILOS') }}</a>
+                  <a class="dropdown-item" href="#" id="type_CILO" onclick="search_type_select(this)" data-type="cilo">{{ get_str('CILOS') }}</a>
                 </li>
               </ul>
             </div>
             <label for="Search" class="sr-only">{{ get_str('SEARCH') }}</label>
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search" required=""
-              autofocus="">
+            <input type="text" name="search" class="form-control" placeholder="Search" required=""
+              autofocus="" id="searchKeywords">
             <div>
-              <button class="btn btn-light" type="submit" name="submit"><a href="searchResults">Search</a></button>
+              <button class="btn btn-light" type="button" name="submit" id="searchBtn"><a href="#">Search</a></button>
             </div>
           </div>
         </div>
@@ -60,12 +60,30 @@
   //     
   //   });
   // });
+  var searchType = 'course';
 
-    function search_type_select(obj) {
-      var e = obj
-      var text = $(e).text();
-		//console.log(text);
-		$("#dropdownMenuButton").text(text);
+  $("#searchBtn").on("click", search);
+
+  function search() {
+    window.location.href = '{{ url_for("search.search_result") }}?type=' 
+      + searchType + '&keyword=' + encodeURI($('#searchKeywords').val());
+  }
+
+  $('#searchKeywords').keypress(function(event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    // When entered pressed
+    if(keycode == '13') {
+      event.preventDefault();
+      search();
     }
+  });
+
+  function search_type_select(obj) {
+    var e = obj
+    var text = $(obj).text();
+    searchType = $(obj).attr('data-type');
+    console.log(searchType);
+    $("#dropdownMenuButton").text(text);
+  }
 </script>
 {% endblock %}

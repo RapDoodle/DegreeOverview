@@ -20,7 +20,8 @@ default_context = {
     'get_str': get_str,
     'STUDENT': STUDENT,
     'LECTURER': LECTURER,
-    'COURSE_DESIGNER': COURSE_DESIGNER
+    'COURSE_DESIGNER': COURSE_DESIGNER,
+    'enumerate': enumerate
 }
 
 def render(*args, **kwargs):
