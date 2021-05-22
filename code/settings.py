@@ -2,7 +2,8 @@
 
 IMPORT_RESOURCES = {
     'v1': [
-        'courses'
+        'courses',
+        'cilos'
     ]
 }
 

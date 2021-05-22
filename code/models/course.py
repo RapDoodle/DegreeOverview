@@ -252,8 +252,6 @@ class Course(SaveableModel):
         current_cilos = self.get_cilos()
         current_assessment_methods = self.get_assessment_methods()
 
-        print()
-
         # Length validation
         if len(current_cilos) != len(content['cilos']):
             raise ErrorMessage(get_str('CILO_NUM_MISMATCH'))

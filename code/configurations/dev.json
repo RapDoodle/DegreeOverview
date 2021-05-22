@@ -18,5 +18,6 @@
     },
     "ENABLE_HTTPS": false,
     "HTTPS_CERT_PATH": "./security/cert.pem",
-    "HTTPS_PRIVATE_KEY_PATH": "./security/privkey.pem"
+    "HTTPS_PRIVATE_KEY_PATH": "./security/privkey.pem",
+    "SQLALCHEMY_ECHO": false
 }

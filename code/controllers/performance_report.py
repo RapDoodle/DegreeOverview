@@ -26,9 +26,7 @@ def report():
     reports = Report.get_student_completed_courses(session['user_id'])
     completed_courses = [x[0] for x in reports]
     n = len(completed_courses)
-    print(reports)
     index = to_int(request.args.get('index', 0), 'index')
-    student_report = []
     cilos = []
     scores = []
     if n > 0 and index >= 0 and index < n:
