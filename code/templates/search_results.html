@@ -11,55 +11,55 @@
 {% block title %} {{ tag_title() }} {% endblock%}
 
 {% block content %}
-    <br>  
-	<h1 class="h3 mb-3 font-weight-normal">{{ get_str('SEARCH_RESULTS') }}</h1>
-      <br>
-      <!-- Search Table -->
-	<table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-		{% if data['search_type'] == 'cilo' %}
-		  <th>{{ get_str('CILOS') }}</th>
-		{% endif %}
-        <th>{{ get_str('COURSE_NAME') }}</th>
-        <th>{{ get_str('COURSE_CODE') }}</th>
-		<th>{{ get_str('PROGRAM') }}</th>
-		<th>{{ get_str('COURSE_TYPE') }}</th>
-        {% if session['user_type'] == COURSE_DESIGNER and data['search_type'] != 'cilo' %}
-          <th>{{ get_str('ACTIONS') }}</th>
-        {% endif %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for idx, course in enumerate(data['courses']) %}
-      <tr>
-		{% if data['search_type'] == 'cilo' %}
-		  <td>{{ data['cilos'][idx].cilo_description }}</td>
-		{% endif %}
-        <td><a href="{{ url_for('course_info.info', course_id=course.id) }}">{{ course.course_name }}</a></td>
-        <td>{{ course.course_code }}</td>
-		<td>{{ course.get_program().name }}</td>
-		<td>{{ course.get_couse_type().name }}</td>
-        {% if session['user_type'] == COURSE_DESIGNER and data['search_type'] != 'cilo' %}
-        <td>
-          <div class="dropdown">
-            <button class="btn btn-light dropdown-toggle" type="button" id="maangeButton" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-gear"></i>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target=".edit-CILOs"
-                data-category-id="id" data-category-name="name" data-category-priority="priority">{{
-                get_str('EDIT') }}</a>
-            </div>
-          </div>
-		    </td>
-        {% endif %}
-      </tr>
-      {% endfor %}
-      
-    </tbody>
-	</table>
+<br>
+<h1 class="h3 mb-3 font-weight-normal">{{ get_str('SEARCH_RESULTS') }}</h1>
+<br>
+<!-- Search Table -->
+<table class="table table-bordered table-striped table-hover">
+	<thead>
+		<tr>
+			{% if data['search_type'] == 'cilo' %}
+			<th>{{ get_str('CILOS') }}</th>
+			{% endif %}
+			<th>{{ get_str('COURSE_NAME') }}</th>
+			<th>{{ get_str('COURSE_CODE') }}</th>
+			<th>{{ get_str('PROGRAM') }}</th>
+			<th>{{ get_str('COURSE_TYPE') }}</th>
+			{% if session['user_type'] == COURSE_DESIGNER and data['search_type'] != 'cilo' %}
+			<th>{{ get_str('ACTIONS') }}</th>
+			{% endif %}
+		</tr>
+	</thead>
+	<tbody>
+		{% for idx, course in enumerate(data['courses']) %}
+		<tr>
+			{% if data['search_type'] == 'cilo' %}
+			<td>{{ data['cilos'][idx].cilo_description }}</td>
+			{% endif %}
+			<td><a href="{{ url_for('course_info.info', course_id=course.id) }}">{{ course.course_name }}</a></td>
+			<td>{{ course.course_code }}</td>
+			<td>{{ course.get_program().name }}</td>
+			<td>{{ course.get_couse_type().name }}</td>
+			{% if session['user_type'] == COURSE_DESIGNER and data['search_type'] != 'cilo' %}
+			<td>
+				<div class="dropdown">
+					<button class="btn btn-light dropdown-toggle" type="button" id="maangeButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-gear"></i>
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="#" data-toggle="modal" data-target=".edit-CILOs"
+							data-category-id="id" data-category-name="name" data-category-priority="priority">{{
+							get_str('EDIT') }}</a>
+					</div>
+				</div>
+			</td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+
+	</tbody>
+</table>
 
 <!-- Large modal -->
 <!--
@@ -263,66 +263,29 @@
 	$(document).ready(function () {
 		$("#CILOs-add").click(function () {
 			var index = $("#CILOs-table tr").length;
-			var CILOsAdditon = '<tr style="text-align: center;"><td class="CILO-order">CILO-' + index + '</td><td><input type="text" class="form-control CILOs-description" id="CILOs-description-' + index + '" title="bad" oninput="descrption_update($(this))" placeholder="please input {{ get_str('DESCRIPTION') }}" value="" aria-label="" aria-describedby="basic-addon1" data-toggle="tooltip" style="text-align: center;"></td><td><button type="button" class="btn btn-info" id="CILOs-define" data-toggle="modal" data-target=".define-box"> {{ get_str('DEFINE') }}</button></td><td><button type="button" class="btn btn-light CILOs-minus" onclick="CILOs_remove(this)"><i class="fa fa-minus"></i></button></td></tr>';
+			var CILOsAdditon = '<tr style="text-align: center;"><td class="CILO-order">CILO-' + index + '</td><td><input type="text" class="form-control CILOs-description" id="CILOs-description-' + index + '" title="bad" oninput="descrption_update($(this))" placeholder="please input {{ get_str("DESCRIPTION") }}" value="" aria-label="" aria-describedby="basic-addon1" data-toggle="tooltip" style="text-align: center;"></td><td><button type="button" class="btn btn-info" id="CILOs-define" data-toggle="modal" data-target=".define-box"> {{ get_str("DEFINE") }}</button></td><td><button type="button" class="btn btn-light CILOs-minus" onclick="CILOs_remove(this)"><i class="fa fa-minus"></i></button></td></tr>';
 			$("#CILOs-table").append(CILOsAdditon);
 			get_line_nums();
 		});
 	});
-
-	// $(document).ready(function(){
-	// 	$(".CILOs-minus").click(function(){
-	// 		$(this).parent().parent().remove();
-
-	// 	});
-	// });
-
-	// function test {
-	//  const test = 5
-	//  express.fetch('https://google.com/api?xxxx').then(() => {
-	//   console.log(test);
-	//  })
-	// }
-
 	function minus(obj) {
 		var e = obj;
 		$(e).parent().parent().remove();
-		//console.log("🙃");
 	}
 
 	function term_select(num) {
 		$("#new-course-term").attr("value", num);
-		console.log("😌");
-		console.log("😶");
-		console.log("🙃");
-		console.log("😅");
-		console.log("🤔");
-		console.log("🤨");
-		console.log("😑");
-		console.log("🙄");
-		console.log("😫");
-		console.log("🤐");
-		console.log("😴");
 	}
-
-	//$(document).ready
-	//sleepy, do it tomorrow
-	//related CILOs drop box automatically get values from CILOs table
-
-	//edit CILOs and assessment effective since， format as year and term
-
 	function get_line_nums() {
 		var num = $("#CILOs-table tr").length;
 		var text1 = '<div class="input-group mb-3"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" aria-label="Checkbox for following text input" onchange="" ></div></div><input type="text" class="form-control" placeholder="" aria-label="Text input with checkbox" value="'
 		var text2 = '" disabled></div>'
-		//console.log(num - 1);
 		$(".Related-CILOs-dropmenu").children().remove();
 
 		for (var i = 1; i < num; i++) {
 			$(".Related-CILOs-dropmenu").append(text1 + i + text2)
 		}
 	}
-
-
 	function CILOs_remove(obj) {
 		minus(obj);
 		update_CILOs_table();
@@ -340,44 +303,31 @@
 
 	$(function () {
 		$('.CILOs-description').tooltip();
-		//console.log("good");
 	});
 
-	// $(function () {
-	// 	$('.CILOs-description').keydown($(this).title = $(this).value);
-	// 	console.log($(this).value);
-	// })
 
-	function descrption_update(obj){
+	function descrption_update(obj) {
 		var e = obj;
-		
-		// var text = ''+$(e).attr("value")
-		$(e).attr("title",document.getElementById($(e).attr('id')).value)
-		// console.log($(e).attr('title'))
-		//console.log($(e).attr('value'))	
-		// console.log($(text))
-		// console.log($(e).attr('id'));
-		// console.log(document.getElementById($(e).attr('id')).value)
+		$(e).attr("title", document.getElementById($(e).attr('id')).value)
 	}
 
 	//this has still didn't work, please fix it
-	function update_CILOs_table(){
+	function update_CILOs_table() {
 		var index = 1
 		$("#CILOs-table").children("td.CILO-order").html(() => {
-			var text = "CILO-"+$index
+			var text = "CILO-" + $index
 			$index++
 			return text
 		})
 		$index = 1
-		$("#CILOs-table").children("input.CILOs-description").attr("id",()=>{
-			var text = "CILOs-description-"+$index
+		$("#CILOs-table").children("input.CILOs-description").attr("id", () => {
+			var text = "CILOs-description-" + $index
 			$index++
 			return text
 		})
 		console.log(1);
 	}
 
-	//-----------please connect Pre-requisites and CILO Dependencies
 
 </script>
 
