@@ -603,21 +603,21 @@ def populate_report():
 
     grade_item_1_2 = GradeItem(
         student_report_id=student_grade_obj_1.id, 
-        assessment_method_id=6, 
+        assessment_method_id=7, 
         score=80,
         use_percentage=True)
     save(grade_item_1_2)
 
     grade_item_1_3 = GradeItem(
         student_report_id=student_grade_obj_1.id, 
-        assessment_method_id=6, 
+        assessment_method_id=8, 
         score=78,
         use_percentage=True)
     save(grade_item_1_3)
 
     grade_item_1_4 = GradeItem(
         student_report_id=student_grade_obj_1.id, 
-        assessment_method_id=6, 
+        assessment_method_id=9, 
         score=64,
         use_percentage=True)
     save(grade_item_1_4)
@@ -637,21 +637,21 @@ def populate_report():
 
     grade_item_2_2 = GradeItem(
         student_report_id=student_grade_obj_2.id, 
-        assessment_method_id=6, 
+        assessment_method_id=7, 
         score=76,
         use_percentage=True)
     save(grade_item_2_2)
 
     grade_item_2_3 = GradeItem(
         student_report_id=student_grade_obj_2.id, 
-        assessment_method_id=6, 
+        assessment_method_id=8, 
         score=92,
         use_percentage=True)
     save(grade_item_2_3)
 
     grade_item_2_4 = GradeItem(
         student_report_id=student_grade_obj_2.id, 
-        assessment_method_id=6, 
+        assessment_method_id=9, 
         score=88,
         use_percentage=True)
     save(grade_item_2_4)
@@ -694,7 +694,7 @@ def populate_report():
 
     print(report_obj.get_full_report())
     print('===========')
-    print(Report.get_student_completed_course(1))
+    print(Report.get_student_completed_courses(1))
 
 def save(obj):
     db.session.add(obj)

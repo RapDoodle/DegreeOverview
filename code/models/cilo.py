@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import models
+from sqlalchemy import func
+from sqlalchemy import select
 from core.db import db
 from core.lang import get_str
 from core.exception import ErrorMessage
@@ -42,6 +44,15 @@ class CILO(SaveableModel):
 
         self.save()
 
+    def json(self):
+        return {
+            'id': self.id,
+            'course_id': self.course_id,
+            'cilo_index': self.cilo_index,
+            'cilo_description': self.cilo_description,
+            'course_version_id': self.course_version_id
+        }
+
     def get_cilo_performance(self) -> dict:
         pass
 
@@ -59,7 +70,14 @@ class CILO(SaveableModel):
 
     @classmethod
     def find_cilo_by_keyword(cls, keyword: str) -> list:
-        return cls.query.filter(cls.cilo_description.like('%' + keyword + '%')).all()
+        latest_versions = [cilo.course_version_id for cilo in cls.query.filter(cls.course_version_id)\
+                    .group_by(cls.course_id)\
+                    .having(cls.course_version_id==db.func.max(cls.course_version_id))\
+                    .all()]
+        return cls.query.filter(cls.cilo_description.like('%' + keyword + '%'))\
+            .filter(cls.course_version_id.in_(latest_versions))\
+            .order_by(cls.course_id)\
+            .all()
 
     @classmethod
     def find_cilos_by_course_id(cls, course_id, course_version_id) -> list:

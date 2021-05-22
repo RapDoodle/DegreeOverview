@@ -20,7 +20,7 @@
 	{% macro input() -%}
 		<a href="{{ url_for('courses.courses') }}" class="list-group-item list-group-item-action bg-light">{{ get_str('COURSES') }}</a>
 		{% if session['user_type'] == STUDENT %}
-			<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('PERFORMANCE_REPORT') }}</a>
+			<a href="{{ url_for('performance_report.report') }}" class="list-group-item list-group-item-action bg-light">{{ get_str('PERFORMANCE_REPORT') }}</a>
 		{% endif %}
 		<a href="{{ url_for('search.search') }}" class="list-group-item list-group-item-action bg-light">{{ get_str('SEARCH') }}</a>
 		<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('OUTCOME_DEPENDENCY') }}</a>

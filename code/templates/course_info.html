@@ -11,9 +11,18 @@
 {% block title %} {{ tag_title() }} {% endblock%}
 
 {% block content %}
-  <br>
-  <h1 class="h3 mb-3 font-weight-normal">{{ get_str('COURSES_INFO') }}</h1>
-  <br>
+
+{% macro tab_title() -%}
+{{ get_str('COURSES_INFO') }}
+{%- endmacro %}
+
+<div class="row">
+	<div class="col" id="location">
+		<span>
+			<h2>{{ tab_title() }}</h2>
+		</span>
+	</div>
+</div>
   <!--course info-->
   <div class="row text-center" style="margin-top: 2%; margin-left: 5%; margin-right: 10%">
     <h5 class="col">{{ get_str('BASICINFO') }}</h5>

@@ -22,7 +22,7 @@ class Report(db.Model):
             .join(models.grade_item.GradeItem, models.student_report.StudentReport.id == models.student_report.StudentReport.id).all()
 
     @classmethod
-    def get_student_completed_course(cls, student_id):
+    def get_student_completed_courses(cls, student_id):
         """Note: the student_id is the id of student, not student id (eg. n830026000)"""
         return db.session.query(models.course.Course, Report, models.student_report.StudentReport)\
             .filter(models.student_report.StudentReport.student_id==student_id)\

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% macro tag_title() -%}
+{% if session['user_type'] == STUDENT %}
+{{ get_str('STUDENT') }}
+{% elif session['user_type'] == LECTURER %}
+{{ get_str('LECTURER') }}
+{% elif session['user_type'] == COURSE_DESIGNER %}
+{{ get_str('COURSE_DESIGNER') }}
+{% endif %}
+{%- endmacro %}
+{% block title %} {{ tag_title() }} {% endblock%}
+
+{% block content %}
+
+{% macro tab_title() -%}
+{{ get_str('PERFORMANCE') }}
+{%- endmacro %}
+
+<div class="row">
+	<div class="col" id="location">
+		<span>
+			<h2>{{ tab_title() }}</h2>
+		</span>
+	</div>
+</div>
+<div class="row no-gutters text-right" style="margin-top:-4%">
+  <div class="col">
+    <button class="btn btn-outline-link btn dropdown-toggle" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {% if len(data['completed_courses']) > 0 %}{{ data['completed_courses'][data['index']].course_name }}{% endif %}
+    </button>
+    <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton" style="margin-top: -1px">
+      {% for idx, course in enumerate(data['completed_courses']) %}
+      <a class="dropdown-item" href="{{ url_for('performance_report.report') }}?index={{ idx }}">{{ course.course_name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="row no-gutters">
+  <div class="col">
+    <table class="table table-bordered text-center">
+      <thead class="thead-light">
+        <tr>
+          <th colspan="3">{{ get_str('PERFORMANCE_REPORT') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>CILO</th>
+          <th>{{ get_str('CILO_DESCRIPTION') }}</th>
+          <th>{{ get_str('PERFORMANCE') }}</th>
+        </tr>
+        {% for idx, cilo in enumerate(data['cilos']) %}
+        <tr>
+          <td>CILO {{ cilo.cilo_index }}</td>
+          <td>{{ cilo.cilo_description }}</td>
+          <td>{{ "{:5.2f}".format(data['scores'][idx] * 100) }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}

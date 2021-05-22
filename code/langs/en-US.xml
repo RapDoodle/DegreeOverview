@@ -113,5 +113,7 @@
     <string name="CILOS_ADDRESSED">CILOs to be addressed</string>
     
     <!--Performance-->
-    <string name="PERFORMANCE">Performance</string>
+    <string name="PERFORMANCE">Performance Report</string>
+    <string name="INVALID_REPORT">Invalid report.</string>
+    <string name="CILO_DESCRIPTION">CILO Description</string>
 </resources>
