@@ -21,7 +21,8 @@ default_context = {
     'STUDENT': STUDENT,
     'LECTURER': LECTURER,
     'COURSE_DESIGNER': COURSE_DESIGNER,
-    'enumerate': enumerate
+    'enumerate': enumerate,
+    'len': len
 }
 
 def render(*args, **kwargs):
