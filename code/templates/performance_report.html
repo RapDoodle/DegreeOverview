@@ -1,24 +1,43 @@
 {% extends "base.html" %}
+{% macro tag_title() -%}
+{% if session['user_type'] == STUDENT %}
+{{ get_str('STUDENT') }}
+{% elif session['user_type'] == LECTURER %}
+{{ get_str('LECTURER') }}
+{% elif session['user_type'] == COURSE_DESIGNER %}
+{{ get_str('COURSE_DESIGNER') }}
+{% endif %}
+{%- endmacro %}
+{% block title %} {{ tag_title() }} {% endblock%}
 
 {% block content %}
-<div class="row no-gutters" style="margin-left: 5%; margin-right: 5%; margin-top: 2%">
-  <div class="col-sm-9">
-    <h1 class="h3 mb-3 font-weight-normal">{{ get_str('PERFORMANCE') }}</h1>
-  </div>
-  <div class="col-sm-1" style="margin-left:5%; margin-top: 1%">
+
+{% macro tab_title() -%}
+{{ get_str('PERFORMANCE') }}
+{%- endmacro %}
+
+<div class="row">
+	<div class="col" id="location">
+		<span>
+			<h2>{{ tab_title() }}</h2>
+		</span>
+	</div>
+</div>
+<div class="row no-gutters text-right" style="margin-top:-4%">
+  <div class="col">
     <button class="btn btn-outline-link btn dropdown-toggle" type="button" id="dropdownMenuButton"
       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {% if len(data['completed_courses']) > 0 %}{{ data['completed_courses'][data['index']].course_name }}{% endif %}
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton" style="margin-top: -1px">
       {% for idx, course in enumerate(data['completed_courses']) %}
       <a class="dropdown-item" href="{{ url_for('performance_report.report') }}?index={{ idx }}">{{ course.course_name }}</a>
       {% endfor %}
     </div>
   </div>
 </div>
-<div class="row no-gutters" style="margin-left: 5%; margin-right: 5%">
-  <div class="col-sm-12">
+<div class="row no-gutters">
+  <div class="col">
     <table class="table table-bordered text-center">
       <thead class="thead-light">
         <tr>
