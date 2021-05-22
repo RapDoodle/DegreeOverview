@@ -114,4 +114,6 @@
     
     <!--Performance-->
     <string name="PERFORMANCE">Performance</string>
+    <string name="INVALID_REPORT">Invalid report.</string>
+    <string name="CILO_DESCRIPTION">CILO Description</string>
 </resources>
