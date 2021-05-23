@@ -118,7 +118,9 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% for year in data['analysis']['years'] %}
-            <a class="dropdown-item" href="#">{{ year }}-{{ year+1 }}</a>
+            <a class="dropdown-item" href="{{ url_for('course_info.info', course_id=data['course'].id) }}?year={{year}}">
+              {{ year }}-{{ year+1 }}
+            </a>
           {% endfor %}
         </div>
       </div>

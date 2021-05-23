@@ -19,7 +19,6 @@ class GradeItem(db.Model):
         """
         self.student_report_id = student_report_id
         self.assessment_method_id = assessment_method_id
-        self.assessment_method_id = assessment_method_id
         if use_percentage:
             assessment_method_obj = models.assessment_method.AssessmentMethod.\
                 find_assessment_method_by_id(assessment_method_id)

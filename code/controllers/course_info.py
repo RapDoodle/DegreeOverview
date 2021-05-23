@@ -46,7 +46,7 @@ def info(course_id):
                 cilos = course.get_cilos(course_version.id)
                 analysis['reports'] = reports
                 analysis['cilos'] = cilos
-                analysis['scores'] = Report.get_cilo_performance_by_year(course.id, 2016)
+                analysis['scores'] = Report.get_cilo_performance_by_year(course.id, year)
     return {
         'course': course,
         'analysis': analysis
