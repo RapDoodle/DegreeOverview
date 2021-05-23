@@ -17,13 +17,15 @@ var flag = 10;
 var data = {
     "name": "structure Porgramming",
     "children": [
-        {"name": "CILO1"},
+        {"name": "CILO1","value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048"},
 			{
 			"name": "CILO2",
+			"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
             "children": [
                 {"name": "CILO1",
+				"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
 					"children": [
-                {"name": "Computer Graph", "value": 8833}]
+                {"name": "Computer Graph", "value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048"}]
 				}
             ]
         },
@@ -33,19 +35,23 @@ var data = {
 var data2 = {
     "name": "Linear Algebra",
     "children": [
-        {"name": "CILO1"},
+        {"name": "CILO1","value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048"},
 			{"name": "CILO2",
+			"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
 			"children":[
 				{"name": "CILO2",
+				"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
 					"children":[
-						{"name":"Computer graph", "value": 8833},
+						{"name":"Computer graph", "value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048"},
 						{"name":"CILO1",
 							"children":[{"name": "CILO1",
+							"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
 								"children":[{"name":"Advanced Computation Graphics"}]
 							}]}
 					]
 				},
 				{"name":"CILO1",
+				"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
 					"children":[{"name":"Advanced Computation Graphics"}]
 				}
 			]
@@ -220,7 +226,7 @@ var option = myChart.getOption();
 			//再这儿，当然也可以在json里面加flag
 			if(params.name == "CILO1")
 			
-			window.open('https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048')
+			window.open(params.value)
         });
 		
     </script>
