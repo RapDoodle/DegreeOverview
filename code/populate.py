@@ -569,132 +569,99 @@ def populate_course():
     ]
 
     for content in courses:
-        course_obj = Course.add_course(content)
+        Course.add_course(content)
         
     db.session.commit()
-
-    queried_courses = Course.find_course_by_keyword('')
-    for idx, course in enumerate(queried_courses):
-        print('========== ' + str(idx + 1) + ' ==========')
-        print(course.course_name)
-        print(course.get_cilos())
-        print(course.get_course_prerequisites())
-        print(course.get_dependent_courses())
     
 
 def populate_report():
     # Grade for Structured Programming
-    report_obj = Report(
+    report_obj_1 = Report(
         course_id=2, 
         semester_id=24)
-    save(report_obj)
+    save(report_obj_1)
+    report_obj_2 = Report(
+        course_id=2, 
+        semester_id=25)
+    save(report_obj_2)
+    report_obj_3 = Report(
+        course_id=2, 
+        semester_id=26)
+    save(report_obj_3)
 
     student_grade_obj_1 = StudentReport(
-        report_id=report_obj.id, 
+        report_id=report_obj_1.id, 
         student_id=1)
     save(student_grade_obj_1)
-
-    grade_item_1_1 = GradeItem(
-        student_report_id=student_grade_obj_1.id, 
-        assessment_method_id=6, 
-        score=96,
-        use_percentage=True)
-    save(grade_item_1_1)
-
-    grade_item_1_2 = GradeItem(
-        student_report_id=student_grade_obj_1.id, 
-        assessment_method_id=7, 
-        score=80,
-        use_percentage=True)
-    save(grade_item_1_2)
-
-    grade_item_1_3 = GradeItem(
-        student_report_id=student_grade_obj_1.id, 
-        assessment_method_id=8, 
-        score=78,
-        use_percentage=True)
-    save(grade_item_1_3)
-
-    grade_item_1_4 = GradeItem(
-        student_report_id=student_grade_obj_1.id, 
-        assessment_method_id=9, 
-        score=64,
-        use_percentage=True)
-    save(grade_item_1_4)
-
-    # Student 2's grade
     student_grade_obj_2 = StudentReport(
-        report_id=report_obj.id, 
+        report_id=report_obj_1.id, 
         student_id=2)
     save(student_grade_obj_2)
-
-    grade_item_2_1 = GradeItem(
-        student_report_id=student_grade_obj_2.id, 
-        assessment_method_id=6, 
-        score=88,
-        use_percentage=True)
-    save(grade_item_2_1)
-
-    grade_item_2_2 = GradeItem(
-        student_report_id=student_grade_obj_2.id, 
-        assessment_method_id=7, 
-        score=76,
-        use_percentage=True)
-    save(grade_item_2_2)
-
-    grade_item_2_3 = GradeItem(
-        student_report_id=student_grade_obj_2.id, 
-        assessment_method_id=8, 
-        score=92,
-        use_percentage=True)
-    save(grade_item_2_3)
-
-    grade_item_2_4 = GradeItem(
-        student_report_id=student_grade_obj_2.id, 
-        assessment_method_id=9, 
-        score=88,
-        use_percentage=True)
-    save(grade_item_2_4)
-
-    # DSA
-    # Grade for Structured Programming
-    report_obj_2 = Report(
-        course_id=3, 
-        semester_id=26)
-    save(report_obj_2)
-
     student_grade_obj_3 = StudentReport(
-        report_id=report_obj_2.id, 
-        student_id=1)
+        report_id=report_obj_1.id, 
+        student_id=3)
     save(student_grade_obj_3)
+    student_grade_obj_4 = StudentReport(
+        report_id=report_obj_2.id, 
+        student_id=4)
+    save(student_grade_obj_4)
+    student_grade_obj_5 = StudentReport(
+        report_id=report_obj_2.id, 
+        student_id=5)
+    save(student_grade_obj_5)
+    student_grade_obj_6 = StudentReport(
+        report_id=report_obj_2.id, 
+        student_id=6)
+    save(student_grade_obj_6)
+    student_grade_obj_7 = StudentReport(
+        report_id=report_obj_3.id, 
+        student_id=7)
+    save(student_grade_obj_7)
 
-    save(GradeItem(
-        student_report_id=student_grade_obj_3.id, 
-        assessment_method_id=10, 
-        score=80,
-        use_percentage=True))
+    grade_items = [
+        [student_grade_obj_1.id, 6, 14.71, False],
+        [student_grade_obj_1.id, 7, 23.50, False],
+        [student_grade_obj_1.id, 8, 9.63, False],
+        [student_grade_obj_1.id, 9, 49.75, False],
 
-    save(GradeItem(
-        student_report_id=student_grade_obj_3.id, 
-        assessment_method_id=11, 
-        score=76,
-        use_percentage=True))
+        [student_grade_obj_2.id, 6, 14.13, False],
+        [student_grade_obj_2.id, 7, 23.88, False],
+        [student_grade_obj_2.id, 8, 9.63, False],
+        [student_grade_obj_2.id, 9, 47.00, False],
 
-    save(GradeItem(
-        student_report_id=student_grade_obj_3.id, 
-        assessment_method_id=12, 
-        score=90,
-        use_percentage=True))
+        [student_grade_obj_3.id, 6, 14.10, False],
+        [student_grade_obj_3.id, 7, 22.19, False],
+        [student_grade_obj_3.id, 8, 8.88, False],
+        [student_grade_obj_3.id, 9, 48.75, False],
 
-    save(GradeItem(
-        student_report_id=student_grade_obj_3.id, 
-        assessment_method_id=13, 
-        score=85,
-        use_percentage=True))
+        [student_grade_obj_4.id, 6, 12.58, False],
+        [student_grade_obj_4.id, 7, 23.73, False],
+        [student_grade_obj_4.id, 8, 8.88, False],
+        [student_grade_obj_4.id, 9, 45.75, False],
 
-    print(report_obj.get_full_report())
-    print('===========')
-    print(Report.get_student_completed_courses(1))
+        [student_grade_obj_5.id, 6, 13.35, False],
+        [student_grade_obj_5.id, 7, 22.32, False],
+        [student_grade_obj_5.id, 8, 10.00, False],
+        [student_grade_obj_5.id, 9, 44.00, False],
+
+        [student_grade_obj_6.id, 6, 12.96, False],
+        [student_grade_obj_6.id, 7, 24.55, False],
+        [student_grade_obj_6.id, 8, 10.00, False],
+        [student_grade_obj_6.id, 9, 41.00, False],
+
+        [student_grade_obj_7.id, 6, 13.22, False],
+        [student_grade_obj_7.id, 7, 22.41, False],
+        [student_grade_obj_7.id, 8, 8.88, False],
+        [student_grade_obj_7.id, 9, 43.75, False],
+    ]
+
+    for item in grade_items:
+        grade_item_obj = GradeItem(
+            student_report_id=item[0], 
+            assessment_method_id=item[1],
+            score=item[2],
+            use_percentage=item[3])
+        save(grade_item_obj)
 
 def save(obj):
     db.session.add(obj)

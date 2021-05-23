@@ -31,7 +31,10 @@ def report():
     scores = []
     if n > 0 and index >= 0 and index < n:
     # Get the index in the student's completed course list
-        scores, cilos = reports[index][2].get_cilo_performance()
+        scores = reports[index][2].get_cilo_performance()
+        version = reports[index][1].get_course_version()
+        course = reports[index][0]
+        cilos = course.get_cilos(course_version_id=version.id)
     return {
         'completed_courses': completed_courses,
         'index': index,

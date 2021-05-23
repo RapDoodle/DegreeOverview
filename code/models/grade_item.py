@@ -5,7 +5,7 @@ from core.db import db
 
 class GradeItem(db.Model):
     """A student's grade entry"""
-    __tablename__ = 'report_entry'
+    __tablename__ = 'grade_item'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     student_report_id = db.Column(db.Integer, db.ForeignKey('student_report.id'))
@@ -18,7 +18,6 @@ class GradeItem(db.Model):
         used for testing purposes.
         """
         self.student_report_id = student_report_id
-        self.assessment_method_id = assessment_method_id
         self.assessment_method_id = assessment_method_id
         if use_percentage:
             assessment_method_obj = models.assessment_method.AssessmentMethod.\

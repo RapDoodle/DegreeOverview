@@ -34,3 +34,6 @@ class Semester(db.Model):
     def find_semester_by_id(cls, id: int):
         return cls.query.filter_by(id=to_int(id)).first()
         
+    @classmethod
+    def find_semesters_by_year(cls, year: int):
+        return cls.query.filter_by(year=to_int(year)).all()

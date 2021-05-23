@@ -101,6 +101,7 @@
     <string name="COURSE_TYPE">Course Type</string>
     <string name="LECTURER">Lecturer</string>
     <string name="PRECOURSES">Prerequisites Courses</string>
+    <string name="POSTCOURSES">Courses that dependend on this course</string>
     <string name="DESCRIPTION">Description</string>
     <string name="DEPENDENCIES">Dependencies</string>
     <string name="ANALYSIS">Analysis Results</string>
@@ -111,6 +112,7 @@
     <string name="NAME">Name</string>
     <string name="WEIGHTING">Weighting</string>
     <string name="CILOS_ADDRESSED">CILOs to be addressed</string>
+    <string name="NO_REPORT">No report available</string>
     
     <!--Performance-->
     <string name="PERFORMANCE">Performance Report</string>
