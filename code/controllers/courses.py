@@ -8,6 +8,10 @@ from core.engine import render_context
 from core.lang import get_str
 from core.exception import ErrorMessage
 from models.course import Course
+from models.program import Program
+from models.course_type import CourseType
+from models.cilo import CILO
+from models.assessment_method import AssessmentMethod
 
 blueprint = Blueprint('courses', __name__, template_folder='templates')
 
@@ -15,7 +19,11 @@ blueprint = Blueprint('courses', __name__, template_folder='templates')
 @blueprint.route('/courses', methods=['GET', 'POST'])
 @render_context('courses.html')
 def courses():
-    pass
+    return {
+        'courses': Course.find_course_by_keyword(''),
+        'programs': Program.get_all_programs(),
+        'course_types': CourseType.get_all_types()
+    }
 
 
 @blueprint.route('/courses/add', methods=['POST'])
