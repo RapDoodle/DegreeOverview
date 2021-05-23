@@ -112,6 +112,7 @@
     <string name="NAME">Name</string>
     <string name="WEIGHTING">Weighting</string>
     <string name="CILOS_ADDRESSED">CILOs to be addressed</string>
+    <string name="NO_REPORT">No report available</string>
     
     <!--Performance-->
     <string name="PERFORMANCE">Performance Report</string>

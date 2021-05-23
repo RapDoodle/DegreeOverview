@@ -114,11 +114,11 @@
       <div class="col-sm-1">
         <button class="btn btn-light btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          {{ get_str('YEAR') }}
+          {{ str(str(data['analysis']['year_selected']) + "-" + str(data['analysis']['year_selected']+1)) if data['analysis']['year_selected'] > 0 else get_str('NO_REPORT') }}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {% for i in range (16,20) %}
-          <a class="dropdown-item" href="#">20{{ i }} - 20{{ i+1 }}</a>
+          {% for year in data['analysis']['years'] %}
+            <a class="dropdown-item" href="#">{{ year }}-{{ year+1 }}</a>
           {% endfor %}
         </div>
       </div>
@@ -128,16 +128,16 @@
         <thead class="text-center">
           <tr>
             <th>{{ get_str('NAME') }}</th>
-            <th>{{ get_str('RELATED_CILOS') }}</th>
+            <th>{{ get_str('CILO_DESCRIPTION') }}</th>
             <th>{{ get_str('PERCENTAGE') }}</th>
           </tr>
         </thead>
         <tbody>
-          {% for i in range (0,3) %}
+          {% for idx, cilo in enumerate(data['analysis']['cilos']) %}
           <tr>
-            <td>Assignment</td>
-            <td>CILO 1, 4</td>
-            <td>25%</td>
+            <td>CILO {{ cilo.cilo_index }}</td>
+            <td>{{ cilo.cilo_description }}</td>
+            <td>{{ "{:5.2f}".format(data['analysis']['scores'][idx] * 100) }}%</td>
           </tr>
           {% endfor %}
         </tbody>

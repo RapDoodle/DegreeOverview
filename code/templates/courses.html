@@ -60,7 +60,7 @@
 	</tr>
 	{% for course in data['courses'] %}
 	<tr>
-		<td class="Course-name">{{ course.course_name }}</td>
+		<td class="Course-name"><a href="{{ url_for('course_info.info', course_id=course.id) }}">{{ course.course_name }}</a></td>
 		<td class="Course-code">{{ course.course_code }}</td>
 		<td>{{ course.get_program().name }}</td>
 		<td>{{ course.get_couse_type().name }}</td>

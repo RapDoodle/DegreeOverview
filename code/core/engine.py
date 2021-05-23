@@ -6,6 +6,8 @@ from functools import wraps
 from flask import flash
 from flask import render_template
 from flask import current_app
+from flask import redirect
+from flask import url_for
 
 from core.lang import get_str
 from core.exception import ErrorMessage
@@ -22,14 +24,15 @@ default_context = {
     'LECTURER': LECTURER,
     'COURSE_DESIGNER': COURSE_DESIGNER,
     'enumerate': enumerate,
-    'len': len
+    'len': len,
+    'str': str
 }
 
 def render(*args, **kwargs):
     return render_template(*args, **kwargs, **default_context), kwargs.get('status_code', 200)
 
 
-def render_context(template = '', commit_on_success=True, rollback_on_exception=True):
+def render_context(template = '', commit_on_success=True, rollback_on_exception=True, on_error_redirect_to=''):
     def context(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
@@ -49,6 +52,8 @@ def render_context(template = '', commit_on_success=True, rollback_on_exception=
                 status_code = 400
                 if rollback_on_exception:
                     db.session.rollback()
+                if len(on_error_redirect_to) > 0:
+                    return redirect(url_for(on_error_redirect_to))
             except Exception as e:
                 current_app.logger.critical(str(e))
                 traceback.print_exc(file=sys.stdout)
@@ -56,6 +61,8 @@ def render_context(template = '', commit_on_success=True, rollback_on_exception=
                 status_code = 500
                 if rollback_on_exception:
                     db.session.rollback()
+                if len(on_error_redirect_to) > 0:
+                    return redirect(url_for(on_error_redirect_to))
             return render(template, data=data, status_code=status_code)
         return wrapper
     return context
