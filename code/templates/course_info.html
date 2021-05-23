@@ -112,7 +112,7 @@
       <h5 class="text-center">{{ get_str('ANALYSIS') }}</h5>
       </div>
       <div class="col-sm-1">
-        <button class="btn btn-light btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           {{ str(str(data['analysis']['year_selected']) + "-" + str(data['analysis']['year_selected']+1)) if data['analysis']['year_selected'] > 0 else get_str('NO_REPORT') }}
         </button>
