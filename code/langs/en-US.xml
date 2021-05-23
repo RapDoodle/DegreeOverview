@@ -101,6 +101,7 @@
     <string name="COURSE_TYPE">Course Type</string>
     <string name="LECTURER">Lecturer</string>
     <string name="PRECOURSES">Prerequisites Courses</string>
+    <string name="POSTCOURSES">Courses that dependend on this course</string>
     <string name="DESCRIPTION">Description</string>
     <string name="DEPENDENCIES">Dependencies</string>
     <string name="ANALYSIS">Analysis Results</string>

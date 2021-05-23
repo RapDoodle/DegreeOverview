@@ -29,18 +29,33 @@
   </div>
   <br>
   <div class="row align-items-start" style="margin-bottom: 1%; margin-left: 5%">
-    <div class="col-4">{{ get_str('COURSE_TITLE') }}: {{ data['course'].course_name }}</div>
-    <div class="col-4">{{ get_str('COURSE_CODE') }}: {{ data['course'].course_code }}</div>
+    <div class="col-6"><p>{{ get_str('COURSE_TITLE') }}: {{ data['course'].course_name }}</p></div>
+    <div class="col-6"><p>{{ get_str('COURSE_CODE') }}: {{ data['course'].course_code }}</p></div>
     <div class="w-100"></div>
-    <div class="col-4">{{ get_str('COURSE_TYPE') }}: {{ data['course'].get_couse_type().name }}</div>
+    <div class="col-6"><p>{{ get_str('COURSE_TYPE') }}: {{ data['course'].get_couse_type().name }}</p></div>
+    <div class="col-6"><p>{{ get_str('PROGRAM') }}: {{ data['course'].get_program().name }}</p></div>
     <div class="w-100"></div>
-    <div class="col">
-      {{ get_str('PRECOURSES') }}: 
-      {% for course in data['course'].get_course_prerequisites() %}
-        {{ course.course_name }}
-      {% endfor %}
-
+    <div class="col-12">
+      <p>{{ get_str('PRECOURSES') }}: 
+        {% set courses = data['course'].get_course_prerequisites() %}
+        {% if len(courses) == 0 %}
+          None
+        {% else %}
+          {% for idx, course in enumerate(courses) %}{% if idx != 0 %}, {% endif %}{{ course.course_name }}{% endfor %}</p>
+        {% endif %}
     </div>
+    <div class="col-12">
+      <p>{{ get_str('POSTCOURSES') }}: 
+        {% set courses = data['course'].get_dependent_courses() %}
+        {% if len(courses) == 0 %}
+          None</p>
+        {% else %}
+          <ul>
+          {% for course in courses %}
+            <li>{{ course.course_name }}</li>
+          {% endfor %}</ul>
+        {% endif %}
+    </div>  
   </div>
   <div class="row align-items-center" style="margin-top: 2%; margin-left: 4%; margin-right: 7%">
     <div class="col-sm-12">

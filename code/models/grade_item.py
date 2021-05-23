@@ -5,7 +5,7 @@ from core.db import db
 
 class GradeItem(db.Model):
     """A student's grade entry"""
-    __tablename__ = 'report_entry'
+    __tablename__ = 'grade_item'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     student_report_id = db.Column(db.Integer, db.ForeignKey('student_report.id'))
