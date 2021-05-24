@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="/static/bootstrap-4.6.0/css/bootstrap.min.css">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
-	<title>{% block title %}{% endblock %} - Lily</title>
+	<title>{% block title %}{% endblock %} - DegreeOverview</title>
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="/static/css/base.css">
 	{% block custom_style %}{% endblock %}
@@ -29,7 +29,10 @@
 
 		<!-- Sidebar -->
 		<div class="bg-light border-right" id="sidebar-wrapper">
-			<div class="sidebar-heading"><img src="/static/logo_horizontal.png" alt="Logo" width="175"></div>
+			<div class="sidebar-heading">
+				<a href="{{ url_for('dashboard.dashboard') }}">
+					<img src="/static/logo_horizontal.png" alt="Logo" width="175"></div>
+				</a>
 			<div class="list-group list-group-flush">
 				{{ input() }}
 				

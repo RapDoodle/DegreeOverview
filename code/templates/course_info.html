@@ -19,7 +19,7 @@
 <div class="row">
 	<div class="col" id="location">
 		<span>
-			<h2>{{ tab_title() }}</h2>
+			<p>{{ tab_title() }}</p>
 		</span>
 	</div>
 </div>
@@ -41,7 +41,7 @@
         {% if len(courses) == 0 %}
           None
         {% else %}
-          {% for idx, course in enumerate(courses) %}{% if idx != 0 %}, {% endif %}{{ course.course_name }}{% endfor %}</p>
+          {% for idx, course in enumerate(courses) %}{% if idx != 0 %}, {% endif %}{{ course[0].course_name }}{% endfor %}</p>
         {% endif %}
     </div>
     <div class="col-12">
@@ -52,7 +52,7 @@
         {% else %}
           <ul>
           {% for course in courses %}
-            <li>{{ course.course_name }}</li>
+            <li>{{ course[0].course_name }}</li>
           {% endfor %}</ul>
         {% endif %}
     </div>  
@@ -118,7 +118,9 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% for year in data['analysis']['years'] %}
-            <a class="dropdown-item" href="#">{{ year }}-{{ year+1 }}</a>
+            <a class="dropdown-item" href="{{ url_for('course_info.info', course_id=data['course'].id) }}?year={{year}}">
+              {{ year }}-{{ year+1 }}
+            </a>
           {% endfor %}
         </div>
       </div>

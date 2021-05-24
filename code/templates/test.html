@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <!-- 这里是加载刚下好的echarts.min.js，注意路径 -->
+	
+    <script src="C:\Users\UIC\Downloads\echarts.min.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom容器 -->
+    <div id="main" style="width: 1000px;height:600px;"></div>
+    
+    <script type="text/javascript">
+var flag = 10;
+var data = {
+    "name": "structure Porgramming",
+    "children": [
+        {"name": "CILO1","value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048"},
+			{
+			"name": "CILO2",
+			"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
+            "children": [
+                {"name": "CILO1",
+				"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
+					"children": [
+                {"name": "Computer Graph", "value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048"}]
+				}
+            ]
+        },
+    ]
+};
+
+var data2 = {
+    "name": "Linear Algebra",
+    "children": [
+        {"name": "CILO1","value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048"},
+			{"name": "CILO2",
+			"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
+			"children":[
+				{"name": "CILO2",
+				"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
+					"children":[
+						{"name":"Computer graph", "value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048"},
+						{"name":"CILO1",
+							"children":[{"name": "CILO1",
+							"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
+								"children":[{"name":"Advanced Computation Graphics"}]
+							}]}
+					]
+				},
+				{"name":"CILO1",
+				"value":"https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
+					"children":[{"name":"Advanced Computation Graphics"}]
+				}
+			]
+		},
+    ]
+};
+var myChart = echarts.init(document.getElementById('main'));
+myChart.setOption(option = {
+    tooltip: {
+        trigger: 'item',
+        triggerOn: 'mousemove'
+    },
+    legend: {
+        top: '2%',
+        left: '3%',
+        orient: 'vertical',
+        data: [{
+            name: 'tree1',
+            icon: 'rectangle'
+        },
+        {
+            name: 'tree2',
+            icon: 'rectangle'
+        }],
+        borderColor: '#c23531'
+    },
+    series:[
+        {
+            type: 'tree',
+
+            name: 'tree1',
+
+            data: [data],
+
+            top: '20%',
+            left: '30%',
+            bottom: '20%',
+            right: '20%',
+
+            symbolSize: 7,
+
+            label: {
+                position: 'left',
+                verticalAlign: 'middle',
+                align: 'right'
+            },
+
+            leaves: {
+                label: {
+                    position: 'right',
+                    verticalAlign: 'middle',
+                    align: 'left'
+                }
+            },
+
+            emphasis: {
+                focus: 'descendant'
+            },
+
+            expandAndCollapse: true,
+
+            animationDuration: 550,
+            animationDurationUpdate: 750
+
+        },
+        {
+            type: 'tree',
+            name: 'tree2',
+            data: [data2],
+
+            top: '20%',
+            left: '60%',
+            bottom: '22%',
+            right: '18%',
+
+            symbolSize: 7,
+
+            label: {
+                position: 'left',
+                verticalAlign: 'middle',
+                align: 'right'
+            },
+
+            leaves: {
+                label: {
+                    position: 'right',
+                    verticalAlign: 'middle',
+                    align: 'left'
+                }
+            },
+
+            expandAndCollapse: true,
+
+            emphasis: {
+                focus: 'descendant'
+            },
+
+            animationDuration: 550,
+            animationDurationUpdate: 750
+        }
+    ]
+});
+var data3 = {
+    "name": "flare",
+    "children": [
+        {
+            "name": "flex",
+            "children": [
+                {"name": "FlareVis", "value": 4116}
+            ]
+        },
+        {
+            "name": "scale",
+            "children": [
+                {"name": "IScaleMap", "value": 2105},
+                {"name": "LinearScale", "value": 1316},
+                {"name": "LogScale", "value": 3151},
+                {"name": "OrdinalScale", "value": 3770},
+                {"name": "QuantileScale", "value": 2435},
+                {"name": "QuantitativeScale", "value": 4839},
+                {"name": "RootScale", "value": 1756},
+                {"name": "Scale", "value": 4268},
+                {"name": "ScaleType", "value": 1821},
+                {"name": "TimeScale", "value": 5833}
+           ]
+        },
+        {
+            "name": "display",
+            "children": [
+                {"name": "DirtySprite", "value": 8833}
+           ]
+        }
+    ]
+};
+
+var datanew = {
+    "name": "JAA",
+	leaves: {
+                label: {
+                    position: 'right',
+                    verticalAlign: 'middle',
+                    align: 'left'
+                }
+            },
+    "children": [
+        {
+            "name": "HAAAAA",
+            "children": [
+                {"name": "FlareVis", "value": 4116}
+            ]
+        },   
+        {
+            "name": "CILO",
+            "children": [
+                {"name": "asd", "value": 2105},
+                {"name": "CILO1", "value": 1316},
+                {"name": "CILO2", "value": 3151},
+                {"name": "CILO3", "value": 3770},
+                {"name": "CILO4", "value": 2435}
+           ]
+        }
+    ]
+};
+var option = myChart.getOption();
+//选择dataIndex可以访问CILOs
+ myChart.on('click', function (params) {
+            //alert("link is " + params.data.link);
+			flag = 0-flag;
+			//console.log(params.dataIndex);
+			console.log(option.series[0]);
+		/////////////////////////////////////////////////////////////
+			//再这儿，当然也可以在json里面加flag
+			if(params.name == "CILO1")
+			
+			window.open(params.value)
+        });
+		
+    </script>
+</body>
+</html>

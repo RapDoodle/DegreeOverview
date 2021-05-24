@@ -24,12 +24,11 @@ class Report(db.Model):
             models.grade_item.GradeItem,
             models.assessment_method.AssessmentMethod,
             models.course_version.CourseVersion)\
-            .filter(models.report.Report.id==self.id)\
-            .join(models.report.Report, models.report.Report.id==models.student_report.StudentReport.report_id)\
-            .join(models.grade_item.GradeItem, models.grade_item.GradeItem.student_report_id==models.student_report.StudentReport.id)\
-            .join(models.assessment_method.AssessmentMethod, \
-                models.assessment_method.AssessmentMethod.id==models.grade_item.GradeItem.assessment_method_id)\
-            .join(models.course_version.CourseVersion,
+            .filter(
+                models.report.Report.id==self.id,
+                models.student_report.StudentReport.report_id==models.report.Report.id,
+                models.grade_item.GradeItem.student_report_id==models.student_report.StudentReport.id,
+                models.assessment_method.AssessmentMethod.id==models.grade_item.GradeItem.assessment_method_id,
                 models.course_version.CourseVersion.id==models.assessment_method.AssessmentMethod.course_version_id)
 
     def get_course_version(self):
@@ -39,7 +38,6 @@ class Report(db.Model):
         return result[4]
 
     def get_weights_matrix(self):
-        print(self.query_full_report().first())
         result = self.query_full_report().first()
         if result is None:
             raise ErrorMessage(get_str('INVALID_REPORT'))

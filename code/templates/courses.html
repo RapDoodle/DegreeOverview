@@ -47,7 +47,7 @@
 <span>{{ get_str('ADD_NEW_COURSE') }}</span>
 <br><br>
 {% endif %}
-
+{{ test() }}
 <table class="table table-bordered table-striped table-hover">
 	<tr>
 		<th>{{ get_str('COURSE_NAME') }}</th>
@@ -55,7 +55,7 @@
 		<th>{{ get_str('PROGRAM') }}</th>
 		<th>{{ get_str('COURSE_TYPE') }}</th>
 		{% if session['user_type'] == COURSE_DESIGNER %}
-		<th style="min-width: 250px;">{{ get_str('ACTIONS') }}</th>
+		<th>{{ get_str('ACTIONS') }}</th>
 		{% endif %}
 	</tr>
 	{% for course in data['courses'] %}
@@ -885,6 +885,7 @@
 	 * (done)main page each course should also has hide table
 	 * slider user can choose 5,10,15 lines to show and buttons to next or pervious pages
 	 * (done)course code, program, category
+	 * ajax for added and edit
 	*/
 
 </script>

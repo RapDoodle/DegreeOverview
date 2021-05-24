@@ -2,7 +2,6 @@
 """The module provides functions related to input validation."""
 
 import re
-from validate_email import validate_email
 
 
 def verify_regex(regex: str, d: str) -> bool:
@@ -51,28 +50,6 @@ def is_rating(d: str):
 
     """
     return verify_regex('^[1-5]$', d)
-
-
-def is_valid_email(d: str):
-    """Checks if the provided email address is valid.
-
-    Note:
-        This function uses the packet `validate_email`.
-        It will communicate with the actual mail server
-        to verify the email address. Not just validating
-        against a regular expression. For more information,
-        please visit:
-        https://pypi.org/project/validate_email/
-
-    Args:
-        d (str): An email address to be verified.
-
-    Returns:
-        bool: `True` if the email is valid. Otherwise, 
-        `False` will be returned.
-
-    """
-    return validate_email(d)
 
 
 def is_valid_length(d: str, min: int, max: int) -> bool:
