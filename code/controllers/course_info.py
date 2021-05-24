@@ -27,7 +27,7 @@ def info(course_id):
     if course is None:
         flash(get_str('COURSE_NOT_FOUND'))
         return redirect(url_for('courses.courses'))
-    if session['user_type'] == COURSE_DESIGNER:
+    if session['user_type'] == COURSE_DESIGNER or session['user_type'] == LECTURER:
         all_reports = Report.find_reports_by_course_id(course.id)
         years = [report.get_semester().year for report in all_reports]
         # Remove duplicates
