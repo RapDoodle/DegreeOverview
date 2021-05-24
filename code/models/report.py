@@ -32,14 +32,12 @@ class Report(db.Model):
                 models.course_version.CourseVersion.id==models.assessment_method.AssessmentMethod.course_version_id)
 
     def get_course_version(self):
-        print('--------------', self.query_full_report().all())
         result = self.query_full_report().first()
         if result is None:
             raise ErrorMessage(get_str('INVALID_REPORT'))
         return result[4]
 
     def get_weights_matrix(self):
-        print(self.query_full_report().first())
         result = self.query_full_report().first()
         if result is None:
             raise ErrorMessage(get_str('INVALID_REPORT'))
