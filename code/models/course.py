@@ -295,26 +295,54 @@ class Course(SaveableModel):
         db.session.commit()
 
     def get_course_prerequisites(self):
-        return db.session.query(Course).from_statement(
-            text("""SELECT * FROM course, cilo 
-                WHERE course.id = cilo.course_id AND cilo.id IN 
-                (SELECT DISTINCT cilo_dependency.depending_cilo_id 
-                FROM course, cilo, cilo_dependency 
-                WHERE course.id = cilo.course_id 
-                AND cilo.id = cilo_dependency.cilo_id 
-                AND course.id=:course_id)""")
-        ).params(course_id=self.id).all()
+        """In the returned list, for each entry, the first pararmeter
+        is the Course object and the second parameter is the CILO object.
+        Equivalent SQL:
+            SELECT * FROM course, cilo 
+            WHERE course.id = cilo.course_id AND cilo.id IN 
+            (SELECT DISTINCT cilo_dependency.depending_cilo_id 
+            FROM course, cilo, cilo_dependency 
+            WHERE course.id = cilo.course_id 
+            AND cilo.id = cilo_dependency.cilo_id 
+            AND course.id=:course_id)
+        """
+        depending_cilo_ids = [cilo[0].depending_cilo_id for cilo in db.session.query(
+            models.cilo_dependency.CILODependency,
+            models.cilo.CILO)\
+            .filter(models.cilo.CILO.id==models.cilo_dependency.CILODependency.cilo_id)\
+            .filter(Course.id==models.cilo.CILO.course_id)\
+            .filter(models.cilo.CILO.course_id==self.id).all()]
+        return db.session.query(Course, models.cilo.CILO)\
+            .filter(Course.id==models.cilo.CILO.course_id)\
+            .filter(models.cilo.CILO.id.in_(depending_cilo_ids)).all()
 
     def get_dependent_courses(self):
-        return db.session.query(Course).from_statement(
-            text("""SELECT * FROM course, cilo, cilo_dependency 
-                WHERE course.id = cilo.course_id 
-                AND cilo.id = cilo_dependency.cilo_id
-                AND cilo_dependency.depending_cilo_id IN
-                (SELECT cilo.id FROM course, cilo 
-                WHERE course.id = cilo.course_id 
-                AND course.id=:course_id)""")
-        ).params(course_id=self.id).all()
+        """In the returned list, for each entry, the first pararmeter
+        is the Course object, the second parameter is the CILO object,
+        and the third parameter is the CILODependency object
+        Equivalent SQL:
+            SELECT * FROM course, cilo, cilo_dependency 
+            WHERE course.id = cilo.course_id 
+            AND cilo.id = cilo_dependency.cilo_id
+            AND cilo_dependency.depending_cilo_id IN
+            (SELECT cilo.id FROM course, cilo 
+            WHERE course.id = cilo.course_id 
+            AND course.id=:course_id)
+        """
+        depending_cilo_ids = [cilo[0].id for cilo in db.session.query(
+            models.cilo.CILO,
+            models.course.Course)\
+            .filter(models.course.Course.id==self.id)\
+            .filter(models.course.Course.id==models.cilo.CILO.course_id)\
+            .all()]
+        return db.session.query(
+            models.course.Course, 
+            models.cilo.CILO,
+            models.cilo_dependency.CILODependency)\
+            .filter(Course.id==models.cilo.CILO.course_id)\
+            .filter(models.cilo.CILO.id==models.cilo_dependency.CILODependency.cilo_id)\
+            .filter(models.cilo_dependency.CILODependency.depending_cilo_id.in_(depending_cilo_ids))\
+            .all()
 
     def get_cilos(self, course_version_id=None):
         return models.cilo.CILO.find_cilos_by_course_id(

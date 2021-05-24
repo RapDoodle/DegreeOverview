@@ -41,7 +41,7 @@
         {% if len(courses) == 0 %}
           None
         {% else %}
-          {% for idx, course in enumerate(courses) %}{% if idx != 0 %}, {% endif %}{{ course.course_name }}{% endfor %}</p>
+          {% for idx, course in enumerate(courses) %}{% if idx != 0 %}, {% endif %}{{ course[0].course_name }}{% endfor %}</p>
         {% endif %}
     </div>
     <div class="col-12">
@@ -52,7 +52,7 @@
         {% else %}
           <ul>
           {% for course in courses %}
-            <li>{{ course.course_name }}</li>
+            <li>{{ course[0].course_name }}</li>
           {% endfor %}</ul>
         {% endif %}
     </div>  
