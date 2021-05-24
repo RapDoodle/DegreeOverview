@@ -18,19 +18,19 @@ class TestLogin(BaseTestCase):
         response = self.client.post('/login', data=dict(
                 username='teststudent1', password='12345678'
             ), follow_redirects=True)
-        self.assertIn(b'Hi', response.data)
+        self.assertIn(b'Logout', response.data)
 
         # Lecturer login
         response = self.client.post('/login', data=dict(
                 username='testlecturer1', password='12345678'
             ), follow_redirects=True)
-        self.assertIn(b'Hi', response.data)
+        self.assertIn(b'Logout', response.data)
 
         # Course designer login
         response = self.client.post('/login', data=dict(
                 username='testcd1', password='12345678'
             ), follow_redirects=True)
-        self.assertIn(b'Hi', response.data)
+        self.assertIn(b'Logout', response.data)
 
     def test_login_invalid_username(self):
         response = self.client.post('/login', data=dict(
