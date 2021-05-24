@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from core.exception import ErrorMessage
 from operator import index
 from flask import Blueprint
 from flask import session
@@ -29,12 +30,15 @@ def report():
     index = to_int(request.args.get('index', 0), 'index')
     cilos = []
     scores = []
-    if n > 0 and index >= 0 and index < n:
-    # Get the index in the student's completed course list
-        scores = reports[index][2].get_cilo_performance()
-        version = reports[index][1].get_course_version()
-        course = reports[index][0]
-        cilos = course.get_cilos(course_version_id=version.id)
+    if n > 0:
+        if index >= 0 and index < n:
+            # Get the index in the student's completed course list
+            scores = reports[index][2].get_cilo_performance()
+            version = reports[index][1].get_course_version()
+            course = reports[index][0]
+            cilos = course.get_cilos(course_version_id=version.id)
+        else:
+            raise ErrorMessage(get_str('INVALID_INDEX'))
     return {
         'completed_courses': completed_courses,
         'index': index,
