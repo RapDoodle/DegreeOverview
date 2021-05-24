@@ -6,13 +6,10 @@ import re
 import logging
 from json import loads
 from datetime import timedelta
-
 from flask import Flask
 from flask_restful import Api
-
 from settings import IMPORT_RESOURCES
 from settings import IMPORT_BLUEPRINTS
-from core.jwt import init_jwt
 from core.db import db
 from core.db import init_db
 from core.lang import init_lang
@@ -85,14 +82,6 @@ def init_core_modules(app):
         logging.Formatter(app.config.get('LOG_FORMAT', \
             '%(asctime)s %(levelname)s: %(message)s')))
     app.logger.addHandler(file_handler)
-
-    # Setting up flask-JWT
-    init_jwt(app)
-
-    # Simple HTTP server. Not recommended in production.
-    if (app.config.get('ENABLE_SIMPLE_HTTP_SERVER', False)):
-        from utils.http_server import init_http_server
-        init_http_server(app)
 
 
 def load_resources(app):
