@@ -16,21 +16,28 @@
 {{ get_str('PERFORMANCE') }}
 {%- endmacro %}
 
+{% block custom_style %}
+<style>
+	.dropdown-menu::-webkit-scrollbar {
+		display: none;
+	}
+</style>
+{% endblock %}
+
 <div class="row">
 	<div class="col" id="location">
 		<span>
-			<p>{{ tab_title() }}</p>
+			<h2>{{ tab_title() }}<h2>
 		</span>
 	</div>
 </div>
-<br>
 <div class="row no-gutters text-right" style="margin-top:-4%">
   <div class="col">
     <button class="btn btn-outline-link btn dropdown-toggle" type="button" id="dropdownMenuButton"
       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {% if len(data['completed_courses']) > 0 %}{{ data['completed_courses'][data['index']].course_name }}{% endif %}
     </button>
-    <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton" style="margin-top: -1px">
+    <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton">
       {% for idx, course in enumerate(data['completed_courses']) %}
       <a class="dropdown-item" href="{{ url_for('performance_report.report') }}?index={{ idx }}">{{ course.course_name }}</a>
       {% endfor %}
@@ -39,8 +46,8 @@
 </div>
 <div class="row no-gutters">
   <div class="col">
-    <table class="table table-bordered text-center">
-      <thead class="thead-light">
+    <table class="table table-bordered">
+      <thead class="thead-light text-center">
         <tr>
           <th colspan="3">{{ get_str('PERFORMANCE_REPORT') }}</th>
         </tr>

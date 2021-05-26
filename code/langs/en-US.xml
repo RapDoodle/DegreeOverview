@@ -119,4 +119,7 @@
     <string name="INVALID_REPORT">Invalid report.</string>
     <string name="CILO_DESCRIPTION">CILO Description</string>
     <string name="INVALID_INDEX">Invalid index.</string>
+
+    <!--Dependency-->
+    <string name="DEPENDENCY">Outcome Dependency</string>
 </resources>

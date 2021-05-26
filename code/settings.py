@@ -16,5 +16,6 @@ IMPORT_BLUEPRINTS = [
     'courses',
     'search',
     'course_info',
-    'performance_report'
+    'performance_report',
+    'dependency'
 ]

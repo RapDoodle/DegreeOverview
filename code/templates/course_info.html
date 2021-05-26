@@ -16,15 +16,23 @@
 {{ get_str('COURSES_INFO') }}
 {%- endmacro %}
 
+{% block custom_style %}
+<style>
+	.dropdown-menu::-webkit-scrollbar {
+		display: none;
+	}
+</style>
+{% endblock %}
+
 <div class="row">
 	<div class="col" id="location">
 		<span>
-			<p>{{ tab_title() }}</p>
+			<h2>{{ tab_title() }}<h2>
 		</span>
 	</div>
 </div>
   <!--course info-->
-  <div class="row text-center" style="margin-top: 2%; margin-left: 5%; margin-right: 10%">
+  <div class="row text-center" style="margin-left: 5%; margin-right: 10%">
     <h5 class="col">{{ get_str('BASICINFO') }}</h5>
   </div>
   <br>
@@ -57,7 +65,7 @@
         {% endif %}
     </div>  
   </div>
-  <div class="row align-items-center" style="margin-top: 2%; margin-left: 4%; margin-right: 7%">
+  <div class="row align-items-center" style="margin-top: 2%; margin-left: 4%; margin-right: 4%">
     <div class="col-sm-12">
       <table class="table table-bordered table-striped table-hover">
         <thead class="text-center">
@@ -79,7 +87,7 @@
     </div>
   </div>
 
-  <div class="row align-items-center" style="margin-top: 2%; margin-left: 4%; margin-right: 7%">
+  <div class="row align-items-center" style="margin-top: 2%; margin-left: 4%; margin-right: 4%">
     <div class="col-sm-12">
       <table class="table table-bordered table-striped table-hover">
         <thead class="text-center">
@@ -107,16 +115,16 @@
   {% if session['user_type'] != STUDENT %}
   <!--Analysis Results-->
   <br>
-  <div class="row no-gutters" style="margin-left: 5%">
-      <div class="col-sm-9" style="margin-left: 5%">
-      <h5 class="text-center">{{ get_str('ANALYSIS') }}</h5>
+  <div class="row no-gutters" style="margin-left: 5%; margin-right: 5%">
+      <div class="col-sm-9" style="margin-left: 12%">
+        <h5 class="text-center">{{ get_str('ANALYSIS') }}</h5>
       </div>
       <div class="col-sm-1">
-        <button class="btn btn-light btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           {{ str(str(data['analysis']['year_selected']) + "-" + str(data['analysis']['year_selected']+1)) if data['analysis']['year_selected'] > 0 else get_str('NO_REPORT') }}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton" style="min-width: 0;">
           {% for year in data['analysis']['years'] %}
             <a class="dropdown-item" href="{{ url_for('course_info.info', course_id=data['course'].id) }}?year={{year}}">
               {{ year }}-{{ year+1 }}
@@ -124,8 +132,8 @@
           {% endfor %}
         </div>
       </div>
-      <div class="col-sm-11">
-      <br>
+      <div class="col-sm-12">
+        <br>
       <table class="table table-bordered table-striped table-hover">
         <thead class="text-center">
           <tr>
