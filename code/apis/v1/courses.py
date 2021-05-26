@@ -23,6 +23,7 @@ class Courses(Resource):
     @excpetion_handler
     def post(self):
         content = request.get_json()
+        print(content)
         Course.add_course(content)
         return {'message': get_str('CREATED', obj_name=get_str('ACOURSE'))}, 201
 
