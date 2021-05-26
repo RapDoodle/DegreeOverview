@@ -2,8 +2,7 @@
 from core.exception import ErrorMessage
 from operator import index
 from flask import Blueprint
-from flask import session
-from flask import request
+from flask import redirect
 from flask import flash
 from core.lang import get_str
 from core.engine import render_context
@@ -18,5 +17,4 @@ blueprint = Blueprint('dependency', __name__, template_folder='templates')
 @restricted_access(allowed=[STUDENT, LECTURER, COURSE_DESIGNER])
 @render_context('dependency.html')
 def dependency():
-    return redirect(url_for('dependency.dependency'))
-#FIXME: Server internal error.
+    pass
