@@ -47,7 +47,7 @@
 <span>{{ get_str('ADD_NEW_COURSE') }}</span>
 <br><br>
 {% endif %}
-{{ test() }}
+
 <table class="table table-bordered table-striped table-hover">
 	<tr>
 		<th>{{ get_str('COURSE_NAME') }}</th>
@@ -168,7 +168,7 @@
 						<h5>{{ get_str('COURSE_TYPE') }}</h5>
 						<div class="input-group">
 							<input type="text" class="form-control" id="new-course-type"
-								name="new_course_program_degree" placeholder="" aria-label=""
+								name="new_course_program_degree" placeholder="" aria-label="-1"
 								aria-describedby="basic-addon1" disabled>
 							<div class="input-group-append">
 								<div class="dropdown" style="display: inline; ">
@@ -180,7 +180,7 @@
 										{% for index, course_type in enumerate(data['course_types']) %}
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
 											data-category-id="id" data-category-name="name"
-											data-category-priority="priority" onclick="course_type_select(this)">{{ course_type.name }}</a>
+											data-category-priority="priority" onclick="course_type_select(this)" value="{{ course_type.id }}">{{ course_type.name }}</a>
 										{% if index!=len(data['course_types'])-1 %}
 										<hr>
 										{% endif %}
@@ -193,41 +193,16 @@
 					</div>
 				</div>
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%">
-					<div class="col-3">
+					<div class="col-6">
 						<h5>{{ get_str('YEAR') }}</h5>
 						<input type="text" class="form-control" id="new-course-year" name="new_course_year"
 							placeholder="" aria-label="" aria-describedby="basic-addon1">
-					</div>
-					<div class="col-3">
-						<h5>{{ get_str('TERM') }}</h5>
-						<div class="input-group">
-							<input type="text" class="form-control" id="new-course-term" name="new_course_term"
-								placeholder="" aria-label="" aria-describedby="basic-addon1" disabled>
-							<div class="input-group-append">
-								<div class="dropdown" style="display: inline; ">
-
-									<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
-										aria-expanded="false" style="float:right">
-
-									</button>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
-											data-category-id="id" data-category-name="name"
-											data-category-priority="priority" onclick="term_select(this)">1</a>
-										<hr>
-										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
-											data-category-id="category_id" data-category-name="category_name"
-											onclick="term_select(this)">2</a>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="col-6">
 						<h5>{{ get_str('PROGRAM') }}</h5>
 						<div class="input-group">
 							<input type="text" class="form-control" id="new-course-program"
-								name="new_course_program_degree" placeholder="" aria-label=""
+								name="new_course_program_degree" placeholder="" aria-label="-1"
 								aria-describedby="basic-addon1" disabled>
 							<div class="input-group-append">
 								<div class="dropdown" style="display: inline; ">
@@ -241,7 +216,7 @@
 										{% for index, program in enumerate(data['programs']) %}
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
 											data-category-id="id" data-category-name="name"
-											data-category-priority="priority" onclick="program_select(this)">{{
+											data-category-priority="priority" onclick="program_select(this)" value="{{ program.id }}">{{
 											program.name }}</a>
 										{% if index!=len(data['programs'])-1 %}
 										<hr>
@@ -374,7 +349,7 @@
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
 					<div class="input-group ">
 						<div class="input-group-prepend">
-							<div class="dropdown" style="display: inline; ">
+							<div class="dropdown CILO-dependencies-search" style="display: inline; ">
 
 								<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
 									aria-expanded="false" style="float:right">
@@ -394,7 +369,7 @@
 						<input type="text" class="form-control" placeholder="Search" value="" aria-label=""
 							aria-describedby="basic-addon2">
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary">
+							<button class="btn btn-outline-secondary" id="">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
@@ -505,7 +480,7 @@
 	</div>
 </div>
 
-<!-- <button class="btn btn-success" onclick="test()"></button> -->
+<button class="btn btn-success" onclick="test()"></button>
 
 {% endblock %}
 
@@ -525,8 +500,8 @@
 		$("#CILOs-add").click(function () {
 			var index = $("#CILOs-table .new-CILOs-tbale-tr").length;
 			var CILOsAdditon = //style="display:none"
-				'<tr class="new-CILOs-tbale-tr" style="text-align: center;">\
-				<td class="CILO-order">CILO-' + index + '</td>\
+				'<tr class="new-CILOs-tbale-tr new-CILOs-tbale-tr-value" style="text-align: center;">\
+				<td class="CILO-order" value="'+ index +'">CILO-' + index + '</td>\
 				<td><input type="text" class="form-control CILOs-description" id="CILOs-description-' + index + '" title=""\
 						oninput="descrption_update($(this))" placeholder="please input {{ get_str("DESCRIPTION") }}" value=""\
 						aria-label="" aria-describedby="basic-addon1" data-toggle="tooltip" style="text-align: center;"></td>\
@@ -563,7 +538,7 @@
 		$(".define-box-added-table").children().remove();
 		$(".define-box-added-table").attr("value", id_text);
 		$(".define-box-added-table").append(table_concent);
-		console.log($(".define-box-added-table").attr("value"))
+		//console.log($(".define-box-added-table").attr("value"))
 	}
 
 	function write_CILOs() {
@@ -657,11 +632,13 @@
 		var e = obj;
 		var text = $(e).text();
 		$("#new-course-program").attr("value", text);
+		$("#new-course-program").attr("aria-label", $(e).attr("value"));
 	}
 	function course_type_select(obj) {
 		var e = obj;
 		var text = $(e).text();
 		$("#new-course-type").attr("value", text);
+		$("#new-course-type").attr("aria-label", $(e).attr("value"));
 	}
 
 
@@ -707,8 +684,8 @@
 	$(document).ready(function () {
 		$("#new-Assessment-methods-add").click(function () {
 			var append_text =
-				'<tr style="text-align: center;">\
-			<td><input type="text" class="form-control" placeholder="please input name" value="" aria-label=""\
+				'<tr style="text-align: center"; class="new-Assessment-methods-tr">\
+			<td><input type="text" class="form-control new-Assessment-name" placeholder="please input name" value="" aria-label=""\
 					aria-describedby="basic-addon1" style="text-align: center;"></td>\
 			<td>\
 				<div class="input-group Related-CILOs-input"><input type="text" class="form-control Related-CILOs-input-area" placeholder="please choose CILOs" value=""\
@@ -722,7 +699,7 @@
 					</div>\
 				</div>\
 			</td>\
-			<td><input type="text" class="form-control" placeholder="please input percentage" value="" aria-label=""\
+			<td><input type="text" class="form-control new-Assessment-percentage" placeholder="please input percentage" value="" aria-label=""\
 					aria-describedby="basic-addon1" style="text-align: center;"></td>\
 			<td><button type="button" class="btn btn-light" onclick="minus(this)"><i class="fa fa-minus"></i></button></td>\
 			</tr>';
@@ -734,8 +711,8 @@
 	$(document).ready(function () {
 		$("#Assessment-methods-add").click(function () {
 			var append_text =
-				'<tr style="text-align: center;">\
-								<td><input type="text" class="form-control" placeholder="please input name" value="" aria-label=""\
+				'<tr class="assessment-method-tr" style="text-align: center"; >\
+								<td><input type="text" class="form-control new-Assessment-name" placeholder="please input name" value="" aria-label=""\
 										aria-describedby="basic-addon1" style="text-align: center;"></td>\
 								<td>\
 									<div class="input-group Related-CILOs-input"><input type="text" class="form-control Related-CILOs-input-area"\
@@ -770,13 +747,12 @@
 	}
 
 
-	//update CILOs table
-	//let CILOsIndex = 1
 	function update_CILOs_table() {
 		let CILOsIndex = 1
 		//console.log($("#CILOs-table").children("td.CILO-order").index);
-		$("#CILOs-table").find("td.CILO-order").html(() => {
+		$("#CILOs-table").find("td.CILO-order").html(function(){
 			var text = "CILO-" + CILOsIndex
+			$(this).attr("value",CILOsIndex)
 			CILOsIndex++
 			//console.log(text+",,"+CILOsIndex)
 			return text
@@ -870,10 +846,75 @@
 
 	}
 
+	var add_json = {}
+	var json_temp = {}
+	var add_cilos_json;
+	var add_assessment_json;
+	var add_assessment_method = []
+	var add_assessment_counter;
+	var add_depending_cilos
+	var add_assessment_related;
+	
 	function test() {
-		var e = $(document).find("#edit-Course-name").attr("value");
-		console.log(e);
-		console.log(e[1])		
+		//front 6 input
+		add_json = {}
+		json_temp = {}
+		add_cilos_json = new Array();
+		add_json.course_name = $("#new-course-title").val()
+		add_json.course_code = $("#new-course-code").val()
+		add_json.course_type_id = $("#new-course-type").attr("aria-label")
+		add_json.program_id = $("#new-course-program").attr("aria-label")
+		add_json.effective_since = $("#new-course-year").val()
+		//CILOs table
+		$("#CILOs-table").find(".new-CILOs-tbale-tr-value").each(function () {
+			add_depending_cilos = new Array();
+			json_temp = {}
+			json_temp.cilo_index = $(this).find(".CILO-order").attr("value")
+			json_temp.cilo_description = $(this).find(".CILOs-description").val()
+			$(this).find(".CILO-ID-td").each(function () {
+				add_depending_cilos.push($(this).text())
+			})
+			json_temp.cilo_description = add_depending_cilos
+			add_cilos_json.push(json_temp)
+		})
+		add_json.cilos = add_cilos_json
+		//Assessment table
+		add_assessment_json = new Array();
+		add_assessment_counter = 1;
+		$("#Assessment-methods-table").find(".new-Assessment-methods-tr").each(function () {
+			json_temp = {}
+			json_temp.method_index = add_assessment_counter;
+			add_assessment_counter++;
+			json_temp.method_name = $(this).find(".new-Assessment-name").val();
+			add_assessment_related = new Array();
+			$(this).find(".Related_CILOs_CheckBox").each(function () {
+				if($(this).prop("checked")==true){
+					add_assessment_related.push($(this).val())
+				}
+			})
+			json_temp.cilos_addressed = add_assessment_related
+			json_temp.weight = $(this).find(".new-Assessment-percentage").val()
+			add_assessment_json.push(json_temp)
+		})
+		add_json.assessment_methods = add_assessment_json
+		$.ajax({
+			type:"POST",
+			url:"/api/v1/courses",
+			async:false,
+			data: JSON.stringify(add_json),
+			dataType:"json",
+			contentType: "application/json; charset=utf-8",
+			success:function (data) {
+				//console.log(1)
+				console.log(data)
+			},
+			error:function (jqXHR) {
+				//alert("error："+ jqXHR.status);
+				console.log(jqXHR)
+			}
+		})
+		//var json_object = jQuery.parseJSON()		
+		console.log(add_json);
 	}
 	/**
 	 * (done)hide table for CILO define
@@ -886,6 +927,8 @@
 	 * slider user can choose 5,10,15 lines to show and buttons to next or pervious pages
 	 * (done)course code, program, category
 	 * ajax for added and edit
+	 * search for CILOs dependencies
+	 * add course alert
 	*/
 
 </script>

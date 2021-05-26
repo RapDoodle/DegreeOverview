@@ -12,6 +12,7 @@ from core.permission import COURSE_DESIGNER
 from core.exception import ErrorMessage
 
 from models.cilo import CILO
+from models.course import Course
 
 
 VERSION = 'v1'
@@ -24,4 +25,6 @@ class Cilos(Resource):
     def get(self):
         keyword = request.args.get('keyword', '')
         cilos = [cilo.json() for cilo in CILO.find_cilo_by_keyword(keyword=keyword)]
+        for cilo in cilos:
+            cilo['course_name'] = Course.find_course_by_id(id=cilo['course_id']).course_name
         return {'cilos': cilos}, 200

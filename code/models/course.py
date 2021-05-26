@@ -8,6 +8,7 @@ from core.permission import STUDENT
 from core.permission import LECTURER
 from core.permission import COURSE_DESIGNER
 from utils.validation import is_valid_length
+from utils.converter import to_int
 from models.saveable_model import SaveableModel
 
 
@@ -204,7 +205,7 @@ class Course(SaveableModel):
         # Check for the weights (in total, it should add up to 100%)
         weight_total = 0
         for method in methods:
-            weight_total = weight_total + method['weight']
+            weight_total = weight_total + to_int(method['weight'], 'weight')
         if weight_total != 100:
             raise ErrorMessage(get_str('INVALID_TOTAL_WEIGHT'))
         
