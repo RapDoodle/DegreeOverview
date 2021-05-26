@@ -1,14 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>ECharts</title>
-    <!-- 引入 echarts.js -->
-    <!-- 这里是加载刚下好的echarts.min.js，注意路径 -->
-	
-    <script src="C:\Users\UIC\Downloads\echarts.min.js"></script>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block header_script %}
+    <script src="/static/js/echarts.min.js"></script>
+{% endblock %}
+
+{% macro tag_title() -%}
+{% if session['user_type'] == STUDENT %}
+{{ get_str('STUDENT') }}
+{% elif session['user_type'] == LECTURER %}
+{{ get_str('LECTURER') }}
+{% elif session['user_type'] == COURSE_DESIGNER %}
+{{ get_str('COURSE_DESIGNER') }}
+{% endif %}
+{%- endmacro %}
+{% block title %} {{ tag_title() }} {% endblock%}
+
+{% block content %}
+
+{% macro tab_title() -%}
+{{ get_str('DEPENDENCY') }}
+{%- endmacro %}
+
+<div class="row">
+	<div class="col" id="location">
+		<span>
+			<h2>{{ tab_title() }}<h2>
+		</span>
+	</div>
+</div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom容器 -->
     <div id="main" style="width: 1000px;height:600px;"></div>
     
@@ -230,5 +249,4 @@ var option = myChart.getOption();
         });
 		
     </script>
-</body>
-</html>
+{% endblock %}
