@@ -5,6 +5,8 @@
 {%- endmacro %}
 
 {% block content %}
+{% block inner_content %}
+{% endblock %}
 <!-- edit-CILOs and Modify-Assessment-Method -->
 <div class="modal fade bd-example-modal-lg edit-CILOs" tabindex="-1" role="dialog" aria-labelledby="edit-CILOs"
 	aria-hidden="true">
@@ -167,6 +169,5 @@
 		</div>
 	</div>
 </div>
-{% block inner_content %}
-{% endblock %}
+
 {% endblock %}
