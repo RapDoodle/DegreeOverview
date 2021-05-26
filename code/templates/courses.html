@@ -138,7 +138,7 @@
 		<div class="modal-content">
 
 			<div class="modal-header">
-				<h4 class="modal-title" id="myLargeModalLabel">{{ get_str('NEW_COURSE') }}</h4>
+				<h5 class="modal-title" id="myLargeModalLabel">{{ get_str('NEW_COURSE') }}</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -148,24 +148,24 @@
 				<!-- top 7 input areas -->
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
 					<div class="col">
-						<h5>{{ get_str('COURSE_TITLE') }}</h5>
+						<label>{{ get_str('COURSE_TITLE') }}</label>
 						<input type="text" class="form-control" id="new-course-title" name="new_couse_title"
 							placeholder="" aria-label="" aria-describedby="basic-addon1">
 					</div>
 					<div class="col">
-						<h5>{{ get_str('LECTURER') }}</h5>
+						<label>{{ get_str('LECTURER') }}</label>
 						<input type="text" class="form-control" id="new-course-lecturer" name="new_course_lecturer"
 							placeholder="" aria-label="" aria-describedby="basic-addon1">
 					</div>
 				</div>
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%">
 					<div class="col">
-						<h5>{{ get_str('COURSE_CODE') }}</h5>
+						<label>{{ get_str('COURSE_CODE') }}</label>
 						<input type="text" class="form-control" id="new-course-code" name="new_course_code"
 							placeholder="" aria-label="" aria-describedby="basic-addon1">
 					</div>
 					<div class="col">
-						<h5>{{ get_str('COURSE_TYPE') }}</h5>
+						<label>{{ get_str('COURSE_TYPE') }}</label>
 						<div class="input-group">
 							<input type="text" class="form-control" id="new-course-type"
 								name="new_course_program_degree" placeholder="" aria-label="-1"
@@ -194,12 +194,12 @@
 				</div>
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%">
 					<div class="col-6">
-						<h5>{{ get_str('YEAR') }}</h5>
+						<label>{{ get_str('YEAR') }}</label>
 						<input type="text" class="form-control" id="new-course-year" name="new_course_year"
 							placeholder="" aria-label="" aria-describedby="basic-addon1">
 					</div>
 					<div class="col-6">
-						<h5>{{ get_str('PROGRAM') }}</h5>
+						<label>{{ get_str('PROGRAM') }}</label>
 						<div class="input-group">
 							<input type="text" class="form-control" id="new-course-program"
 								name="new_course_program_degree" placeholder="" aria-label="-1"
@@ -235,12 +235,12 @@
 				<!-- Pre-requisites -->
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
 					<div class="col">
-						<h5>{{ get_str('PRE-REQUISITES') }}</h5>
+						<label>{{ get_str('PRE-REQUISITES') }}</label>
 						<table class="table table-bordered table-striped " id="Pre-requisites-table">
 
 							<tr style="text-align: center;">
 								<th>
-									<h5>{{ get_str('COURSE_NAME') }}</h5>
+									<label>{{ get_str('COURSE_NAME') }}</label>
 								</th>
 							</tr>
 						</table>
@@ -252,7 +252,7 @@
 					<div class="col">
 						<div class="row">
 							<div class="col">
-								<h5>{{ get_str('CILOS') }}</h5>
+								<label>{{ get_str('CILOS') }}</label>
 							</div>
 							<div class="col" style="text-align: right;">
 								<button type="button" class="btn btn-success" id="CILOs-import" data-toggle="modal"
@@ -267,13 +267,13 @@
 
 							<tr class="new-CILOs-tbale-tr" style="text-align: center;">
 								<th>
-									<h5>{{ get_str('CILO') }}</h5>
+									<label>{{ get_str('CILO') }}</label>
 								</th>
 								<th>
-									<h5>{{ get_str('DESCRIPTION') }}</h5>
+									<label>{{ get_str('DESCRIPTION') }}</label>
 								</th>
 								<th>
-									<h5>{{ get_str('DEPENDENCIES') }}</h5>
+									<label>{{ get_str('DEPENDENCIES') }}</label>
 								</th>
 								<th></th>
 							</tr>
@@ -286,7 +286,7 @@
 					<div class="col">
 						<div class="row">
 							<div class="col">
-								<h5>{{ get_str('ASSESSMENT_METHODS') }}</h5>
+								<label>{{ get_str('ASSESSMENT_METHODS') }}</label>
 							</div>
 							<div class="col" style="text-align: right;">
 								<button type="button" class="btn btn-success" data-toggle="modal"
@@ -302,13 +302,13 @@
 
 							<tr style="text-align: center;">
 								<th>
-									<h5>{{ get_str('ASSESSMENT') }}</h5>
+									<label>{{ get_str('ASSESSMENT') }}</label>
 								</th>
 								<th>
-									<h5>{{ get_str('RELATED_CILOS') }}</h5>
+									<label>{{ get_str('RELATED_CILOS') }}</label>
 								</th>
 								<th>
-									<h5>{{ get_str('PRECENTAGE') }}</h5>
+									<label>{{ get_str('PRECENTAGE') }}</label>
 								</th>
 								<th></th>
 							</tr>
@@ -322,7 +322,7 @@
 						<button type="button" class="btn btn-warning" data-dismiss="modal">
 							{{ get_str('CANCEL') }}
 						</button>
-						<button type="button" class="btn btn-primary" style="margin-left: 5px;">
+						<button type="button" class="btn btn-primary" style="margin-left: 5px;" onclick="add_course()">
 							{{ get_str('CONFIRM') }}
 						</button>
 					</div>
@@ -339,7 +339,7 @@
 		<div class="modal-content">
 
 			<div class="modal-header">
-				<h4 class="modal-title" id="myLargeModalLabel">{{ get_str('CILO_DEPENDENCIES') }}</h4>
+				<h5 class="modal-title" id="myLargeModalLabel">{{ get_str('CILO_DEPENDENCIES') }}</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -382,7 +382,7 @@
 					<div class="col">
 						<div class="row">
 							<div class="col" style="text-align: center;">
-								<h5>{{ get_str('SEARCH_RESULTS') }}</h5>
+								<label>{{ get_str('SEARCH_RESULTS') }}</label>
 							</div>
 						</div>
 						<table class="table table-bordered table-striped define-box-result-table"
@@ -392,13 +392,13 @@
 									CILOs unique ID
 								</th>
 								<th>
-									<h5>{{ get_str('COURSE') }}</h5>
+									<label>{{ get_str('COURSE') }}</label>
 								</th>
 								<th>
-									<h5>{{ get_str('CILO') }}</h5>
+									<label>{{ get_str('CILO') }}</label>
 								</th>
 								<th style="width: 30px;">
-									<h5>{{ get_str('ACTION') }}</h5>
+									<label>{{ get_str('ACTION') }}</label>
 								</th>
 							</tr>
 							{% for i in ["1","2","3"] %}
@@ -429,7 +429,7 @@
 					<div class="col">
 						<div class="row">
 							<div class="col" style="text-align: center;">
-								<h5>{{ get_str('ADDED_CILOS') }}</h5>
+								<label>{{ get_str('ADDED_CILOS') }}</label>
 							</div>
 						</div>
 						<table class="table table-bordered table-striped define-box-added-table"
@@ -440,13 +440,13 @@
 									CILOs unique ID
 								</th>
 								<th>
-									<h5>{{ get_str('COURSE') }}</h5>
+									<label>{{ get_str('COURSE') }}</label>
 								</th>
 								<th>
-									<h5>{{ get_str('CILO') }}</h5>
+									<label>{{ get_str('CILO') }}</label>
 								</th>
 								<th style="width: 30px;">
-									<h5>{{ get_str('ACTION') }}</h5>
+									<label>{{ get_str('ACTION') }}</label>
 								</th>
 							</tr>
 							{% for i in ["1","2","3"] %}
@@ -512,13 +512,13 @@
 									CILOs unique ID\
 								</th>\
 								<th>\
-									<h5>{{ get_str("COURSE") }}</h5>\
+									<label>{{ get_str("COURSE") }}</label>\
 								</th>\
 								<th>\
-									<h5>{{ get_str("CILO") }}</h5>\
+									<label>{{ get_str("CILO") }}</label>\
 								</th>\
 								<th style="width: 30px;">\
-									<h5>{{ get_str("ACTION") }}</h5>\
+									<label>{{ get_str("ACTION") }}</label>\
 								</th>\
 							</tr>\
 						</table>\
@@ -855,7 +855,7 @@
 	var add_depending_cilos
 	var add_assessment_related;
 	
-	function test() {
+	function add_course() {
 		//front 6 input
 		add_json = {}
 		json_temp = {}
@@ -907,14 +907,18 @@
 			success:function (data) {
 				//console.log(1)
 				console.log(data)
+				//window.location.reload()
 			},
 			error:function (jqXHR) {
 				//alert("error："+ jqXHR.status);
-				console.log(jqXHR)
+				//alert(jqXHR.responseJSON.error)
+				$('#messageModal').find(".modal-title").text("error")
+				$('#messageModal').find(".modal-body").html('<p>'+jqXHR.responseJSON.error+'</p>')
+				$('#messageModal').modal('show')
 			}
 		})
 		//var json_object = jQuery.parseJSON()		
-		console.log(add_json);
+		//console.log(add_json);
 	}
 	/**
 	 * (done)hide table for CILO define
