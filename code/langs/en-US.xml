@@ -48,7 +48,6 @@
     <string name="MODIFY_ASSESSMENT_METHOD">Modify Assessment Method</string>
     <string name="NEW_COURSE">New Course</string>
     <string name="COURSE_TITLE">Course title</string>
-    <string name="LECTURER">Lecturer</string>
     <string name="COURSE_CODE">Course code</string>
     <string name="COURSE_TYPE">Course type</string>    
     <string name="PRE-REQUISITES">Pre-requisites</string>

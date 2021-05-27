@@ -143,6 +143,9 @@
 {% block courseScript %}
 {% endblock %}
 <script>
+	$('.upload-file').on('hidden.bs.modal', function (event) {
+		$("body").addClass("modal-open");
+	})
 	//mouse hold message show: title
 	$(function () {
 		$('.CILOs-description').tooltip();
@@ -236,6 +239,7 @@
 			})
 		})
 	}
+	
 </script>
 
 {% endblock %}
