@@ -2,7 +2,6 @@
 from flask import current_app
 from flask import request
 from flask_restful import Resource
-
 from core.lang import get_str
 from core.exception import excpetion_handler
 from core.permission import restricted_access
@@ -10,7 +9,6 @@ from core.permission import STUDENT
 from core.permission import LECTURER
 from core.permission import COURSE_DESIGNER
 from core.exception import ErrorMessage
-
 from models.course import Course
 
 
