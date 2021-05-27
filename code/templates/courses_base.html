@@ -14,7 +14,7 @@
 		<div class="modal-content">
 
 			<div class="modal-header">
-				<h4 class="modal-title" id="myLargeModalLabel">{{ get_str('EDIT') }}</h4>
+				<h5 class="modal-title" id="myLargeModalLabel">{{ get_str('EDIT') }}</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -22,29 +22,41 @@
 
 			<div class="modal-body">
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
-					<h4>{{ get_str('COURSE_TITLE') }} : &nbsp;</h4>
-					<h4 id="edit-Course-name">Course 1</h4>
+					<label>{{ get_str('COURSE_TITLE') }} : &nbsp;</label>
+					<label id="edit-Course-name"></label>
 				</div>
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
-					<h4>{{ get_str('COURSE_CODE') }} : &nbsp;</h4>
-					<h4 id="edit-Course-code">COMP3043</h4>
+					<label>{{ get_str('COURSE_CODE') }} : &nbsp;</label>
+					<label id="edit-Course-code"></label>
+				</div>
+				<div class="row" style="margin: 2.5%;margin-bottom: 0%">
+					<span>
+						<label>{{ get_str('EFFECTIVE_SINCE') }} : &nbsp;</label>
+						<label><input type="text" class="form-control" id="effective-course-year"
+								name="effective_course_year" placeholder="{{ get_str('YEAR') }}" aria-label=""
+								aria-describedby="basic-addon1"></label>
+					</span>
 				</div>
 				<hr>
 				<div class="row" style="margin: 2.5%;margin-bottom: 0%;">
 					<div class="col">
 						<div class="row">
 							<div class="col">
-								<h4>{{ get_str('CILOS') }}</h4>
+								<label>{{ get_str('CILOS') }}</label>
+							</div>
+							<div class="col" style="text-align: right;">
+								<button type="button" class="btn btn-success" id="CILOs-import" data-toggle="modal"
+									data-target=".upload-file">{{ get_str('IMPORT') }}</button>
 							</div>
 						</div>
 						<table class="table table-bordered table-striped " id="edit-CILOs-table"
 							style="margin-top: 5px;">
 							<tr style="text-align: center; width: auto;">
 								<th>
-									<h5>{{ get_str('CILO') }}</h5>
+									<label>{{ get_str('CILO') }}</label>
 								</th>
 								<th>
-									<h5>{{ get_str('DESCRIPTION') }}</h5>
+									<label>{{ get_str('DESCRIPTION') }}</label>
 								</th>
 							</tr>
 						</table>
@@ -54,9 +66,11 @@
 					<div class="col">
 						<div class="row">
 							<div class="col">
-								<h4>{{ get_str('ASSESSMENT_METHODS') }}</h4>
+								<label>{{ get_str('ASSESSMENT_METHODS') }}</label>
 							</div>
 							<div class="col" style="text-align: right;">
+								<button type="button" class="btn btn-success" id="assessment-import" data-toggle="modal"
+									data-target=".upload-file">{{ get_str('IMPORT') }}</button>
 								<button type="button" class="btn btn-light" id="Assessment-methods-add">
 									<i class="fa fa-plus"></i>
 								</button>
@@ -67,68 +81,21 @@
 
 							<tr style="text-align: center;">
 								<th>
-									<h5>{{ get_str('NAME') }}</h5>
+									<label>{{ get_str('NAME') }}</label>
 								</th>
 								<th>
-									<h5>{{ get_str('RELATED_CILOS') }}</h5>
+									<label>{{ get_str('RELATED_CILOS') }}</label>
 								</th>
 								<th>
-									<h5>{{ get_str('PRECENTAGE') }}</h5>
+									<label>{{ get_str('PRECENTAGE') }}</label>
 								</th>
 								<th></th>
 							</tr>
 						</table>
 					</div>
 				</div>
-				<div class="row" style="margin: 2.5%;margin-bottom: 5%">
-					<div class="col">
-						<div class="row">
-							<div class="col">
-								<h4>{{ get_str('EFFECTIVE_SINCE') }}</h4>
-							</div>
-						</div>
-						<div class="row" style="margin-top:2%">
-							<div class="col">
-								<h5>{{ get_str('YEAR') }}</h5>
-								<input type="text" class="form-control" id="effective-course-year"
-									name="effective_course_year" placeholder="" aria-label=""
-									aria-describedby="basic-addon1">
-							</div>
-							<div class="col">
-								<h5>{{ get_str('TERM') }}</h5>
-								<div class="input-group">
-									<input type="text" class="form-control" id="edit-effective-course-term"
-										name="effective_course_term" placeholder="" aria-label=""
-										aria-describedby="basic-addon1" disabled>
-									<div class="input-group-append">
-										<div class="dropdown" style="display: inline; ">
-
-											<button class="btn btn-outline-secondary dropdown-toggle"
-												data-toggle="dropdown" aria-expanded="false" style="float:right">
-
-											</button>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
-													data-category-id="id" data-category-name="name"
-													data-category-priority="priority"
-													onclick="edit_term_select(this)">1</a>
-												<hr>
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target=""
-													data-category-id="category_id" data-category-name="category_name"
-													onclick="edit_term_select(this)">2</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="row" style="margin: 2.5%;">
 					<div class="col" style="text-align: right;">
-						<button type="button" class="btn btn-success" data-toggle="modal" data-target=".upload-file">
-							{{ get_str('IMPORT') }}
-						</button>
 						<button type="button" class="btn btn-warning" data-dismiss="modal" style="margin-left: 5px;">
 							{{ get_str('CANCEL') }}
 						</button>
@@ -146,7 +113,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="newproductModalLabel">{{ get_str('UPLOAD') }}</h5>
+				<label class="modal-title" id="newproductModalLabel">{{ get_str('UPLOAD') }}</label>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -169,5 +136,106 @@
 		</div>
 	</div>
 </div>
+
+{% endblock %}
+
+{% block script %}
+{% block courseScript %}
+{% endblock %}
+<script>
+	//mouse hold message show: title
+	$(function () {
+		$('.CILOs-description').tooltip();
+	});
+
+	function descrption_update(obj) {
+		var e = obj;
+		$(e).attr("title", document.getElementById($(e).attr('id')).value)
+	}
+
+
+	$(document).ready(function () {
+		$("#Assessment-methods-add").click(function () {
+			var append_text =
+				'<tr class="assessment-method-tr" style="text-align: center"; >\
+								<td><input type="text" class="form-control new-Assessment-name" placeholder="please input name" value="" aria-label=""\
+										aria-describedby="basic-addon1" style="text-align: center;"></td>\
+								<td>\
+									<div class="input-group Related-CILOs-input"><input type="text" class="form-control Related-CILOs-input-area"\
+											placeholder="please choose CILOs" value="" aria-label="" aria-describedby="basic-addon2"\
+											style="text-align: center;" disabled>\
+										<div class="input-group-append">\
+											<div class="dropdown" style="display: inline; ">\
+												<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"\
+													aria-expanded="false" style="float:right"></button>\
+												<div class="dropdown-menu edit-Related-CILOs-dropmenu" aria-labelledby="dropdownMenuLink"></div>\
+											</div>\
+										</div>\
+									</div>\
+								</td>\
+								<td><input type="text" class="form-control" placeholder="please input percentage" value="" aria-label=""\
+										aria-describedby="basic-addon1" style="text-align: center;"></td>\
+								<td><button type="button" class="btn btn-light" onclick="minus(this)"><i class="fa fa-minus"></i></button></td>\
+							</tr>';
+			$("#edit-Assessment-methods-table").append(append_text);
+			edit_get_line_nums();
+		});
+	});
+	function minus(obj) {
+		var e = obj;
+		$(e).parent().parent().remove();
+	}
+
+	var edit_related_CILOs_text = ""
+	function edit_set_new_course_Related_CILOs_value(obj) {
+		var e = obj
+		edit_related_CILOs_text = ""
+		//$(e).parents(".Related-CILOs-dropmenu").css({"color":"red","border":"2px solid red"})
+		//text += $("#Assessment-methods-table").find(".Related_CILOs_CheckBox",":checked").length
+		$(e).parents(".edit-Related-CILOs-dropmenu").find(":checked").each(function () {
+			//edit_related_CILOs_text += $(this).parents(".input-group").find(".related-CILOs-dropbox-value").css({"color":"red","border":"2px solid red"})
+			if (edit_related_CILOs_text === "") {
+				edit_related_CILOs_text += + $(this).val()
+			} else {
+				edit_related_CILOs_text += "," + $(this).val()
+			}
+		})
+		$(e).parents(".Related-CILOs-input").find(".Related-CILOs-input-area").attr("value", edit_related_CILOs_text)
+
+	}
+	var edit_cilo_index = 0;
+	var Related_cilos
+	function edit_read(obj) {
+		edit_cilo_index = 0;
+		var e = $(obj).parents(".Action-column")
+		$("#edit-Course-name").text(e.siblings(".Course-name").text())
+		$("#edit-Course-code").text(e.siblings(".Course-code").text())
+		$("#edit-CILOs-table").find(".Edit-CILOs-tbale-tr").remove()
+		$("#edit-CILOs-table").append(e.find(".course-hide-CILOs-table").html())
+		$("#edit-CILOs-table").attr("value", e.find(".course-hide-CILOs-table").attr("id"))
+		$("#edit-CILOs-table").find(".CILOs-description").each(function () {
+			$(this).attr("id", "edit-cilo-index-" + edit_cilo_index)
+			edit_cilo_index++
+		})
+		$("#edit-CILOs-table").find(".CILOs-description").each(function () {
+			descrption_update($(this))
+		})
+		$("#edit-Assessment-methods-table").find(".Edit-assessment-methods-tbale-tr").remove()
+		$("#edit-Assessment-methods-table").append(e.find(".course-hide-assessment-methods-table").html())
+		$("#edit-Assessment-methods-table").attr("value", e.find(".course-hide-assessment-methods-table").attr("id"))
+		edit_get_line_nums()
+		$("#edit-Assessment-methods-table").find(".Related-CILOs-input").each(function () {
+			Related_cilos = $(this).find(".Related-cilo-dropdown-button").val().split(",")
+			$(this).find(".Related_CILOs_CheckBox").each(function () {
+				for (var i = 0; i < Related_cilos.length; i++) {
+					if ($(this).val() == Related_cilos[i]) {
+						$(this).attr("checked", "checked")
+						break;
+					}
+				}
+			})
+		})
+	}
+</script>
 
 {% endblock %}

@@ -255,7 +255,7 @@
 								<label>{{ get_str('CILOS') }}</label>
 							</div>
 							<div class="col" style="text-align: right;">
-								<button type="button" class="btn btn-success" id="CILOs-import" data-toggle="modal"
+								<button type="button" class="btn btn-success" id="add-CILOs-import" data-toggle="modal"
 									data-target=".upload-file">{{ get_str('IMPORT') }}</button>
 								<button type="button" class="btn btn-light" id="CILOs-add">
 									<i class="fa fa-plus"></i>
@@ -289,7 +289,7 @@
 								<label>{{ get_str('ASSESSMENT_METHODS') }}</label>
 							</div>
 							<div class="col" style="text-align: right;">
-								<button type="button" class="btn btn-success" data-toggle="modal"
+								<button type="button" class="btn btn-success" id="add-assessment-import" data-toggle="modal"
 									data-target=".upload-file">{{ get_str('IMPORT') }}</button>
 								<button type="button" class="btn btn-light" id="new-Assessment-methods-add">
 									<i class="fa fa-plus"></i>
@@ -480,12 +480,13 @@
 	</div>
 </div>
 
-<button class="btn btn-success" onclick="test()"></button>
+<!-- <button class="btn btn-success" onclick="test()"></button> -->
 
 {% endblock %}
 
 
-{% block script %}
+{% block courseScript %}
+
 <script>
 	//fix the problem of modal
 	$('.define-box').on('hidden.bs.modal', function (event) {
@@ -611,13 +612,6 @@
 		}
 	}
 
-
-
-	function minus(obj) {
-		var e = obj;
-		$(e).parent().parent().remove();
-	}
-
 	function term_select(obj) {
 		var e = obj;
 		$("#new-course-term").attr("value", $(e).text());
@@ -673,7 +667,7 @@
 			$(".edit-Related-CILOs-dropmenu").append(text1 + i + text2 + i + text3)
 		}
 	}
-
+	
 	function CILOs_remove(obj) {
 		minus(obj);
 		update_CILOs_table();
@@ -708,63 +702,25 @@
 		});
 	});
 
-	$(document).ready(function () {
-		$("#Assessment-methods-add").click(function () {
-			var append_text =
-				'<tr class="assessment-method-tr" style="text-align: center"; >\
-								<td><input type="text" class="form-control new-Assessment-name" placeholder="please input name" value="" aria-label=""\
-										aria-describedby="basic-addon1" style="text-align: center;"></td>\
-								<td>\
-									<div class="input-group Related-CILOs-input"><input type="text" class="form-control Related-CILOs-input-area"\
-											placeholder="please choose CILOs" value="" aria-label="" aria-describedby="basic-addon2"\
-											style="text-align: center;" disabled>\
-										<div class="input-group-append">\
-											<div class="dropdown" style="display: inline; ">\
-												<button class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"\
-													aria-expanded="false" style="float:right"></button>\
-												<div class="dropdown-menu edit-Related-CILOs-dropmenu" aria-labelledby="dropdownMenuLink"></div>\
-											</div>\
-										</div>\
-									</div>\
-								</td>\
-								<td><input type="text" class="form-control" placeholder="please input percentage" value="" aria-label=""\
-										aria-describedby="basic-addon1" style="text-align: center;"></td>\
-								<td><button type="button" class="btn btn-light" onclick="minus(this)"><i class="fa fa-minus"></i></button></td>\
-							</tr>';
-			$("#edit-Assessment-methods-table").append(append_text);
-			edit_get_line_nums();
-		});
-	});
+	
 
-	//mouse hold message show: title
-	$(function () {
-		$('.CILOs-description').tooltip();
-	});
 
-	function descrption_update(obj) {
-		var e = obj;
-		$(e).attr("title", document.getElementById($(e).attr('id')).value)
-	}
 
 
 	function update_CILOs_table() {
 		let CILOsIndex = 1
-		//console.log($("#CILOs-table").children("td.CILO-order").index);
 		$("#CILOs-table").find("td.CILO-order").html(function(){
 			var text = "CILO-" + CILOsIndex
 			$(this).attr("value",CILOsIndex)
 			CILOsIndex++
-			//console.log(text+",,"+CILOsIndex)
 			return text
 		})
 		CILOsIndex = 1
 		$("#CILOs-table").find("input.CILOs-description").attr("id", () => {
 			var text = "CILOs-description-" + CILOsIndex
 			CILOsIndex++
-			//console.log(text+",,"+CILOsIndex)
 			return text
 		})
-		//console.log(1);
 	}
 
 	//function(){ return $(this).parents(".input-group").find(".related-CILOs-dropbox-value").attr("value")}
@@ -781,66 +737,13 @@
 			} else {
 				related_CILOs_text += "," + $(this).val()
 			}
-			//console.log($(this).val());
 		})
-		//console.log(related_CILOs_text);
 		$(e).parents(".Related-CILOs-input").find(".Related-CILOs-input-area").attr("value", related_CILOs_text)
-
 	}
 
-	var edit_related_CILOs_text = ""
-	function edit_set_new_course_Related_CILOs_value(obj) {
-		var e = obj
-		edit_related_CILOs_text = ""
-		//$(e).parents(".Related-CILOs-dropmenu").css({"color":"red","border":"2px solid red"})
-		//text += $("#Assessment-methods-table").find(".Related_CILOs_CheckBox",":checked").length
-		$(e).parents(".edit-Related-CILOs-dropmenu").find(":checked").each(function () {
-			//edit_related_CILOs_text += $(this).parents(".input-group").find(".related-CILOs-dropbox-value").css({"color":"red","border":"2px solid red"})
-			if (edit_related_CILOs_text === "") {
-				edit_related_CILOs_text += + $(this).val()
-			} else {
-				edit_related_CILOs_text += "," + $(this).val()
-			}
-			//console.log($(this).val());
-		})
-		//console.log(edit_related_CILOs_text);
-		$(e).parents(".Related-CILOs-input").find(".Related-CILOs-input-area").attr("value", edit_related_CILOs_text)
 
-	}
 
-	var edit_cilo_index = 0;
-	var Related_cilos
-	function edit_read(obj) {
-		edit_cilo_index = 0;
-		var e = $(obj).parents(".Action-column")
-		$("#edit-Course-name").text(e.siblings(".Course-name").text())
-		$("#edit-Course-code").text(e.siblings(".Course-code").text())
-		$("#edit-CILOs-table").find(".Edit-CILOs-tbale-tr").remove()
-		$("#edit-CILOs-table").append(e.find(".course-hide-CILOs-table").html())
-		$("#edit-CILOs-table").attr("value", e.find(".course-hide-CILOs-table").attr("id"))
-		$("#edit-CILOs-table").find(".CILOs-description").each(function () {
-			$(this).attr("id","edit-cilo-index-"+edit_cilo_index)
-			edit_cilo_index++
-		})
-		$("#edit-CILOs-table").find(".CILOs-description").each(function () {
-			descrption_update($(this))
-		})
-		$("#edit-Assessment-methods-table").find(".Edit-assessment-methods-tbale-tr").remove()
-		$("#edit-Assessment-methods-table").append(e.find(".course-hide-assessment-methods-table").html())
-		$("#edit-Assessment-methods-table").attr("value", e.find(".course-hide-assessment-methods-table").attr("id"))
-		edit_get_line_nums()
-		$("#edit-Assessment-methods-table").find(".Related-CILOs-input").each(function () {
-			Related_cilos = $(this).find(".Related-cilo-dropdown-button").val().split(",")
-			$(this).find(".Related_CILOs_CheckBox").each(function () {
-				for(var i=0;i<Related_cilos.length;i++){
-					if($(this).val()==Related_cilos[i]){
-						$(this).attr("checked","checked")
-						break;
-					}
-				}
-			})
-		})
-	}
+
 	//this function useless
 	function edit_write() {
 
