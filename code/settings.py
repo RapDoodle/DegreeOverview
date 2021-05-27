@@ -3,7 +3,9 @@
 IMPORT_RESOURCES = {
     'v1': [
         'courses',
-        'cilos'
+        'cilos',
+        'dependencies',
+        'excel_parser'
     ]
 }
 

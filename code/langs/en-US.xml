@@ -122,4 +122,7 @@
 
     <!--Dependency-->
     <string name="DEPENDENCY">Outcome Dependency</string>
+
+    <string name="INVALID_EXCEL">The file provided is not an valid Excel file.</string>
+
 </resources>

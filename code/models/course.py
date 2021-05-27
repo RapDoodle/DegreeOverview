@@ -357,6 +357,18 @@ class Course(SaveableModel):
             course_version_id=course_version_id if course_version_id is not None \
                 else models.course_version.CourseVersion.find_course_latest_version(self.id).id)
 
+    def json(self, request_cilos=False, request_related_cilos=False):
+        json_obj = {
+            'course_id': self.id,
+            'course_name': self.course_name,
+            'course_code': self.course_code,
+            'course_type': self.get_couse_type().name,
+            'program': self.get_program().name
+        }
+        if request_cilos:
+            json_obj['cilos'] = [cilo.json(request_related_cilos) for cilo in self.get_cilos()]
+        return json_obj
+
     def get_couse_type(self):
         return models.course_type.CourseType.find_course_type_by_id(self.course_type_id)
 
