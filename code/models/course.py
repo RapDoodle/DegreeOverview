@@ -264,8 +264,8 @@ class Course(SaveableModel):
 
         for current_cilo, new_cilo in zip(current_cilos, content['cilos']):
             # Check for CILO index
-            if current_cilo.cilo_index != new_cilo['cilo_index']:
-                raise ErrorMessage(get_str('INVALID_INDEX', invalid_index=new_cilo['cilo_index'], correct_index=current_cilo.cilo_index))
+            if current_cilo.cilo_index != to_int(new_cilo['cilo_index'], 'CILO index'):
+                raise ErrorMessage(get_str('INVALID_INDEX_OF',  index=new_cilo['cilo_index'], correct_index=current_cilo.cilo_index))
 
             new_cilo_obj = models.cilo.CILO(self.id, current_cilo.cilo_index, new_cilo['cilo_description'], new_course_vesion_obj.id)
             new_cilo_obj.save(commit=False)

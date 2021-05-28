@@ -60,7 +60,8 @@
 	</tr>
 	{% for course in data['courses'] %}
 	<tr>
-		<td class="Course-name"><a href="{{ url_for('course_info.info', course_id=course.id) }}">{{ course.course_name
+		<td class="Course-name" value="{{ course.id }}"><a
+				href="{{ url_for('course_info.info', course_id=course.id) }}">{{ course.course_name
 				}}</a></td>
 		<td class="Course-code">{{ course.course_code }}</td>
 		<td>{{ course.get_program().name }}</td>
@@ -86,7 +87,7 @@
 				{% for CILO in course.get_cilos() %}
 				<tr class="Edit-CILOs-tbale-tr" style="text-align: center;">
 					<td class="CILOs-unique-id" style="display: none;">{{ CILO.id }}</td>
-					<td class="CILO-order">CILO-{{CILO.cilo_index}}</td>
+					<td class="CILO-order" value="{{CILO.cilo_index}}">CILO-{{CILO.cilo_index}}</td>
 					<td><input type="text" class="form-control CILOs-description"
 							id="{{ course.id }}-CILOs-description-{{CILO.cilo_index}}"
 							title="{{ CILO.cilo_description }}" oninput="descrption_update($(this))"
@@ -100,7 +101,7 @@
 				style="display: none;">
 				{% for Assessment in course.get_assessment_methods() %}
 				<tr style="text-align: center;" class="Edit-assessment-methods-tbale-tr">
-					<td><input type="text" class="form-control" placeholder="please input name"
+					<td><input type="text" class="form-control edit-Assessment-name" placeholder="please input name"
 							value="{{ Assessment.method_name }}" aria-label="" aria-describedby="basic-addon1"
 							style="text-align: center;"></td>
 					<td>
@@ -120,7 +121,7 @@
 							</div>
 						</div>
 					</td>
-					<td><input type="text" class="form-control" placeholder="please input percentage"
+					<td><input type="text" class="form-control percentage-input" placeholder="please input percentage"
 							value="{{ Assessment.weight }}" aria-label="" aria-describedby="basic-addon1"
 							style="text-align: center;"></td>
 					<td><button type="button" class="btn btn-light" onclick="minus(this)"><i
@@ -261,7 +262,7 @@
 							</div>
 							<div class="col" style="text-align: right;">
 								<button type="button" class="btn btn-success" id="add-CILOs-import" data-toggle="modal"
-									data-target=".upload-file">{{ get_str('IMPORT') }}</button>
+									data-target=".upload-file" onclick="set_import_type(3)">{{ get_str('IMPORT') }}</button>
 								<button type="button" class="btn btn-light" id="CILOs-add">
 									<i class="fa fa-plus"></i>
 								</button>
@@ -295,7 +296,7 @@
 							</div>
 							<div class="col" style="text-align: right;">
 								<button type="button" class="btn btn-success" id="add-assessment-import"
-									data-toggle="modal" data-target=".upload-file">{{ get_str('IMPORT') }}</button>
+									data-toggle="modal" data-target=".upload-file" onclick="set_import_type(4)">{{ get_str('IMPORT') }}</button>
 								<button type="button" class="btn btn-light" id="new-Assessment-methods-add">
 									<i class="fa fa-plus"></i>
 								</button>
@@ -731,7 +732,6 @@
 	var json_temp = {}
 	var add_cilos_json;
 	var add_assessment_json;
-	var add_assessment_method = []
 	var add_assessment_counter;
 	var add_depending_cilos
 	var add_assessment_related;
@@ -823,15 +823,16 @@
 					} else {
 						$(".define-box-result-table").find(".CLIOs-define-tr").remove()
 						for (var i = 0; i < data.cilos.length; i++) {
-							var append_text = '<tr class="CLIOs-define-tr" style="text-align: center;">\
-								<td class="CILO-ID-td" style="display: none;">'+ data.cilos[i].id + '</td>\
-								<td class="course-name-td">'+ data.cilos[i].course_name + '</td>\
-								<td class="CILO-description-td">'+ data.cilos[i].cilo_description + '</td>\
-								<td class="CILOs-button-td"><button type="button" class="btn btn-light"\
-										onclick="CILOs_define_page_add(this)">\
-										<i class="fa fa-plus"></i>\
-									</button></td>\
-							</tr>'
+							var append_text = '\
+								<tr class="CLIOs-define-tr" style="text-align: center;">\
+									<td class="CILO-ID-td" style="display: none;">'+ data.cilos[i].id + '</td>\
+									<td class="course-name-td">'+ data.cilos[i].course_name + '</td>\
+									<td class="CILO-description-td">'+ data.cilos[i].cilo_description + '</td>\
+									<td class="CILOs-button-td"><button type="button" class="btn btn-light"\
+											onclick="CILOs_define_page_add(this)">\
+											<i class="fa fa-plus"></i>\
+										</button></td>\
+								</tr>'
 							$("#define-box-result-table").append(append_text)
 						}
 					}
@@ -856,15 +857,16 @@
 					} else {
 						$(".define-box-result-table").find(".CLIOs-define-tr").remove()
 						for (var i = 0; i < data.cilos.length; i++) {
-							var append_text = '<tr class="CLIOs-define-tr" style="text-align: center;">\
-								<td class="CILO-ID-td" style="display: none;">'+ data.cilos[i].id + '</td>\
-								<td class="course-name-td">'+ data.cilos[i].course_name + '</td>\
-								<td class="CILO-description-td">'+ data.cilos[i].cilo_description + '</td>\
-								<td class="CILOs-button-td"><button type="button" class="btn btn-light"\
-										onclick="CILOs_define_page_add(this)">\
-										<i class="fa fa-plus"></i>\
-									</button></td>\
-							</tr>'
+							var append_text = '\
+								<tr class="CLIOs-define-tr" style="text-align: center;">\
+									<td class="CILO-ID-td" style="display: none;">'+ data.cilos[i].id + '</td>\
+									<td class="course-name-td">'+ data.cilos[i].course_name + '</td>\
+									<td class="CILO-description-td">'+ data.cilos[i].cilo_description + '</td>\
+									<td class="CILOs-button-td"><button type="button" class="btn btn-light"\
+											onclick="CILOs_define_page_add(this)">\
+											<i class="fa fa-plus"></i>\
+										</button></td>\
+								</tr>'
 							$("#define-box-result-table").append(append_text)
 						}
 					}
@@ -885,11 +887,14 @@
 	 * (done)Related CILOs get value
 	 * (done)Edit page, also hide table
 	 * (done)main page each course should also has hide table
-	 * slider user can choose 5,10,15 lines to show and buttons to next or pervious pages
+	 * !!!!slider user can choose 5,10,15 lines to show and buttons to next or pervious pages
 	 * (done)course code, program, category
-	 * ajax for added and edit
-	 * search for CILOs dependencies
-	 * add course alert
+	 * (done)!!!!ajax for (done)added and edit
+	 * (done)search for CILOs dependencies
+	 * (done)add course alert
+	 * (done)import
+	 * search page edit function inherit
+	 * course and course_base xml configuration
 	*/
 
 </script>
