@@ -18,12 +18,16 @@
 
 <body>
 	{% macro input() -%}
-		<a href="{{ url_for('courses.courses') }}" class="list-group-item list-group-item-action bg-light">{{ get_str('COURSES') }}</a>
-		{% if session['user_type'] == STUDENT %}
-			<a href="{{ url_for('performance_report.report') }}" class="list-group-item list-group-item-action bg-light">{{ get_str('PERFORMANCE_REPORT') }}</a>
-		{% endif %}
-		<a href="{{ url_for('search.search') }}" class="list-group-item list-group-item-action bg-light">{{ get_str('SEARCH') }}</a>
-		<a href="#" class="list-group-item list-group-item-action bg-light">{{ get_str('OUTCOME_DEPENDENCY') }}</a>
+	<a href="{{ url_for('courses.courses') }}" class="list-group-item list-group-item-action bg-light">{{
+		get_str('COURSES') }}</a>
+	{% if session['user_type'] == STUDENT %}
+	<a href="{{ url_for('performance_report.report') }}" class="list-group-item list-group-item-action bg-light">{{
+		get_str('PERFORMANCE_REPORT') }}</a>
+	{% endif %}
+	<a href="{{ url_for('search.search') }}" class="list-group-item list-group-item-action bg-light">{{
+		get_str('SEARCH') }}</a>
+	<a href="{{ url_for('dependency.dependency') }}" class="list-group-item list-group-item-action bg-light">{{
+		get_str('OUTCOME_DEPENDENCY') }}</a>
 	{%- endmacro %}
 	<div class="d-flex" id="wrapper">
 
@@ -31,11 +35,12 @@
 		<div class="bg-light border-right" id="sidebar-wrapper">
 			<div class="sidebar-heading">
 				<a href="{{ url_for('dashboard.dashboard') }}">
-					<img src="/static/logo_horizontal.png" alt="Logo" width="175"></div>
-				</a>
+					<img src="/static/logo_horizontal.png" alt="Logo" width="175">
+			</div>
+			</a>
 			<div class="list-group list-group-flush">
 				{{ input() }}
-				
+
 			</div>
 		</div>
 		<!-- sidebar-wrapper -->
@@ -46,19 +51,21 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 				<button class="btn btn-light" id="menu-toggle">{{ get_str('MENU') }}</button>
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-user-circle-o"></i> {{ session['full_name'] }}</a>
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="{{ url_for('logout.logout') }}">{{ get_str('LOGOUT') }}</a>
+								<a class="dropdown-item" href="{{ url_for('logout.logout') }}">{{ get_str('LOGOUT')
+									}}</a>
 							</div>
 						</li>
 					</ul>
@@ -70,6 +77,9 @@
 
 				{% endblock %}
 			</div>
+			{% block dependency %}
+
+			{% endblock %}
 		</div>
 		<!-- page-content-wrapper -->
 
@@ -83,12 +93,12 @@
 	<script src="/static/js/popper.min.js"></script>
 	<script src="/static/bootstrap-4.6.0/js/bootstrap.min.js"></script>
 	{% block script %}
-	
+
 	{% endblock %}
 
 	<!-- Modal for message -->
-	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel"
-		aria-hidden="true">
+	<div class="modal fade dialog-modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel"
+		data-backdrop="static" data-keyboard="false" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -107,7 +117,8 @@
 					{% endwith %}
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">{{ get_str('CONFIRM') }}</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="dialog-comfirm-button">{{
+						get_str('CONFIRM') }}</button>
 				</div>
 			</div>
 		</div>
@@ -125,7 +136,10 @@
 			$("#wrapper").toggleClass("toggled")
 		})
 		// Tooltip for changing password
-		$('#password-new-password').tooltip({'trigger':'focus', 'title': 'The password should be 8-24 characters long, containing upper and lower case letters, and digits.'})
+		$('#password-new-password').tooltip({ 'trigger': 'focus', 'title': 'The password should be 8-24 characters long, containing upper and lower case letters, and digits.' })
+		$('.dialog-modal').on('hidden.bs.modal', function (event) {
+			$("body").addClass("modal-open");
+		})
 	</script>
 </body>
 

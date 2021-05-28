@@ -3,7 +3,9 @@
 IMPORT_RESOURCES = {
     'v1': [
         'courses',
-        'cilos'
+        'cilos',
+        'dependencies',
+        'excel_parser'
     ]
 }
 
@@ -16,5 +18,6 @@ IMPORT_BLUEPRINTS = [
     'courses',
     'search',
     'course_info',
-    'performance_report'
+    'performance_report',
+    'dependency'
 ]

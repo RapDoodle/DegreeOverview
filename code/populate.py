@@ -40,6 +40,14 @@ def populate_user():
     Student('teststudent6', '12345678', 'Test Student 6', 'n830026006').save(commit=True)
     Student('teststudent7', '12345678', 'Test Student 7', 'n830026007').save(commit=True)
     Student('teststudent8', '12345678', 'Test Student 8', 'n830026008').save(commit=True)
+    Student('teststudent9', '12345678', 'Test Student 9', 'n830026009').save(commit=True)
+    Student('teststudent10', '12345678', 'Test Student 10', 'n8300260010').save(commit=True)
+    Student('teststudent11', '12345678', 'Test Student 11', 'n8300260011').save(commit=True)
+    Student('teststudent12', '12345678', 'Test Student 12', 'n8300260012').save(commit=True)
+    Student('teststudent13', '12345678', 'Test Student 13', 'n8300260013').save(commit=True)
+    Student('teststudent14', '12345678', 'Test Student 14', 'n8300260014').save(commit=True)
+    Student('teststudent15', '12345678', 'Test Student 15', 'n8300260015').save(commit=True)
+    Student('teststudent16', '12345678', 'Test Student 16', 'n8300260016').save(commit=True)
 
     # Create a lecturer (lecturer)
     Lecturer('testlecturer1', '12345678', 'Test Lecturer 1', 'a100000000').save(commit=True)
@@ -589,6 +597,12 @@ def populate_report():
         semester_id=26)
     save(report_obj_3)
 
+    # For course 3
+    report_obj_4 = Report(
+        course_id=3, 
+        semester_id=26)
+    save(report_obj_4)
+
     student_grade_obj_1 = StudentReport(
         report_id=report_obj_1.id, 
         student_id=1)
@@ -617,6 +631,11 @@ def populate_report():
         report_id=report_obj_3.id, 
         student_id=7)
     save(student_grade_obj_7)
+
+    student_grade_obj_8 = StudentReport(
+        report_id=report_obj_4.id, 
+        student_id=1)
+    save(student_grade_obj_8)
 
     grade_items = [
         [student_grade_obj_1.id, 6, 14.71, False],
@@ -653,6 +672,11 @@ def populate_report():
         [student_grade_obj_7.id, 7, 22.41, False],
         [student_grade_obj_7.id, 8, 8.88, False],
         [student_grade_obj_7.id, 9, 43.75, False],
+
+        [student_grade_obj_8.id, 10, 86, True],
+        [student_grade_obj_8.id, 11, 72, True],
+        [student_grade_obj_8.id, 12, 90, True],
+        [student_grade_obj_8.id, 13, 85, True],
     ]
 
     for item in grade_items:

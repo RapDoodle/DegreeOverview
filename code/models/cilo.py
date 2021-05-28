@@ -44,14 +44,24 @@ class CILO(SaveableModel):
 
         self.save()
 
-    def json(self):
-        return {
+    def json(self, find_related=False):
+        json_obj = {
             'id': self.id,
             'course_id': self.course_id,
             'cilo_index': self.cilo_index,
             'cilo_description': self.cilo_description,
             'course_version_id': self.course_version_id
         }
+        if find_related:
+            json_obj['pre_cilos'] = [
+                CILO.find_cilo_by_id(cilo_dependency.depending_cilo_id).json(find_related=False)
+                for cilo_dependency in self.get_dependee_cilos()
+            ]
+            json_obj['post_cilos'] = [
+                CILO.find_cilo_by_id(cilo_dependency.cilo_id).json(find_related=False)
+                for cilo_dependency in self.get_dependeding_cilos()
+            ]
+        return json_obj
 
     def get_cilo_performance(self) -> dict:
         pass

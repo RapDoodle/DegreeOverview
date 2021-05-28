@@ -48,7 +48,6 @@
     <string name="MODIFY_ASSESSMENT_METHOD">Modify Assessment Method</string>
     <string name="NEW_COURSE">New Course</string>
     <string name="COURSE_TITLE">Course title</string>
-    <string name="LECTURER">Lecturer</string>
     <string name="COURSE_CODE">Course code</string>
     <string name="COURSE_TYPE">Course type</string>    
     <string name="PRE-REQUISITES">Pre-requisites</string>
@@ -119,4 +118,10 @@
     <string name="INVALID_REPORT">Invalid report.</string>
     <string name="CILO_DESCRIPTION">CILO Description</string>
     <string name="INVALID_INDEX">Invalid index.</string>
+
+    <!--Dependency-->
+    <string name="DEPENDENCY">Outcome Dependency</string>
+
+    <string name="INVALID_EXCEL">The file provided is not an valid Excel file.</string>
+
 </resources>
