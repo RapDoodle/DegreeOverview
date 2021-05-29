@@ -156,6 +156,21 @@
 		$(e).attr("title", document.getElementById($(e).attr('id')).value)
 	}
 
+	function edit_get_line_nums() {
+		var num = $("#edit-CILOs-table .Edit-CILOs-tbale-tr").length;
+		var text1 =
+			'<div class="input-group mb-3">\
+			<div class="input-group-prepend">\
+				<div class="input-group-text"><input type="checkbox" class="Related_CILOs_CheckBox" aria-label="Checkbox for following text input" value="'
+		var text2 = '" onchange="edit_set_new_course_Related_CILOs_value(this)" >\
+				</div>\
+			</div><input type="text" class="form-control related-CILOs-dropbox-value" placeholder="" aria-label="Text input with checkbox" value="'
+		var text3 = '" disabled></div>'
+		$(".edit-Related-CILOs-dropmenu").children().remove();
+		for (var i = 1; i <= num; i++) {
+			$(".edit-Related-CILOs-dropmenu").append(text1 + i + text2 + i + text3)
+		}
+	}
 
 	$(document).ready(function () {
 		$("#Assessment-methods-add").click(function () {
