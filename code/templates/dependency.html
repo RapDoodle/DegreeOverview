@@ -112,19 +112,16 @@
                 //get the data and process the data.
                 var i = 1;//initial course id
 
-                var tempCurrent = {};
                 var tempCurrentName = {};
                 //var tempCurrentlink = {};
                 tempCurrentName.name = hi.courses[i].course_name;//store the current course name
+
                 //便利所有cilo，找出所有postcilo
                 //如果是空的，跳过，否则就进入下一个for去读取postcilo。
-                
                 for (var k = 0; k < hi.courses[i].cilos.length; k++) {
-
                     //tempCurrentName.cilo = 'Cilo' + hi.courses[i].cilos[k].id;//store the current course cilos
-                    data.push(tempCurrentName);
+                    //tempCurrentName.cilo = tempCurrentName.cilo.push('Cilo'+ hi.courses[i].cilos[k].id);
                     if (hi.courses[i].cilos[k].post_cilos.length == 0) {
-
                         continue;
                     }
                     else {
@@ -134,7 +131,7 @@
                         }
                     }
                 }
-
+                data.push(tempCurrentName);
 
 
                 option = {
