@@ -102,36 +102,35 @@
             async: false,
             dataType: "json",
             success: function (hi) {
-                console.log(hi);
-
-
-
-
+                
+                //read HERE!!!!
+                //首先先读取当前课程的名字，然后取出cilo的长度，添加cilo与课程的连接，之后保存post cilo用于下一次循环（如果顾客手贱想看后面的课）
+                //至于如何加新的数据，只要用set.Option， 但是还得重复第一次的添加流程，只不过此时的当前课程名字变成了postcilo的课程名字。
+                //console.log(hi);
                 var data = new Array();
                 var link = new Array();
                 //get the data and process the data.
                 var i = 1;//initial course id
-                
+
                 var tempCurrent = {};
-                tempCurrent.name = hi.courses[i].course_name;
-                
-                data.push(tempCurrent);
-                console.log(data);
+                var tempCurrentName = {};
+                //var tempCurrentlink = {};
+                tempCurrentName.name = hi.courses[i].course_name;//store the current course name
                 //便利所有cilo，找出所有postcilo
                 //如果是空的，跳过，否则就进入下一个for去读取postcilo。
+                
                 for (var k = 0; k < hi.courses[i].cilos.length; k++) {
+
+                    //tempCurrentName.cilo = 'Cilo' + hi.courses[i].cilos[k].id;//store the current course cilos
+                    data.push(tempCurrentName);
                     if (hi.courses[i].cilos[k].post_cilos.length == 0) {
-                        console.log(hi.courses[i].cilos[k].post_cilos.length);
+
                         continue;
                     }
                     else {
                         //遍历所有postcilo
                         for (var j = 0; j < hi.courses[i].cilos[k].post_cilos.length; j++) {
-                            //data.push(hi.courses[i].cilos[k].post_cilos[j]);
-                            var tempCurrentName = {};
-                            //var tempCurrentlink = {};
-                            tempCurrentName.name = hi.courses[i].course_name;
-                            console.log( hi.courses[i].cilos[k].post_cilos[j]);
+                            console.log(tempCurrentName.cilo);
                         }
                     }
                 }
