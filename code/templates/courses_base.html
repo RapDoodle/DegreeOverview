@@ -303,7 +303,7 @@
 			success: function (data) {
 				console.log(data)
 				$('#messageModal').find(".modal-title").text("success")
-				$('#messageModal').find(".modal-body").html('<p>' + 'course modified successfully' + '</p>')
+				$('#messageModal').find(".modal-body").html('<p>' + 'Course modified successfully.' + '</p>')
 				$('#messageModal').modal('show')
 				//window.location.reload()
 				$("#dialog-comfirm-button").on("click", function () {
@@ -336,20 +336,20 @@
 		var file = $('#customFile').val()
 		if (file == '') {
 			$('#messageModal').find(".modal-title").text("error")
-			$('#messageModal').find(".modal-body").html('<p>' + "please choose a file" + '</p>')
+			$('#messageModal').find(".modal-body").html('<p>' + "Please choose a file." + '</p>')
 			$('#messageModal').modal('show')
 			return false
 		}
 		var fileName = file.substring(file.lastIndexOf(".") + 1).toLowerCase();
 		if (fileName != "xls" && fileName != "xlsx") {
 			$('#messageModal').find(".modal-title").text("error")
-			$('#messageModal').find(".modal-body").html('<p>' + "please choose .xls or .xlsx file" + '</p>')
+			$('#messageModal').find(".modal-body").html('<p>' + "Please choose .xls or .xlsx file." + '</p>')
 			$('#messageModal').modal('show')
 			return false
 		}
 		if ($('#customFile')[0].files[0].size > 524288) {
 			$('#messageModal').find(".modal-title").text("error")
-			$('#messageModal').find(".modal-body").html('<p>' + "file size must be smaller than 512KB" + '</p>')
+			$('#messageModal').find(".modal-body").html('<p>' + "File size must be smaller than 512KB." + '</p>')
 			$('#messageModal').modal('show')
 			return false
 		}
@@ -366,7 +366,7 @@
 				console.log(data)
 				if (typeof (data.content) == "undefined") {
 					$('#messageModal').find(".modal-title").text("error")
-					$('#messageModal').find(".modal-body").html('<p>' + "please check the file" + '</p>')
+					$('#messageModal').find(".modal-body").html('<p>' + "Please check the file." + '</p>')
 					$('#messageModal').modal('show')
 					return false
 				}

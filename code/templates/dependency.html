@@ -20,7 +20,7 @@
 {% macro tab_title() -%}
 {{ get_str('DEPENDENCY') }}
 {%- endmacro %}
-
+<button class="btn btn-success" onclick="test()"></button>
 <div class="row">
     <div class="col" id="location">
         <span>
@@ -279,6 +279,22 @@ window.onresize = function () {
 
             window.open(params.value)
     });
+
+    function test() {
+        $.ajax({
+            type: "GET",
+            url: "api/v1/dependencies",
+            async : false,
+            dataType: "json",
+            success:function(data){
+                console.log(data)
+            },
+            error:function(){
+                alert("failed")
+            }
+        })
+    }
+
 
 
 
