@@ -20,7 +20,7 @@
 {% macro tab_title() -%}
 {{ get_str('DEPENDENCY') }}
 {%- endmacro %}
-<button class="btn btn-success" onclick="test()"></button>
+<!--<button class="btn btn-success" onclick="test()"></button>-->
 <div class="row">
     <div class="col" id="location">
         <span>
@@ -30,15 +30,15 @@
 </div>
 <div class="row text-right" style="margin-top:-4%">
     <div class="col">
-      <button class="btn btn-outline-link btn dropdown-toggle" type="button" id="dropdownMenuButton"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Degree
-      </button>
-      <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton" style="min-width: 0">
-        <a class="dropdown-item" href="#">Degree1</a>
-      </div>
+        <button class="btn btn-outline-link btn dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Degree
+        </button>
+        <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton" style="min-width: 0">
+            <a class="dropdown-item" href="#">Degree1</a>
+        </div>
     </div>
-  </div>
+</div>
 
 
 {% endblock %}
@@ -54,219 +54,144 @@
 {% block script %}
 <script type="text/javascript">
 
-window.onresize = function () {
-    myChart.resize();
-}
+    window.onresize = function () {
+        myChart.resize();
+    }
     var flag = 10;
-    var data = {
-        "name": "structure Porgramming",
-        "children": [
-            { "name": "CILO1", "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048" },
-            {
-                "name": "CILO2",
-                "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
-                "children": [
-                    {
-                        "name": "CILO1",
-                        "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
-                        "children": [
-                            { "name": "Computer Graph", "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048" }]
-                    }
-                ]
-            },
-        ]
-    };
-
-    var data2 = {
-        "name": "Linear Algebra",
-        "children": [
-            { "name": "CILO1", "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048" },
-            {
-                "name": "CILO2",
-                "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
-                "children": [
-                    {
-                        "name": "CILO2",
-                        "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
-                        "children": [
-                            { "name": "Computer graph", "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048" },
-                            {
-                                "name": "CILO1",
-                                "children": [{
-                                    "name": "CILO1",
-                                    "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
-                                    "children": [{ "name": "Advanced Computation Graphics" }]
-                                }]
-                            }
-                        ]
-                    },
-                    {
-                        "name": "CILO1",
-                        "value": "https://www.bilibili.com/video/BV1H5411u7Vm?from=search&seid=4026469262142696048",
-                        "children": [{ "name": "Advanced Computation Graphics" }]
-                    }
-                ]
-            },
-        ]
-    };
+    var option;
     var myChart = echarts.init(document.getElementById('main'));
-    myChart.setOption(option = {
-        tooltip: {
-            trigger: 'item',
-            triggerOn: 'mousemove'
-        },
-        legend: {
-            top: '2%',
-            left: '3%',
-            orient: 'vertical',
-            data: [{
-                name: 'tree1',
-                icon: 'rectangle'
-            },
-            {
-                name: 'tree2',
-                icon: 'rectangle'
-            }],
-            borderColor: '#c23531'
-        },
-        series: [
-            {
-                type: 'tree',
+    /*var link = [{
+                                source: 0,
+                                target: 3,
+                                symbolSize: [1, 20],
+                            }, {
+                                source: 1,
+                                target: 2,
+                            }, {
+                                source: 0,
+                                target: 2
+                            }];
+    var data = [{
+                                name: 'linear algebra adfasdfasfesadhqoihgoehgwreghueor@qwiegfuqiegf@grguwwroegj@jfjfhjghfh@',
+                                link: 'Calculate',
+                                ignore: false
+                            }, {
+                                name: 'Calculate',
+                                link: 'Calculate',
+                                ignore: false
+                            },
+                            {
+                                name: 'abababab',
+                                link: 'statistic'
+                            }, {
+                                name: 'statistic',
+                                link: 'Calculate',
+                                ignore: false
+                            }, {
+                                name: 'distribution',
+                                link: 'statistic',
+                                ignore: true
+                            }];*/
 
-                name: 'tree1',
 
-                data: [data],
+    $("document").ready(function () {
 
-                top: '20%',
-                left: '30%',
-                bottom: '20%',
-                right: '20%',
+        $.ajax({
+            type: "GET",
+            url: "api/v1/dependencies",
+            async: false,
+            dataType: "json",
+            success: function (hi) {
+                console.log(hi);
 
-                symbolSize: 7,
 
-                label: {
-                    position: 'left',
-                    verticalAlign: 'middle',
-                    align: 'right'
-                },
 
-                leaves: {
-                    label: {
-                        position: 'right',
-                        verticalAlign: 'middle',
-                        align: 'left'
+
+                var data = new Array();
+                var link = new Array();
+                //get the data and process the data.
+                var i = 1;//initial course id
+                
+                var tempCurrent = {};
+                tempCurrent.name = hi.courses[i].course_name;
+                
+                data.push(tempCurrent);
+                console.log(data);
+                //便利所有cilo，找出所有postcilo
+                //如果是空的，跳过，否则就进入下一个for去读取postcilo。
+                for (var k = 0; k < hi.courses[i].cilos.length; k++) {
+                    if (hi.courses[i].cilos[k].post_cilos.length == 0) {
+                        console.log(hi.courses[i].cilos[k].post_cilos.length);
+                        continue;
                     }
-                },
-
-                emphasis: {
-                    focus: 'descendant'
-                },
-
-                expandAndCollapse: true,
-
-                animationDuration: 550,
-                animationDurationUpdate: 750
-
-            },
-            {
-                type: 'tree',
-                name: 'tree2',
-                data: [data2],
-
-                top: '20%',
-                left: '60%',
-                bottom: '22%',
-                right: '18%',
-
-                symbolSize: 7,
-
-                label: {
-                    position: 'left',
-                    verticalAlign: 'middle',
-                    align: 'right'
-                },
-
-                leaves: {
-                    label: {
-                        position: 'right',
-                        verticalAlign: 'middle',
-                        align: 'left'
+                    else {
+                        //遍历所有postcilo
+                        for (var j = 0; j < hi.courses[i].cilos[k].post_cilos.length; j++) {
+                            //data.push(hi.courses[i].cilos[k].post_cilos[j]);
+                            var tempCurrentName = {};
+                            //var tempCurrentlink = {};
+                            tempCurrentName.name = hi.courses[i].course_name;
+                            console.log( hi.courses[i].cilos[k].post_cilos[j]);
+                        }
                     }
-                },
+                }
 
-                expandAndCollapse: true,
 
-                emphasis: {
-                    focus: 'descendant'
-                },
 
-                animationDuration: 550,
-                animationDurationUpdate: 750
-            }
-        ]
-    });
-    var data3 = {
-        "name": "flare",
-        "children": [
-            {
-                "name": "flex",
-                "children": [
-                    { "name": "FlareVis", "value": 4116 }
-                ]
+                option = {
+
+                    tooltip: {},
+                    animationDurationUpdate: 1500,
+                    animationEasingUpdate: 'quinticInOut',
+                    series: [
+                        {
+                            type: 'graph',
+                            layout: 'force',
+                            symbol: 'rect',
+                            symbolSize: 7,
+                            roam: true,
+                            label: {
+                                show: true,
+                                overflow: "break",
+                                width: 100//文字自适应
+                            },
+                            edgeSymbol: ['circle', 'arrow'],
+                            edgeSymbolSize: [4, 10],
+                            edgeLabel: {
+                                fontSize: 20
+                            },
+                            force: {
+                                initLayout: "circular",
+                                repulsion: 4000,
+                                layoutAnimation: false,
+                            },
+                            overflow: "break",
+                            data: data,
+                            // links: [],
+                            links: link,
+
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+
+                myChart.on('click', function (params) {
+                    alert("link is " + params.data.link);
+                    let self = this;
+                    self.nodeIdx = params.dataIndex;
+                    //hi.length
+                    //console.log(hi.course_id);
+                    //window.open('https://www.baidu.com/s?wd='+encodeURIComponent(params.name))
+                });
+
             },
-            {
-                "name": "scale",
-                "children": [
-                    { "name": "IScaleMap", "value": 2105 },
-                    { "name": "LinearScale", "value": 1316 },
-                    { "name": "LogScale", "value": 3151 },
-                    { "name": "OrdinalScale", "value": 3770 },
-                    { "name": "QuantileScale", "value": 2435 },
-                    { "name": "QuantitativeScale", "value": 4839 },
-                    { "name": "RootScale", "value": 1756 },
-                    { "name": "Scale", "value": 4268 },
-                    { "name": "ScaleType", "value": 1821 },
-                    { "name": "TimeScale", "value": 5833 }
-                ]
-            },
-            {
-                "name": "display",
-                "children": [
-                    { "name": "DirtySprite", "value": 8833 }
-                ]
+            error: function () {
+                alert("failed")
             }
-        ]
-    };
+        })
+    })
 
-    var datanew = {
-        "name": "JAA",
-        leaves: {
-            label: {
-                position: 'right',
-                verticalAlign: 'middle',
-                align: 'left'
-            }
-        },
-        "children": [
-            {
-                "name": "HAAAAA",
-                "children": [
-                    { "name": "FlareVis", "value": 4116 }
-                ]
-            },
-            {
-                "name": "CILO",
-                "children": [
-                    { "name": "asd", "value": 2105 },
-                    { "name": "CILO1", "value": 1316 },
-                    { "name": "CILO2", "value": 3151 },
-                    { "name": "CILO3", "value": 3770 },
-                    { "name": "CILO4", "value": 2435 }
-                ]
-            }
-        ]
-    };
-    var option = myChart.getOption();
+
     //选择dataIndex可以访问CILOs
     myChart.on('click', function (params) {
         //alert("link is " + params.data.link);
@@ -280,20 +205,6 @@ window.onresize = function () {
             window.open(params.value)
     });
 
-    function test() {
-        $.ajax({
-            type: "GET",
-            url: "api/v1/dependencies",
-            async : false,
-            dataType: "json",
-            success:function(data){
-                console.log(data)
-            },
-            error:function(){
-                alert("failed")
-            }
-        })
-    }
 
 
 
