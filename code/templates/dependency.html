@@ -60,38 +60,6 @@
     var flag = 10;
     var option;
     var myChart = echarts.init(document.getElementById('main'));
-    /*var link = [{
-                                source: 0,
-                                target: 3,
-                                symbolSize: [1, 20],
-                            }, {
-                                source: 1,
-                                target: 2,
-                            }, {
-                                source: 0,
-                                target: 2
-                            }];
-    var data = [{
-                                name: 'linear algebra adfasdfasfesadhqoihgoehgwreghueor@qwiegfuqiegf@grguwwroegj@jfjfhjghfh@',
-                                link: 'Calculate',
-                                ignore: false
-                            }, {
-                                name: 'Calculate',
-                                link: 'Calculate',
-                                ignore: false
-                            },
-                            {
-                                name: 'abababab',
-                                link: 'statistic'
-                            }, {
-                                name: 'statistic',
-                                link: 'Calculate',
-                                ignore: false
-                            }, {
-                                name: 'distribution',
-                                link: 'statistic',
-                                ignore: true
-                            }];*/
 
 
     $("document").ready(function () {
@@ -102,7 +70,7 @@
             async: false,
             dataType: "json",
             success: function (hi) {
-                
+
                 //read HERE!!!!
                 //首先先读取当前课程的名字，然后取出cilo的长度，添加cilo与课程的连接，之后保存post cilo用于下一次循环（如果顾客手贱想看后面的课）
                 //至于如何加新的数据，只要用set.Option， 但是还得重复第一次的添加流程，只不过此时的当前课程名字变成了postcilo的课程名字。
@@ -113,25 +81,41 @@
                 var i = 1;//initial course id
 
                 var tempCurrentName = {};
-                //var tempCurrentlink = {};
+
                 tempCurrentName.name = hi.courses[i].course_name;//store the current course name
+                tempCurrentName.type = 'Course';//store the current course name
+
 
                 //便利所有cilo，找出所有postcilo
                 //如果是空的，跳过，否则就进入下一个for去读取postcilo。
+
                 for (var k = 0; k < hi.courses[i].cilos.length; k++) {
-                    //tempCurrentName.cilo = 'Cilo' + hi.courses[i].cilos[k].id;//store the current course cilos
-                    //tempCurrentName.cilo = tempCurrentName.cilo.push('Cilo'+ hi.courses[i].cilos[k].id);
+                    var tempCurrentlink = {};
+                    var currentlinkName = {};
+                    tempCurrentlink.source = hi.courses[i].course_name
+                    tempCurrentlink.target = 'Cilo' + hi.courses[i].cilos[k].id;//store the current course cilos
+                    currentlinkName.name = 'Cilo' + hi.courses[i].cilos[k].id;
+                    currentlinkName.type = 'Cilo';
+                    link.push(tempCurrentlink);
+                    data.push(currentlinkName);
+
                     if (hi.courses[i].cilos[k].post_cilos.length == 0) {
+                        tempCurrentName.post = [];
                         continue;
                     }
                     else {
                         //遍历所有postcilo
+                        var templist = new Array();
                         for (var j = 0; j < hi.courses[i].cilos[k].post_cilos.length; j++) {
-                            console.log(tempCurrentName.cilo);
+                            //console.log(hi.courses[i].cilos[k].post_cilos[j].course_id);
+                            //找到并记录下postcilo
+                            templist.push(hi.courses[i].cilos[k].post_cilos[j].course_id)
                         }
+                        tempCurrentName.post = templist;
                     }
                 }
                 data.push(tempCurrentName);
+                //格式如下
 
 
                 option = {
@@ -144,7 +128,7 @@
                             type: 'graph',
                             layout: 'force',
                             symbol: 'rect',
-                            symbolSize: 7,
+                            symbolSize: 90,
                             roam: true,
                             label: {
                                 show: true,
@@ -152,7 +136,7 @@
                                 width: 100//文字自适应
                             },
                             edgeSymbol: ['circle', 'arrow'],
-                            edgeSymbolSize: [4, 10],
+                            edgeSymbolSize: [5, 10],
                             edgeLabel: {
                                 fontSize: 20
                             },
@@ -172,13 +156,56 @@
                 myChart.setOption(option);
 
                 myChart.on('click', function (params) {
-                    alert("link is " + params.data.link);
+                    alert("link is " + params.data.link + "the total" + hi.course_name);
                     let self = this;
                     self.nodeIdx = params.dataIndex;
-                    //hi.length
-                    //console.log(hi.course_id);
-                    //window.open('https://www.baidu.com/s?wd='+encodeURIComponent(params.name))
+
+                    var parent = i;
+                    if (params.data.type == 'Course') {
+                        for (var a = 0; a < params.data.post.length; a++) {
+                            //这一块是记录course基本信息
+                            i = params.data.post[a];//course id
+                            tempCurrentName = {};
+                            tempCurrentName.name = hi.courses[i].course_name;//store the current course name
+                            tempCurrentName.type = 'Course';//store the current course name
+                            //这块区域是连接儿子和他爸的
+                            tempCurrentlink = {};
+                            tempCurrentlink.source = hi.courses[parent].course_name
+                            tempCurrentlink.target = hi.courses[i].course_name;//store the current course cilos
+                            link.push(tempCurrentlink);
+                            //这一块是连接儿子课自己cilo的
+                            for (k = 0; k < hi.courses[i].cilos.length; k++) {
+                                tempCurrentlink = {};
+                                currentlinkName = {};
+                                tempCurrentlink.source = hi.courses[i].course_name
+                                tempCurrentlink.target = 'Cilo' + hi.courses[i].cilos[k].id;//store the current course cilos
+                                currentlinkName.name = 'Cilo' + hi.courses[i].cilos[k].id;
+                                currentlinkName.type = 'Cilo';
+                                link.push(tempCurrentlink);
+                                data.push(currentlinkName);
+
+                                if (hi.courses[i].cilos[k].post_cilos.length == 0) {
+                                    tempCurrentName.post = [];
+                                    continue;
+                                }
+                                else {
+                                    //遍历所有postcilo
+                                    var templist = new Array();
+                                    for (var j = 0; j < hi.courses[i].cilos[k].post_cilos.length; j++) {
+                                        //console.log(hi.courses[i].cilos[k].post_cilos[j].course_id);
+                                        //找到并记录下postcilo
+                                        templist.push(hi.courses[i].cilos[k].post_cilos[j].course_id)
+                                    }
+                                    tempCurrentName.post = templist;
+                                }
+                            }
+                         data.push(tempCurrentName);
+                        }
+                    }
+                    myChart.setOption(option);
                 });
+                
+
 
             },
             error: function () {
@@ -186,20 +213,6 @@
             }
         })
     })
-
-
-    //选择dataIndex可以访问CILOs
-    myChart.on('click', function (params) {
-        //alert("link is " + params.data.link);
-        flag = 0 - flag;
-        //console.log(params.dataIndex);
-        console.log(option.series[0]);
-        /////////////////////////////////////////////////////////////
-        //再这儿，当然也可以在json里面加flag
-        if (params.name == "CILO1")
-
-            window.open(params.value)
-    });
 
 
 
