@@ -111,6 +111,7 @@
                     var course = {};
                     var cilolist = new Array();//remember the course own cilo
                     course.name = hi.courses[i].course_name;
+                    course.id = hi.courses[i].course_id;
 
 
 
@@ -118,7 +119,7 @@
                     for (var j = 0; j < hi.courses[i].cilos.length; j++) {
                         var cc = {};
                         cc.name = 'CILO' + hi.courses[i].cilos[j].cilo_index + '-' + hi.courses[i].cilos[j].id;
-                        cc.link2course = hi.courses[i].course_name;
+                        cc.link2course = hi.courses[i].course_id;
                         cc.type = 'CILO';
                         var currentLink = {};
                         currentLink.source = course.name;
