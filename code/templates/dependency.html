@@ -111,15 +111,26 @@
                     var course = {};
                     var cilolist = new Array();//remember the course own cilo
                     course.name = hi.courses[i].course_name;
+<<<<<<< HEAD
                     course.add = hi.courses[i].course_id;
                     course.type = 'course';
+=======
+                    course.id = hi.courses[i].course_id;
+
+
+>>>>>>> 2191e4da2e0e510c622fe5715a6aba84e113158d
 
                     //add current cilo data and the link with the current node
                     for (var j = 0; j < hi.courses[i].cilos.length; j++) {
                         var cc = {};
                         cc.name = 'CILO' + hi.courses[i].cilos[j].cilo_index + '-' + hi.courses[i].cilos[j].id;
+<<<<<<< HEAD
                         cc.type = 'CIL';
                         cc.linkcourse = hi.courses[i].course_id;
+=======
+                        cc.link2course = hi.courses[i].course_id;
+                        cc.type = 'CILO';
+>>>>>>> 2191e4da2e0e510c622fe5715a6aba84e113158d
                         var currentLink = {};
                         currentLink.source = course.name;
                         currentLink.target = cc.name;
@@ -127,27 +138,6 @@
                         data.push(cc);
                         var temppostCilo = new Array();
                         var temppreCilo = new Array();
-                        /*for (var z = 0; z < hi.courses[i].cilos[j].post_cilos.length; z++) {
-                            temppostCilo.push(hi.courses[i].cilos[j].post_cilos[z].course_id);
-                            var postlink = {};
-                            var id = hi.courses[i].cilos[j].post_cilos[z].id;
-                            for (var t = 0; t < hi.courses.length; t++) {
-                                for (var x = 0; x < hi.courses[t].cilos.length; x++) {
-                                    for (var y = 0; y < hi.courses[t].cilos.post_cilos.length; y++) {
-                                        if (id == hi.courses[t].cilo[x].post_cilos[y].id) {
-                                            //console.log('!');
-                                            postlink.source = 'CILO' + hi.courses[i].cilos[j].id;
-                                            postlink.target = 'CILO' + hi.courses[t].cilo[x].post_cilos[y].id;
-                                            link.push(postlink);
-                                            break;
-                                        }
-                                    }
-                                }
-
-                            }
-                            console.log(id);
-
-                        }*/
                         for (var z = 0; z < hi.courses[i].cilos[j].post_cilos.length; z++) {
                             temppostCilo.push(hi.courses[i].cilos[j].post_cilos[z].course_id);
                             var postlink = {};
@@ -155,7 +145,6 @@
                             postlink.source = 'CILO' + hi.courses[i].cilos[j].cilo_index + '-' + hi.courses[i].cilos[j].id;
                             postlink.target = 'CILO' + hi.courses[i].cilos[j].post_cilos[z] + '-' + id;
                             link.push(postlink);
-                            console.log(id);
                         }
 
                         for (var z = 0; z < hi.courses[i].cilos[j].pre_cilos.length; z++) {
@@ -171,13 +160,11 @@
 
                         course.postcilo = temppostCilo;
                         course.precilo = temppreCilo;
+                        course.type = "course";
                     }
                     data.push(course);
-
-                    console.log(data);
-                    console.log(link);
                 }
-
+                
                 option = {
 
                     tooltip: {},
@@ -222,6 +209,7 @@
                     ]
                 };
                 myChart.setOption(option);
+<<<<<<< HEAD
                 // 处理点击事件并且弹出数据名称
                 myChart.on('click', function (p) {
                     
@@ -233,6 +221,23 @@
                     else{
                         console.log('/course/'+p.data.linkcourse)
                     }
+=======
+                myChart.setOption(option);
+                // 处理点击事件并且弹出数据名称
+                myChart.on('click', function (param) {
+                    if(param.data.type == 'course'){
+                        window.open('/course/'+encodeURIComponent(param.data.name));
+                        alert('/course/'+param.data.name);
+                        console.log(param.data.name);
+                    }
+                    else if(param.data.type == 'CILO'){
+                        window.open('/course/'+encodeURIComponent(param.data.link2course));
+                        alert('/course/'+param.data.link2course);
+                    }
+                    
+                    
+                    
+>>>>>>> 2191e4da2e0e510c622fe5715a6aba84e113158d
                 });
 
 

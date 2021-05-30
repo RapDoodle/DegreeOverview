@@ -18,7 +18,7 @@
             <div class="input-group-btn">
               <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                {{ get_str('COURSES') }}
+                {{ get_str('KEYWORDS') }}
               </button>
               <ul class="dropdown-menu" style="margin-top: -1px">
                 <li>
@@ -27,13 +27,16 @@
                 <li>
                   <a class="dropdown-item" href="#" id="type_CILO" onclick="search_type_select(this)" data-type="cilo">{{ get_str('CILOS') }}</a>
                 </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="type_keywords" onclick="search_type_select(this)" data-type="keyword">{{ get_str('KEYWORDS') }}</a>
+                </li>
               </ul>
             </div>
             <label for="Search" class="sr-only">{{ get_str('SEARCH') }}</label>
-            <input type="text" name="search" class="form-control" placeholder="Search" required=""
+            <input type="text" name="search" class="form-control" placeholder="{{ get_str('SEARCH') }}" required=""
               autofocus="" id="searchKeywords">
             <div>
-              <button class="btn btn-light" type="button" name="submit" id="searchBtn"><a href="#">Search</a></button>
+              <button class="btn btn-light" type="button" name="submit" id="searchBtn"><a href="#">{{ get_str('SEARCH') }}</a></button>
             </div>
           </div>
         </div>
@@ -47,7 +50,7 @@
 {% block script %}
 <script>
   // TODO: add form to search button to change search type
-  var searchType = 'course';
+  var searchType = 'keyword';
 
   $("#searchBtn").on("click", search);
 

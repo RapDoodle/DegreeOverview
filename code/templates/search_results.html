@@ -27,14 +27,14 @@
 <table class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			{% if data['search_type'] == 'cilo' %}
+			{% if data['search_type'] == 'cilo' or data['search_type'] == 'keyword' %}
 			<th>{{ get_str('CILOS') }}</th>
 			{% endif %}
 			<th>{{ get_str('COURSE_NAME') }}</th>
 			<th>{{ get_str('COURSE_CODE') }}</th>
 			<th>{{ get_str('PROGRAM') }}</th>
 			<th>{{ get_str('COURSE_TYPE') }}</th>
-			{% if session['user_type'] == COURSE_DESIGNER and data['search_type'] != 'cilo' %}
+			{% if session['user_type'] == COURSE_DESIGNER and data['search_type'] == 'course' %}
 			<th>{{ get_str('ACTIONS') }}</th>
 			{% endif %}
 		</tr>
@@ -42,14 +42,14 @@
 	<tbody>
 		{% for idx, course in enumerate(data['courses']) %}
 		<tr>
-			{% if data['search_type'] == 'cilo' %}
+			{% if data['search_type'] == 'cilo' or data['search_type'] == 'keyword' %}
 			<td>{{ data['cilos'][idx].cilo_description }}</td>
 			{% endif %}
 			<td class="Course-name" value="{{ course.id }}"><a href="{{ url_for('course_info.info', course_id=course.id) }}">{{ course.course_name }}</a></td>
 			<td>{{ course.course_code }}</td>
 			<td>{{ course.get_program().name }}</td>
 			<td>{{ course.get_couse_type().name }}</td>
-			{% if session['user_type'] == COURSE_DESIGNER and data['search_type'] != 'cilo' %}
+			{% if session['user_type'] == COURSE_DESIGNER and data['search_type'] == 'course' %}
 			<td class="Action-column">
 				<div class="dropdown">
 					<button class="btn btn-light dropdown-toggle" type="button" id="maangeButton" data-toggle="dropdown"

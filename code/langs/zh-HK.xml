@@ -79,7 +79,13 @@
     <string name="EDIT">編輯</string>
     <string name="EFFECTIVE_SINCE">生效日期</string>
     <string name="DEFINE">定義</string>
-
+    <string name="NO_CORRESPOMDING">未找到相關課程。</string>
+    <string name="COURSE_MODIFIED_SUCCESSFULLY">編輯課程成功。</string>
+    <string name="NO_CHOOSE_FILE_ERROR">請選擇一個文件。</string>
+    <string name="FILE_TYPE_ERROR">請選擇 .xls 或者 .xlsx 文件。</string>
+    <string name="FILE_SIZE_ERROR">文件大小不能超過512KB。</string>
+    <string name="FILE_CONTENT_ERROR">請檢查文件。</string>
+    <string name="COURSE_ADD_SUCCESSFULLY">添加課程成功。</string>
     <!--Search-->
     <string name="SEARCH">搜索</string>
     <string name="SEARCH_TYPE_EMPTY">搜索類型不能為空。</string>
@@ -95,7 +101,7 @@
     <string name="PRECOURSES">前置課程</string>
     <string name="POSTCOURSES">依賴於本課程的課程</string>
     <string name="ANALYSIS">分析結果</string>
-    <string name="RELATED_CILOS">Related CILOs</string>
+    <string name="RELATED_CILOS">相關的CILOs</string>
     <string name="PERCENTAGE">百分比</string>
     <string name="COURSE_NOT_FOUND">未找到課程。</string>
     <string name="WEIGHTING">加權</string>

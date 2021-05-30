@@ -50,6 +50,14 @@ def search_result():
             'cilos': cilos, 
             'courses': courses, 
             'search_type': search_type}
+    elif search_type == 'keyword':
+        results = Course.find_courses_cilo_by_keyword(keyword=search_keyword)
+        courses = [result[0] for result in results]
+        cilos = [result[1] for result in results]
+        return {
+            'cilos': cilos, 
+            'courses': courses, 
+            'search_type': search_type}
     else:
         flash(get_str('INVALID_SEARCH_TYPE'))
         return redirect(url_for('search.search'))

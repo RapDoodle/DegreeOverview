@@ -80,11 +80,20 @@
     <string name="EFFECTIVE_SINCE">Effective since</string>
     <string name="DEFINE">Define</string>
 
+    <string name="NO_CORRESPOMDING">There is no corresponding result.</string>
+    <string name="COURSE_MODIFIED_SUCCESSFULLY">Course modified successfully.</string>
+    <string name="NO_CHOOSE_FILE_ERROR">Please choose a file.</string>
+    <string name="FILE_TYPE_ERROR">Please choose .xls or .xlsx file.</string>
+    <string name="FILE_SIZE_ERROR">File size must be smaller than 512KB.</string>
+    <string name="FILE_CONTENT_ERROR">Please check the file.</string>
+    <string name="COURSE_ADD_SUCCESSFULLY">Course added successfully.</string>
+
     <!--Search-->
     <string name="SEARCH">Search</string>
     <string name="SEARCH_TYPE_EMPTY">The search type cannot be empty.</string>
     <string name="SEARCH_KEYWORD_EMPTY">Keyword not provided.</string>
     <string name="INVALID_SEARCH_TYPE">Invalid search type.</string>
+    <string name="KEYWORDS">Keywords</string>
 
 
     <!--Search Results-->

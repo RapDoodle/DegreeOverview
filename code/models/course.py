@@ -402,6 +402,22 @@ class Course(SaveableModel):
         return courses
 
     @classmethod
+    def find_courses_cilo_by_keyword(cls, keyword: str) -> list:
+        latest_versions = [models.cilo.CILO.course_version_id 
+        for cilo in models.cilo.CILO.query.filter(models.cilo.CILO.course_version_id)\
+                    .group_by(models.cilo.CILO.course_id)\
+                    .having(models.cilo.CILO.course_version_id==db.func.max(models.cilo.CILO.course_version_id))\
+                    .all()]
+        return db.session.query(Course, models.cilo.CILO)\
+            .filter(Course.id==models.cilo.CILO.course_id)\
+            .filter(models.cilo.CILO.course_version_id.in_(latest_versions))\
+            .filter(db.or_(
+                models.cilo.CILO.cilo_description.like('%' + keyword + '%'),
+                cls.course_name.like('%' + keyword + '%'),
+                cls.course_code.like('%' + keyword + '%')))\
+            .all()
+
+    @classmethod
     def find_course_by_keyword(cls, keyword):
         return cls.query.filter(
             db.or_(
