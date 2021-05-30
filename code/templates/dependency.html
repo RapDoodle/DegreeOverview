@@ -90,7 +90,7 @@
             async: false,
             dataType: "json",
             success: function (hi) {
-
+                console.log(hi)
                 //read HERE!!!!
                 //首先先读取当前课程的名字，然后取出cilo的长度，添加cilo与课程的连接，之后保存post cilo用于下一次循环（如果顾客手贱想看后面的课）
                 //至于如何加新的数据，只要用set.Option， 但是还得重复第一次的添加流程，只不过此时的当前课程名字变成了postcilo的课程名字。
@@ -98,7 +98,7 @@
                 var data = new Array();
                 var link = new Array();
                 //get the data and process the data.
-                var i = 1;//initial course id
+                var i = 0;//initial course id
 
                 var tempCurrentName = {};
 
