@@ -111,13 +111,15 @@
                     var course = {};
                     var cilolist = new Array();//remember the course own cilo
                     course.name = hi.courses[i].course_name;
-
-
+                    course.add = hi.courses[i].course_id;
+                    course.type = 'course';
 
                     //add current cilo data and the link with the current node
                     for (var j = 0; j < hi.courses[i].cilos.length; j++) {
                         var cc = {};
-                        cc.name = 'CILO' + hi.courses[i].cilos[j].cilo_index+'-'+hi.courses[i].cilos[j].id;
+                        cc.name = 'CILO' + hi.courses[i].cilos[j].cilo_index + '-' + hi.courses[i].cilos[j].id;
+                        cc.type = 'CIL';
+                        cc.linkcourse = hi.courses[i].course_id;
                         var currentLink = {};
                         currentLink.source = course.name;
                         currentLink.target = cc.name;
@@ -150,8 +152,8 @@
                             temppostCilo.push(hi.courses[i].cilos[j].post_cilos[z].course_id);
                             var postlink = {};
                             var id = hi.courses[i].cilos[j].post_cilos[z].id;
-                            postlink.source = 'CILO' + hi.courses[i].cilos[j].cilo_index+'-'+hi.courses[i].cilos[j].id;
-                            postlink.target = 'CILO' + hi.courses[i].cilos[j].post_cilos[z]+'-'+id;
+                            postlink.source = 'CILO' + hi.courses[i].cilos[j].cilo_index + '-' + hi.courses[i].cilos[j].id;
+                            postlink.target = 'CILO' + hi.courses[i].cilos[j].post_cilos[z] + '-' + id;
                             link.push(postlink);
                             console.log(id);
                         }
@@ -161,8 +163,8 @@
                             var prelink = {};
                             var id = hi.courses[i].cilos[j].pre_cilos[z].id
 
-                            prelink.source = 'CILO' +hi.courses[i].cilos[j].pre_cilos[z].cilo_index+'-'+ id;
-                            prelink.target = 'CILO' + hi.courses[i].cilos[j].cilo_index+'-'+hi.courses[i].cilos[j].id;
+                            prelink.source = 'CILO' + hi.courses[i].cilos[j].pre_cilos[z].cilo_index + '-' + id;
+                            prelink.target = 'CILO' + hi.courses[i].cilos[j].cilo_index + '-' + hi.courses[i].cilos[j].id;
                             link.push(prelink);
 
                         }
@@ -220,7 +222,18 @@
                     ]
                 };
                 myChart.setOption(option);
-
+                // 处理点击事件并且弹出数据名称
+                myChart.on('click', function (p) {
+                    
+                    if(p.data.type == 'course'){
+                        
+                        window.open('/course/'+encodeURIComponent(p.data.add));
+                        console.log('/course/'+p.data.add);
+                    }
+                    else{
+                        console.log('/course/'+p.data.linkcourse)
+                    }
+                });
 
 
 
