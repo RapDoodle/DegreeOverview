@@ -8,7 +8,7 @@ import models.course_version
 import models.course
 import models.grade_item
 import models.lecturer
-import models.program_degree
+import models.degree
 import models.program
 import models.report
 import models.saveable_model

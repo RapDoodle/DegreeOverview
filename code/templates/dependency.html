@@ -32,10 +32,12 @@
     <div class="col">
         <button class="btn btn-outline-link btn dropdown-toggle" type="button" id="dropdownMenuButton"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Degree
+            {{ data['degrees'][data['selected_index']-1].name }}
         </button>
         <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton" style="min-width: 0">
-            <a class="dropdown-item" href="#">Degree1</a>
+            {% for degree in data['degrees'] %}
+                <a class="dropdown-item" href="{{ url_for('dependency.dependency') }}?degree={{ degree.id }}">{{ degree.name }}</a>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -75,10 +77,16 @@
 
 
     $("document").ready(function () {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const degreeId = urlParams.get('degree')
+        if (degreeId === null) {
+            degreeId = 1;
+        }
 
         $.ajax({
             type: "GET",
-            url: "api/v1/dependencies",
+            url: "api/v1/dependencies?degree=" + degreeId,
             async: false,
             dataType: "json",
             success: function (hi) {

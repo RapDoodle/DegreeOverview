@@ -5,7 +5,7 @@ from models.student import Student
 from models.lecturer import Lecturer
 from models.course_designer import CourseDesigner
 from models.semester import Semester
-from models.program_degree import ProgramDegree
+from models.degree import Degree
 from models.course_type import CourseType
 from models.course import Course
 from models.program import Program
@@ -106,34 +106,48 @@ def populate_degree():
         'Bachelor of Business Administration (Honours) (Accounting)',
         'Bachelor of Business Administration (Honours) (Management of Human Resources)',
         'Bachelor of Business Administration (Honours) (Marketing Management)',
+
         'Bachelor of Business Administration (Honours) (e-Business Management and Information Systems)',
         'Bachelor of Business Administration (Honours) (Entrepreneurship and Innovation)',
         'Bachelor of Business Administration (Honours) (Culture, Creativity and Management)',
         'Bachelor of Arts (Honours) in Cinema and Television',
         'Bachelor of Communication (Honours) in Media Arts and Design',
+
         'Bachelor of Arts (Honours) in Musical Arts',
         'Bachelor of Science (Honours) in Computer Science and Technology',
         'Bachelor of Science (Honours) in Environmental Science',
         'Bachelor of Science (Honours) in Statistics',
         'Bachelor of Science (Honours) in Food Science and Technology',
+
         'Bachelor of Science (Honours) in Applied Psychology',
         'Bachelor of Science (Honours) in Financial Mathematics',
         'Bachelor of Science (Honours) in Data Science',
         'Bachelor of Science (Honours) in Applied Mathematics',
         'Bachelor of Social Sciences (Honours) in Government and International Relations',
+
         'Bachelor of Arts (Honours) in International Journalism',
         'Bachelor of Arts (Honours) in Public Relations and Advertising',
         'Bachelor of Social Work and Social Administration (Honours)',
         'Bachelor of Arts (Honours) in Teaching English as a Second Language',
         'Bachelor of Arts (Honours) in Applied Translation Studies',
+
         'Bachelor of Arts (Honours) in Contemporary English Language and Literature',
         'Bachelor of Arts (Honours) in English Language and Literature Studies',
         'Bachelor of Communication (Honours) in Media and Communication Studies',
         'Bachelor of Social Sciences (Honours) in Globalisation and Development'
     ]
-    for degree in degrees:
-        program_degree = ProgramDegree(degree)
-        save(program_degree)
+    related_programs = [
+        2, 5, 1, 6, 7,
+        3, 4, 9, 8, 10,
+        11, 20, 22, 25, 24,
+        19, 23, 21, 18, 15,
+        15, 16, 17, 13, 12,
+        13, 13, 15, 14
+
+    ]
+    for idx, degree in enumerate(degrees):
+        degree_obj = Degree(degree, related_programs[idx])
+        save(degree_obj)
 
 
 def populate_type():
@@ -367,7 +381,7 @@ def populate_course():
             "course_name": "Linear Algebra",
             "course_code": "MATH1003",
             "course_type_id": 1,
-            "program_id": 20,
+            "program_id": 27,
             "effective_since": 2016,
             "cilos": [
                 {
@@ -433,7 +447,7 @@ def populate_course():
                 {
                     "cilo_index": 2,
                     "cilo_description": "Apply fundamental techniques in computer graphics using OpenGL API or Java.",
-                    "depending_cilos": [5, 8]
+                    "depending_cilos": [5, 8, 14]
                 },
                 {
                     "cilo_index": 3,

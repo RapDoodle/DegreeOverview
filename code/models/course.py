@@ -386,6 +386,22 @@ class Course(SaveableModel):
         return cls.query.filter_by(id=id).first()
 
     @classmethod
+    def find_courses_by_program_id(cls, program_id, recursive=False):
+        courses = cls.query.filter_by(program_id=program_id).all()
+        if recursive:
+            courses_add = []
+            course_ids = [course.id for course in courses]
+            for course in courses:
+                prerequisites = course.get_course_prerequisites()
+                for prerequisite_course in prerequisites:
+                    if prerequisite_course[0].id not in course_ids:
+                        courses_add.append(prerequisite_course[0])
+                        course_ids.append(prerequisite_course[0].id)
+            for course in courses_add:
+                courses.append(course)
+        return courses
+
+    @classmethod
     def find_course_by_keyword(cls, keyword):
         return cls.query.filter(
             db.or_(
