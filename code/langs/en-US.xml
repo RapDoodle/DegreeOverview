@@ -93,6 +93,7 @@
     <string name="SEARCH_TYPE_EMPTY">The search type cannot be empty.</string>
     <string name="SEARCH_KEYWORD_EMPTY">Keyword not provided.</string>
     <string name="INVALID_SEARCH_TYPE">Invalid search type.</string>
+    <string name="KEYWORDS">Keywords</string>
 
 
     <!--Search Results-->
