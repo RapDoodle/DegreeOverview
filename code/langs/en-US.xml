@@ -9,7 +9,6 @@
     <string name="LOGIN_BTN">Log in</string>
     <string name="LOGIN_REQUIRED">Login is required.</string>
     <string name="ACCESS_DENIED">You do not have permission for the operation.</string>
-    <string name="SEARCH">Search</string>
 	<string name="INVALID_WEIGHT">The weight is not valid. It should be an integer between 1 and 100.</string>
 	<string name="NOT_INT">The field for %(var_name)s must be an integer.</string>
 	<string name="NOT_DECIMAL">The field for %(var_name)s must be a decimal.</string>
@@ -64,15 +63,15 @@
     <string name="CANCEL">Cancel</string>
     <string name="CILO_DEPENDENCIES">CILO Dependencies</string>
     <string name="TYPE">Type</string>
-    <string name="SEARCH_RESULTS">Search results</string>
     <string name="COURSE">Course</string>
     <string name="CILO">CILO</string>
     <string name="ACTION">Action</string>
     <string name="ADDED_CILOS">Added CILOs</string>
     <string name="UPLOAD">Upload</string>
     <string name="CHOOSE_FILE">Choose file</string>
-    <string name="STUDENT">Student</string>
     <string name="COURSE_DESIGNER">Course Designer</string>
+    <string name="LECTURER">Lecturer</string>
+    <string name="STUDENT">Student</string>
     <string name="YEAR">Year</string>
     <string name="TERM">Term</string>
     <string name="PROGRAM">Program</string>
@@ -90,25 +89,16 @@
 
     <!--Search Results-->
     <string name="SEARCH_RESULTS">Search Results</string>
-    <string name="ACTIONS">Actions</string>
 
     <!--Course Information-->
     <string name="COURSES_INFO">Course Information</string>
     <string name="BASICINFO">Course Basic Information</string>
-    <string name="COURSE_TITLE">Course Title</string>
-    <string name="COURSE_CODE">Course Code</string>
-    <string name="COURSE_TYPE">Course Type</string>
-    <string name="LECTURER">Lecturer</string>
     <string name="PRECOURSES">Prerequisites Courses</string>
     <string name="POSTCOURSES">Courses that dependend on this course</string>
-    <string name="DESCRIPTION">Description</string>
-    <string name="DEPENDENCIES">Dependencies</string>
     <string name="ANALYSIS">Analysis Results</string>
-    <string name="YEAR">Year</string>
     <string name="RELATED_CILOS">Related CILOs</string>
     <string name="PERCENTAGE">Percentage</string>
     <string name="COURSE_NOT_FOUND">Course not found.</string>
-    <string name="NAME">Name</string>
     <string name="WEIGHTING">Weighting</string>
     <string name="CILOS_ADDRESSED">CILOs to be addressed</string>
     <string name="NO_REPORT">No report available</string>
