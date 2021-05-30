@@ -200,14 +200,13 @@
                 myChart.setOption(option);
                 // 处理点击事件并且弹出数据名称
                 myChart.on('click', function (p) {
-                    
-                    if(p.data.type == 'course'){
-                        
+                    //window.open('/course/'+encodeURIComponent(p.data.linkcourse));
+                    if(p.data.type == 'course'){   
                         window.open('/course/'+encodeURIComponent(p.data.add));
                         console.log('/course/'+p.data.add);
                     }
                     else{
-                        window.open('/course/'+encodeURIComponent(p.data.add));
+                        window.open('/course/'+encodeURIComponent(p.data.linkcourse));
                         console.log('/course/'+p.data.linkcourse)
                     }
                 });
