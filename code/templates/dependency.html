@@ -118,34 +118,46 @@
                         data.push(cc);
                         var temppostCilo = new Array();
                         var temppreCilo = new Array();
-                        for (var z = 0; z < hi.courses[i].cilos[j].post_cilos.length; z++) {
+                        /*for (var z = 0; z < hi.courses[i].cilos[j].post_cilos.length; z++) {
                             temppostCilo.push(hi.courses[i].cilos[j].post_cilos[z].course_id);
                             var postlink = {};
-                            var id = hi.courses[i].cilos[j].post_cilos[z].course_id;
+                            var id = hi.courses[i].cilos[j].post_cilos[z].id;
                             for (var t = 0; t < hi.courses.length; t++) {
-                                if (id == hi.courses[t].course_id) {
-                                    //console.log('!');
-                                    postlink.source = course.name;
-                                    postlink.target = hi.courses[t].course_name;
-                                    link.push(postlink);
+                                for (var x = 0; x < hi.courses[t].cilos.length; x++) {
+                                    for (var y = 0; y < hi.courses[t].cilos.post_cilos.length; y++) {
+                                        if (id == hi.courses[t].cilo[x].post_cilos[y].id) {
+                                            //console.log('!');
+                                            postlink.source = 'CILO' + hi.courses[i].cilos[j].id;
+                                            postlink.target = 'CILO' + hi.courses[t].cilo[x].post_cilos[y].id;
+                                            link.push(postlink);
+                                            break;
+                                        }
+                                    }
                                 }
 
                             }
                             console.log(id);
 
+                        }*/
+                        for (var z = 0; z < hi.courses[i].cilos[j].post_cilos.length; z++) {
+                            temppostCilo.push(hi.courses[i].cilos[j].post_cilos[z].course_id);
+                            var postlink = {};
+                            var id = hi.courses[i].cilos[j].post_cilos[z].id;
+                            postlink.source = 'CILO' + hi.courses[i].cilos[j].id;
+                            postlink.target = 'CILO' + id;
+                            link.push(postlink);
+                            console.log(id);
                         }
+
                         for (var z = 0; z < hi.courses[i].cilos[j].pre_cilos.length; z++) {
                             temppreCilo.push(hi.courses[i].cilos[j].pre_cilos[z].course_id);
                             var prelink = {};
-                            var id = hi.courses[i].cilos[j].pre_cilos[z].course_id
-                            for (var t = 0; t < hi.courses.length; t++) {
-                                if (id == hi.courses[t].course_id) {
-                                    prelink.source = hi.courses[t].course_name;
-                                    prelink.target = course.name;
-                                    link.push(prelink);
-                                }
+                            var id = hi.courses[i].cilos[j].pre_cilos[z].id
 
-                            }
+                            prelink.source = 'CILO' + id;
+                            prelink.target = 'CILO' + hi.courses[i].cilos[j].id;
+                            link.push(prelink);
+
                         }
 
                         course.postcilo = temppostCilo;
