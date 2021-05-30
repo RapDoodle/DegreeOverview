@@ -3,7 +3,13 @@
 {% block header_script %}
 <script src="/static/js/echarts.min.js"></script>
 {% endblock %}
-
+{% block custom_style %}
+<style>
+    .dropdown-menu::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+{% endblock %}
 {% macro tag_title() -%}
 {% if session['user_type'] == STUDENT %}
 {{ get_str('STUDENT') }}
@@ -28,16 +34,17 @@
         </span>
     </div>
 </div>
-<div class="row text-right" style="margin-top:-4%">
+<div class="row no-gutters text-right">
     <div class="col">
         <button class="btn btn-outline-link btn dropdown-toggle" type="button" id="dropdownMenuButton"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ data['degrees'][data['selected_index']-1].name }}
         </button>
-        <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton" style="min-width: 0">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+            style="min-width: 0;overflow-y:scroll;height:400px;scrollbar-width:none;">
             {% for degree in data['degrees'] %}
-            <a class="dropdown-item"
-                href="{{ url_for('dependency.dependency') }}?degree={{ degree.id }}">{{ degree.name }}</a>
+            <a class="dropdown-item" href="{{ url_for('dependency.dependency') }}?degree={{ degree.id }}">{{ degree.name
+                }}</a>
             {% endfor %}
         </div>
     </div>
