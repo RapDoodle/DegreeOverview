@@ -117,7 +117,7 @@
                     //add current cilo data and the link with the current node
                     for (var j = 0; j < hi.courses[i].cilos.length; j++) {
                         var cc = {};
-                        cc.name = 'CILO' + hi.courses[i].cilos[j].id;
+                        cc.name = 'CILO' + hi.courses[i].cilos[j].cilo_index+'-'+hi.courses[i].cilos[j].id;
                         var currentLink = {};
                         currentLink.source = course.name;
                         currentLink.target = cc.name;
@@ -150,8 +150,8 @@
                             temppostCilo.push(hi.courses[i].cilos[j].post_cilos[z].course_id);
                             var postlink = {};
                             var id = hi.courses[i].cilos[j].post_cilos[z].id;
-                            postlink.source = 'CILO' + hi.courses[i].cilos[j].id;
-                            postlink.target = 'CILO' + id;
+                            postlink.source = 'CILO' + hi.courses[i].cilos[j].cilo_index+'-'+hi.courses[i].cilos[j].id;
+                            postlink.target = 'CILO' + hi.courses[i].cilos[j].post_cilos[z]+'-'+id;
                             link.push(postlink);
                             console.log(id);
                         }
@@ -161,8 +161,8 @@
                             var prelink = {};
                             var id = hi.courses[i].cilos[j].pre_cilos[z].id
 
-                            prelink.source = 'CILO' + id;
-                            prelink.target = 'CILO' + hi.courses[i].cilos[j].id;
+                            prelink.source = 'CILO' +hi.courses[i].cilos[j].pre_cilos[z].cilo_index+'-'+ id;
+                            prelink.target = 'CILO' + hi.courses[i].cilos[j].cilo_index+'-'+hi.courses[i].cilos[j].id;
                             link.push(prelink);
 
                         }
