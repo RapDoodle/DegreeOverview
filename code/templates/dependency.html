@@ -36,7 +36,8 @@
         </button>
         <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton" style="min-width: 0">
             {% for degree in data['degrees'] %}
-                <a class="dropdown-item" href="{{ url_for('dependency.dependency') }}?degree={{ degree.id }}">{{ degree.name }}</a>
+            <a class="dropdown-item"
+                href="{{ url_for('dependency.dependency') }}?degree={{ degree.id }}">{{ degree.name }}</a>
             {% endfor %}
         </div>
     </div>
@@ -79,7 +80,7 @@
     $("document").ready(function () {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        const degreeId = urlParams.get('degree')
+        var degreeId = urlParams.get('degree')
         if (degreeId === null) {
             degreeId = 1;
         }
@@ -90,63 +91,71 @@
             async: false,
             dataType: "json",
             success: function (hi) {
-                console.log(hi)
+
                 //read HERE!!!!
                 //首先先读取当前课程的名字，然后取出cilo的长度，添加cilo与课程的连接，之后保存post cilo用于下一次循环（如果顾客手贱想看后面的课）
                 //至于如何加新的数据，只要用set.Option， 但是还得重复第一次的添加流程，只不过此时的当前课程名字变成了postcilo的课程名字。
                 //console.log(hi);
+
                 var data = new Array();
                 var link = new Array();
                 //get the data and process the data.
-                var i = 0;//initial course id
+                for (var i = 0; i < hi.courses.length; i++) {
+                    var course = {};
+                    var cilolist = new Array();//remember the course own cilo
+                    course.name = hi.courses[i].course_name;
 
-                var tempCurrentName = {};
 
-                tempCurrentName.name = hi.courses[i].course_name;//store the current course name
 
-                tempCurrentName.type = 'Course';//store the current course name
-                var templist = new Array();
+                    //add current cilo data and the link with the current node
+                    for (var j = 0; j < hi.courses[i].cilos.length; j++) {
+                        var cc = {};
+                        cc.name = 'CILO' + hi.courses[i].cilos[j].id;
+                        var currentLink = {};
+                        currentLink.source = course.name;
+                        currentLink.target = cc.name;
+                        link.push(currentLink);
+                        data.push(cc);
+                        var temppostCilo = new Array();
+                        var temppreCilo = new Array();
+                        for (var z = 0; z < hi.courses[i].cilos[j].post_cilos.length; z++) {
+                            temppostCilo.push(hi.courses[i].cilos[j].post_cilos[z].course_id);
+                            var postlink = {};
+                            var id = hi.courses[i].cilos[j].post_cilos[z].course_id;
+                            for (var t = 0; t < hi.courses.length; t++) {
+                                if (id == hi.courses[t].course_id) {
+                                    //console.log('!');
+                                    postlink.source = course.name;
+                                    postlink.target = hi.courses[t].course_name;
+                                    link.push(postlink);
+                                }
 
-                //便利所有cilo，找出所有postcilo
-                //如果是空的，跳过，否则就进入下一个for去读取postcilo。
-                var flag = 0;
-                for (var k = 0; k < hi.courses[i].cilos.length; k++) {
-                    var tempCurrentlink = {};
-                    var currentlinkName = {};
-                    tempCurrentlink.source = hi.courses[i].course_name
-                    tempCurrentlink.target = 'Cilo' + hi.courses[i].cilos[k].id;//store the current course cilos
-                    currentlinkName.name = 'Cilo' + hi.courses[i].cilos[k].id;
-                    currentlinkName.type = 'Cilo';
-                    link.push(tempCurrentlink);
-                    data.push(currentlinkName);
+                            }
+                            console.log(id);
 
-                    if (hi.courses[i].cilos[k].post_cilos.length == 0 && flag != 0) {
-                        continue;
-                    }
-                    else {
-                        //遍历所有postcilo
-                        flag = 1;
-                        for (var j = 0; j < hi.courses[i].cilos[k].post_cilos.length; j++) {
-                            //console.log(hi.courses[i].cilos[k].post_cilos[j].course_id);
-                            //找到并记录下postcilo
+                        }
+                        for (var z = 0; z < hi.courses[i].cilos[j].pre_cilos.length; z++) {
+                            temppreCilo.push(hi.courses[i].cilos[j].pre_cilos[z].course_id);
+                            var prelink = {};
+                            var id = hi.courses[i].cilos[j].pre_cilos[z].course_id
+                            for (var t = 0; t < hi.courses.length; t++) {
+                                if (id == hi.courses[t].course_id) {
+                                    prelink.source = hi.courses[t].course_name;
+                                    prelink.target = course.name;
+                                    link.push(prelink);
+                                }
 
-                            templist.push(hi.courses[i].cilos[k].post_cilos[j].course_id);
-
-                            if (judgeRepeated(templist)) {
-                                templist.pop();
                             }
                         }
-                        //console.log(templist);
-                        tempCurrentName.post = templist;
 
+                        course.postcilo = temppostCilo;
+                        course.precilo = temppreCilo;
                     }
+                    data.push(course);
+
+                    console.log(data);
+                    console.log(link);
                 }
-                if (flag == 0) {
-                    tempCurrentName.post = [];
-                }
-                data.push(tempCurrentName);
-                //console.log(tempCurrentName);
-                //格式如下
 
                 option = {
 
@@ -193,89 +202,7 @@
                 };
                 myChart.setOption(option);
 
-                myChart.on('click', function (params) {
-                    var parent = i;
-                    
-                    if (params.data.type == 'Course') {
-                        for (var a = 0; a < params.data.post.length; a++) {
-                            var flag = 0;//for empty post
-                            var f = 0;//for reduent nodes
-                            //这一块是记录course基本信息
 
-                            //judgeRepeated(hi.courses[i].course_id)
-                            //var cliolist = new Array();
-                            //cliolist = 
-
-
-                            i = params.data.post[a] - 1;//course id
-                            //console.log(i);
-                            tempCurrentName = {};
-                            templist = [];
-                            for (var b = 0; b < data.length; b++) {
-                                console.log(data[b].name);
-                                if (hi.courses[i].course_name == data[b].name) {
-                                    f = 0;
-                                    break;
-                                } else {
-                                    f = 1;
-                                    
-                                }
-                            }
-                            if (f == 1) {
-                                tempCurrentName.name = hi.courses[i].course_name;//store the current course name
-                                tempCurrentName.type = 'Course';//store the current course name
-                            }
-                            //这块区域是连接儿子和他爸的
-                            tempCurrentlink = {};
-                            tempCurrentlink.source = hi.courses[parent].course_name
-                            tempCurrentlink.target = hi.courses[i].course_name;//store the current course cilos
-                            link.push(tempCurrentlink);
-                            //这一块是连接儿子课自己cilo的
-
-                            for (k = 0; k < hi.courses[i].cilos.length; k++) {
-                                tempCurrentlink = {};
-                                currentlinkName = {};
-                                tempCurrentlink.source = hi.courses[i].course_name
-                                tempCurrentlink.target = 'Cilo' + hi.courses[i].cilos[k].id;//store the current course cilos
-
-                                if (f == 1) {
-                                    currentlinkName.name = 'Cilo' + hi.courses[i].cilos[k].id;
-                                    currentlinkName.type = 'Cilo';
-                                    data.push(currentlinkName);
-                                }
-                                link.push(tempCurrentlink);
-
-                                if (hi.courses[i].cilos[k].post_cilos.length == 0 && flag != 0) {
-                                    continue;
-                                }
-                                else {
-                                    //遍历所有postcilo
-                                    flag = 1;
-                                    for (var j = 0; j < hi.courses[i].cilos[k].post_cilos.length; j++) {
-
-                                        //console.log(hi.courses[i].cilos[k].post_cilos[j].course_id);
-                                        //找到并记录下postcilo
-                                        templist.push(hi.courses[i].cilos[k].post_cilos[j].course_id)
-                                        if (judgeRepeated(templist)) {
-                                            templist.pop();
-                                        }
-                                    }
-                                    tempCurrentName.post = templist;
-                                }
-                            }
-                            if (flag == 0) {
-                                tempCurrentName.post = [];
-                            }
-                            if(f == 1)
-                                data.push(tempCurrentName);
-                            console.log(data);
-                        }
-                    }
-
-                    myChart.setOption(option);
-                    myChart.setOption(option);
-
-                });
 
 
 
