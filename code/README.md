@@ -1,6 +1,44 @@
 # DegreeOverview
 DegreeOverview is a course definition system that aims to help course designers better plan and design university courses and enables both the lecturers and students to understand and visualize the relationships between courses and their intended learning outcome.
 
+## Generating test data
+
+To populate your database with test data, run
+
+  ```bash
+  $ python populate.py
+  ```
+
+The default users:
+
+- Default course designer
+
+  Username: testcd1
+
+  Password: 12345678
+
+- Default lecturer
+
+  Username: testlecturer1
+
+  Password: 12345678
+
+- Default student
+
+  Username: teststudent1
+
+  Password: 12345678
+
+## Running in production mode
+
+The default production mode uses MySQL as the backend for the database. Please make sure you have your instance of the database running. Specify your configuration in `./configurations/production.json`
+
+To spin up the production server in test mode
+
+```bash
+$ python run.py production
+```
+
 ## Getting Started with the Development
 
 - Clone the repository
