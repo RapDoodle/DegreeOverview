@@ -403,7 +403,7 @@ class Course(SaveableModel):
 
     @classmethod
     def find_courses_cilo_by_keyword(cls, keyword: str) -> list:
-        latest_versions = [models.cilo.CILO.course_version_id 
+        latest_versions = [cilo.id 
         for cilo in models.cilo.CILO.query.filter(models.cilo.CILO.course_version_id)\
                     .group_by(models.cilo.CILO.course_id)\
                     .having(models.cilo.CILO.course_version_id==db.func.max(models.cilo.CILO.course_version_id))\

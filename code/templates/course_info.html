@@ -45,7 +45,7 @@
     <div class="w-100"></div>
     <div class="col-12">
       <p>{{ get_str('PRECOURSES') }}: 
-        {% set courses = data['course'].get_course_prerequisites() %}
+        {% set courses = set(data['course'].get_course_prerequisites()) %}
         {% if len(courses) == 0 %}
           None
         {% else %}

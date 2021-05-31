@@ -452,7 +452,7 @@ def populate_course():
                 {
                     "cilo_index": 3,
                     "cilo_description": "Present basic ideas of matrix use as shown in the textbook or distributed materials. ",
-                    "depending_cilos": [8]
+                    "depending_cilos": []
                 },
                 {
                     "cilo_index": 4,
@@ -558,7 +558,7 @@ def populate_course():
                 {
                     "cilo_index": 3,
                     "cilo_description": "Evaluate the correctness of algorithms and their efficiency.",
-                    "depending_cilos": [9]
+                    "depending_cilos": []
                 }
             ],
             "assessment_methods": [
