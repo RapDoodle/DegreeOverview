@@ -289,7 +289,7 @@
 				}
 				switch ($("#import-file-type").attr("value")) {
 					case '1':
-						for (let i = 0; i < data.content.length >= $("#edit-CILOs-table .Edit-CILOs-tbale-tr").length ? $("#edit-CILOs-table .Edit-CILOs-tbale-tr").length : data.content.length; i++) {
+						for (let i = 0; i < (data.content.length >= $("#edit-CILOs-table .Edit-CILOs-tbale-tr").length ? $("#edit-CILOs-table .Edit-CILOs-tbale-tr").length : data.content.length); i++) {
 							if (typeof (data.content[i].description) == "undefined") {
 								$("#upload-file-modal").modal('hide')
 								return false

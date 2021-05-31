@@ -14,7 +14,6 @@ IMPORT_BLUEPRINTS = [
     'login',
     'logout',
     'dashboard',
-    'test',
     'courses',
     'search',
     'course_info',
