@@ -24,7 +24,7 @@ class AssessmentMethod(SaveableModel):
 
         # Data validation
         if not models.course.Course.find_course_by_id(course_id):
-            raise ErrorMessage(get_str('INVALID_REF', ref_name='course id', key=course_id))        
+            raise ErrorMessage(get_str('INVALID_REF', ref_name='course id', key_name=course_id))        
         if not is_valid_length(method_name, 1, 128):
             raise ErrorMessage(get_str('INVALID_LENGTH', field_name='method name', min_len=1, max_len=128))
         weight = to_int(weight, 'weight')
