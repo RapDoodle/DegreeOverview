@@ -88,6 +88,8 @@
     <string name="FILE_CONTENT_ERROR">Please check the file.</string>
     <string name="COURSE_ADD_SUCCESSFULLY">Course added successfully.</string>Success
     <string name="SUCCESS">Success</string>
+    <string name="ERROR">Error</string>
+
 
     <!--Search-->
     <string name="SEARCH">Search</string>

@@ -612,7 +612,7 @@
 			$(this).find(".CILO-ID-td").each(function () {
 				add_depending_cilos.push($(this).text())
 			})
-			json_temp.cilo_description = add_depending_cilos
+			json_temp.depending_cilos = add_depending_cilos
 			add_cilos_json.push(json_temp)
 		})
 		add_json.cilos = add_cilos_json
@@ -635,6 +635,9 @@
 			add_assessment_json.push(json_temp)
 		})
 		add_json.assessment_methods = add_assessment_json
+
+		console.log(add_json)
+
 		$.ajax({
 			type: "POST",
 			url: "/api/v1/courses",
@@ -652,7 +655,7 @@
 				})
 			},
 			error: function (jqXHR) {
-				$('#messageModal').find(".modal-title").text("error")
+				$('#messageModal').find(".modal-title").text("{{ get_str('ERROR') }}")
 				$('#messageModal').find(".modal-body").html('<p>' + jqXHR.responseJSON.error + '</p>')
 				$('#messageModal').modal('show')
 			}
@@ -690,7 +693,7 @@
 					}
 				},
 				error: function (jqXHR) {
-					$('#messageModal').find(".modal-title").text("error")
+					$('#messageModal').find(".modal-title").text("{{ get_str('ERROR') }}")
 					$('#messageModal').find(".modal-body").html('<p>' + jqXHR.responseJSON.error + '</p>')
 					$('#messageModal').modal('show')
 				}
