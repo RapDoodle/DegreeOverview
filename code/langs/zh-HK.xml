@@ -86,6 +86,7 @@
     <string name="FILE_SIZE_ERROR">文件大小不能超過512KB。</string>
     <string name="FILE_CONTENT_ERROR">請檢查文件。</string>
     <string name="COURSE_ADD_SUCCESSFULLY">添加課程成功。</string>
+    <string name="SUCCESS">成功</string>
     <!--Search-->
     <string name="SEARCH">搜索</string>
     <string name="SEARCH_TYPE_EMPTY">搜索類型不能為空。</string>
