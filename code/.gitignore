@@ -1,11 +1,12 @@
 # Microsoft Word
 ~$*
 
-# Mangee
+# Degree Overview
 security/
 web/
 data.db
 test.db
+log.txt
 
 # IDE specific
 .vscode/

@@ -29,6 +29,8 @@ def courses():
 @blueprint.route('/courses/add', methods=['POST'])
 @render_context('courses.html', commit_on_success=False, rollback_on_exception=False)
 def add_course():
+    # Deprecated function. Should no longer be used.
+    # Moved to APIs
     if request.method == 'POST':
         content = request.get_json()
         Course.add_course(content)
@@ -38,6 +40,8 @@ def add_course():
 @blueprint.route('/courses/edit', methods=['POST'])
 @render_context('courses.html', commit_on_success=True, rollback_on_exception=True)
 def modify_course():
+    # Deprecated function. Should no longer be used.
+    # Moved to APIs
     if request.method == 'POST':
         content = request.get_json()
         course = Course.find_course_by_id(content['course_id'])
