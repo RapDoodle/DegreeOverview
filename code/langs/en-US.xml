@@ -86,7 +86,8 @@
     <string name="FILE_TYPE_ERROR">Please choose .xls or .xlsx file.</string>
     <string name="FILE_SIZE_ERROR">File size must be smaller than 512KB.</string>
     <string name="FILE_CONTENT_ERROR">Please check the file.</string>
-    <string name="COURSE_ADD_SUCCESSFULLY">Course added successfully.</string>
+    <string name="COURSE_ADD_SUCCESSFULLY">Course added successfully.</string>Success
+    <string name="SUCCESS">Success</string>
 
     <!--Search-->
     <string name="SEARCH">Search</string>

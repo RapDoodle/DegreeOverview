@@ -644,8 +644,8 @@
 			contentType: "application/json; charset=utf-8",
 			success: function (data) {
 				console.log(data)
-				$('#messageModal').find(".modal-title").text("success")
-				$('#messageModal').find(".modal-body").html('<p>' + '{{ get_str(COURSE_ADD_SUCCESSFULLY) }}' + '</p>')
+				$('#messageModal').find(".modal-title").text("{{ get_str('SUCCESS') }}")
+				$('#messageModal').find(".modal-body").html('<p>' + '{{ get_str("COURSE_ADD_SUCCESSFULLY") }}' + '</p>')
 				$('#messageModal').modal('show')
 				$("#dialog-comfirm-button").on("click", function () {
 					window.location.reload()
@@ -670,7 +670,7 @@
 				success: function (data) {
 					if (data.cilos.length == 0) {
 						$('#messageModal').find(".modal-title").text("message")
-						$('#messageModal').find(".modal-body").html('<p>' + "{{ get_str(NO_CORRESPOMDING) }}" + '</p>')
+						$('#messageModal').find(".modal-body").html('<p>' + "{{ get_str('NO_CORRESPOMDING') }}" + '</p>')
 						$('#messageModal').modal('show')
 					} else {
 						$(".define-box-result-table").find(".CLIOs-define-tr").remove()
@@ -704,7 +704,7 @@
 				success: function (data) {
 					if (data.cilos.length == 0) {
 						$('#messageModal').find(".modal-title").text("message")
-						$('#messageModal').find(".modal-body").html('<p>' + "{{ get_str(NO_CORRESPOMDING) }}" + '</p>')
+						$('#messageModal').find(".modal-body").html('<p>' + "{{ get_str('NO_CORRESPOMDING') }}" + '</p>')
 						$('#messageModal').modal('show')
 					} else {
 						$(".define-box-result-table").find(".CLIOs-define-tr").remove()
