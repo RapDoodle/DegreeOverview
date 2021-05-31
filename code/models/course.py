@@ -38,11 +38,11 @@ class Course(SaveableModel):
         # Foreign key validation
         course_type = models.course_type.CourseType.find_course_type_by_id(course_type_id)
         if course_type is None:
-            raise ErrorMessage(get_str('INVALID_REF', ref_name='course type id', key=course_type_id))
+            raise ErrorMessage(get_str('INVALID_REF', ref_name='course type id', key_name=course_type_id))
         
         program = models.program.Program.find_program_by_id(program_id)
         if program is None:
-            raise ErrorMessage(get_str('INVALID_REF', ref_name='program id', key=program_id))
+            raise ErrorMessage(get_str('INVALID_REF', ref_name='program id', key_name=program_id))
 
         # Store the data in the object
         self.course_name = course_name
