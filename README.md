@@ -37,6 +37,7 @@ The default production mode uses MySQL as the backend for the database. Please m
 To spin up the production server in test mode
 
 ```bash
+$ cd src
 $ python run.py production
 ```
 
@@ -48,7 +49,7 @@ $ python run.py production
   git clone https://github.com/RapDoodle/comp3053-project.git
   ```
 
-- Create virtual environments
+- Create virtual environments (optional, but recommended)
 
   For Anaconda users
   ```bash
@@ -62,23 +63,16 @@ $ python run.py production
   $ conda activate degreeoverview
   ```
 
-  If you are using the default command-line tool on Windows, use
+- Change directory to source folder
+
   ```bash
-  activate degreeoverview
+  $ cd src
   ```
 
 - Install required Python packages
 
-  For Linux users
   ```bash
-  $ cd src
   $ pip3 install -r requirements.txt
-  ```
-
-  For Windows users
-  ```bash
-  cd src
-  pip install -r requirements.txt
   ```
 
   Please be noted that some dependencies may not be installed on Debian and Ubuntu. If an error occurred while installing `bcrypt`, run the following command
@@ -90,16 +84,13 @@ $ python run.py production
 - Spinup a development server
 
   ```bash
-  $ python3 run.py dev
+  $ python run.py dev
   ```
-  For Windows users,
-  ```bash
-  python run.py dev
-  ```
+
   In the last argument, `dev` specifies the name of the configuration. Please visit the documents on configurations under the `docs` folder for more information about the configurations.
 
 ## Contributors
-- Group Lily
+- Group Lily (COMP3053)
 
 ## Credits
 Part of the code of this project is based on the open-source development framework, Mangee Flask-RESTful. The framework was developed by Bohui WU (@RapDoodle, one of our team members) and licensed under the GNU General Public License v3 (the same as this project). The complete source code of the framework can be found in https://github.com/RapDoodle/mangee-flask-restful.
