@@ -1,6 +1,8 @@
 # DegreeOverview
 DegreeOverview is a course definition system that aims to help course designers better plan and design university courses and enables both the lecturers and students to understand and visualize the relationships between courses and their intended learning outcome.
 
+<img src="docs/Screenshots/01.jpg?raw=true" height="500">
+
 ## Generating test data
 
 To populate your database with test data, run
