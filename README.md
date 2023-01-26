@@ -1,64 +1,111 @@
-<!--
- * @Author       : hejing
- * @Date         : 2020-12-28 23:23:53
- * @version      : 1.0
- * @LastEditors  : hejing
- * @LastEditTime : 2020-12-29 00:55:33
- * @FilePath     : \\startup-code\\README.md
--->
+# DegreeOverview
+DegreeOverview is a course definition system that aims to help course designers better plan and design university courses and enables both the lecturers and students to understand and visualize the relationships between courses and their intended learning outcome.
 
-# COMP3053 - Lily
+## Generating test data
 
-This is the code and documentations of **Lily**, COMP3053, Software Development Workshop III, BNU-HKBU United International College.
+To populate your database with test data, run
 
-## Message from the Course Team
+  ```bash
+  $ cd src
+  $ python populate.py
+  ```
 
-**Please absolute keep your work SECRET before the course ends!**
+The default users:
 
-Welcome to the COMP3053 - Software Development Workshop III course. This course aims to enable your experience on working on a _software_ but not _course_ project. Besides of coding, you will be asked to write a series of documents, including specifications, designs, and tests. Hopefully, you can make a better understanding on engineering methods and teamwork.
+- Default course designer
 
-### Contact us
+  Username: testcd1
 
--   Judy FENG: xinfeng@uic.edu.cn
--   Jefferson FONG: jeffersonfong@uic.edu.cn
--   HE Jing: hejing@uic.edu.cn
--   MA Yingran: yingranma@uic.edu.cn
+  Password: 12345678
 
-## How-To
+- Default lecturer
 
-**Clone this repository**
+  Username: testlecturer1
 
-```shell
-git clone http://172.31.10.195:8090/workshop3/2021/lily
+  Password: 12345678
+
+- Default student
+
+  Username: teststudent1
+
+  Password: 12345678
+
+## Running in production mode
+
+The default production mode uses MySQL as the backend for the database. Please make sure you have your instance of the database running. Specify your configuration in `./configurations/production.json`
+
+To spin up the production server in test mode
+
+```bash
+$ python run.py production
 ```
 
-**Fetch new changes**
+## Getting Started with the Development
 
-```shell
-# Pull = fetch + merge
-git pull
-```
+- Clone the repository
 
-**Commit your changes**
+  ```shell
+  git clone https://github.com/RapDoodle/comp3053-project.git
+  ```
 
-```shell
-# Staging your changes
-git add .
-# Create a new commit
-git commit -m [message]
-# Push to remote
-git push
-```
+- Create virtual environments
 
-## References & Resources
+  For Anaconda users
+  ```bash
+  $ conda create -n degreeoverview python=3.8.5
+  ```
 
-Please refer to [iSpace](https://ispace.uic.edu.hk) for more information.
+- Activate the environment
 
-## Copyrights
+  To activate the virtual environment created
+  ```bash
+  $ conda activate degreeoverview
+  ```
 
--   You have your right of settling your code **after this course ends**.
--   All rights of this start code and documentations, as well as all course materials are reserved.
+  If you are using the default command-line tool on Windows, use
+  ```bash
+  activate degreeoverview
+  ```
 
-## Acknowledge
+- Install required Python packages
 
--   hejing: hejing@uic.edu.cn
+  For Linux users
+  ```bash
+  $ cd src
+  $ pip3 install -r requirements.txt
+  ```
+
+  For Windows users
+  ```bash
+  cd src
+  pip install -r requirements.txt
+  ```
+
+  Please be noted that some dependencies may not be installed on Debian and Ubuntu. If an error occurred while installing `bcrypt`, run the following command
+
+  ```bash
+  $ sudo apt-get install build-essential libffi-dev python-dev
+  ```
+
+- Spinup a development server
+
+  ```bash
+  $ python3 run.py dev
+  ```
+  For Windows users,
+  ```bash
+  python run.py dev
+  ```
+  In the last argument, `dev` specifies the name of the configuration. Please visit the documents on configurations under the `docs` folder for more information about the configurations.
+
+## Contributors
+- Group Lily
+
+## Credits
+Part of the code of this project is based on the open-source development framework, Mangee Flask-RESTful. The framework was developed by Bohui WU (@RapDoodle, one of our team members) and licensed under the GNU General Public License v3 (the same as this project). The complete source code of the framework can be found in https://github.com/RapDoodle/mangee-flask-restful.
+
+## License
+The project is licensed under the GNU General Public License v3.
+
+## Copyright
+Copyright (c) 2021.
